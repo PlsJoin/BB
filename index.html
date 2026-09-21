@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ブロックブラスト風パズル</title>
+  <title>ポリフィット</title>
   <style>
 * {
   margin: 0;
@@ -15,12 +15,12 @@
 
 body {
   font-family: "Segoe UI", "Hiragino Sans", "Meiryo", sans-serif;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background: linear-gradient(160deg, #f0f4f8 0%, #e8eef5 50%, #dfe7f0 100%);
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: #1a2332;
   overflow-x: hidden;
 }
 
@@ -38,85 +38,88 @@ header {
 }
 
 header h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  background: linear-gradient(90deg, #00d2ff, #3a7bd5);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 12px;
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #2c3e50;
+  margin-bottom: 14px;
 }
 
 .score-board {
   display: flex;
   justify-content: center;
-  gap: 32px;
+  gap: 24px;
 }
 
 .score-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 8px 20px;
-  border-radius: 12px;
-  min-width: 100px;
+  background: #fff;
+  padding: 10px 22px;
+  border-radius: 14px;
+  min-width: 110px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .score-item .label {
-  font-size: 0.75rem;
-  opacity: 0.7;
+  font-size: 0.72rem;
+  color: #7a8699;
   margin-bottom: 2px;
+  font-weight: 500;
 }
 
 .score-item span:last-child {
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 700;
-  color: #00d2ff;
+  color: #2b6cb0;
 }
 
 .main-area {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 22px;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   gap: 3px;
-  background: rgba(0, 0, 0, 0.35);
-  padding: 8px;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  background: #fff;
+  padding: 10px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   width: min(92vw, 360px);
   aspect-ratio: 1;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .cell {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 4px;
-  transition: background 0.15s ease, transform 0.1s ease;
+  background: #eef2f7;
+  border-radius: 5px;
+  transition: background 0.12s ease, transform 0.1s ease, box-shadow 0.12s ease;
 }
 
 .cell.filled {
   border-radius: 5px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
 }
 
 .cell.preview {
-  opacity: 0.55;
+  opacity: 0.85;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.12);
+  transform: scale(0.96);
 }
 
 .cell.clearing {
-  animation: clearAnim 0.35s ease forwards;
+  animation: clearAnim 0.32s ease forwards;
 }
 
 @keyframes clearAnim {
   0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.15); opacity: 0.8; }
+  50% { transform: scale(1.12); opacity: 0.7; }
   100% { transform: scale(0); opacity: 0; }
 }
 
@@ -127,9 +130,10 @@ header h1 {
 
 .blocks-label {
   text-align: center;
-  font-size: 0.85rem;
-  opacity: 0.7;
-  margin-bottom: 10px;
+  font-size: 0.82rem;
+  color: #7a8699;
+  margin-bottom: 12px;
+  font-weight: 500;
 }
 
 .blocks-container {
@@ -137,7 +141,12 @@ header h1 {
   justify-content: space-around;
   align-items: center;
   gap: 12px;
-  min-height: 110px;
+  min-height: 120px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .block-piece {
@@ -155,47 +164,47 @@ header h1 {
 }
 
 .block-piece.dragging {
-  opacity: 0.4;
-  transform: scale(0.9);
+  opacity: 0.35;
+  transform: scale(0.88);
 }
 
 .block-piece .mini-cell {
-  width: 22px;
-  height: 22px;
-  border-radius: 4px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
 }
 
-.color-1 { background: #ff6b6b; }
-.color-2 { background: #4ecdc4; }
-.color-3 { background: #ffe66d; }
-.color-4 { background: #a66cff; }
-.color-5 { background: #ff9f43; }
-.color-6 { background: #54a0ff; }
-.color-7 { background: #5f27cd; }
+.color-1 { background: #ef4444; }
+.color-2 { background: #14b8a6; }
+.color-3 { background: #f59e0b; }
+.color-4 { background: #8b5cf6; }
+.color-5 { background: #f97316; }
+.color-6 { background: #3b82f6; }
+.color-7 { background: #ec4899; }
 
 .controls {
   display: flex;
   justify-content: center;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .btn {
-  background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: #fff;
   border: none;
-  padding: 12px 32px;
+  padding: 13px 36px;
   font-size: 1rem;
   font-weight: 600;
   border-radius: 50px;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 210, 255, 0.45);
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.45);
 }
 
 .btn:active {
@@ -205,12 +214,12 @@ header h1 {
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(30, 41, 59, 0.55);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 100;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
 }
 
 .overlay.hidden {
@@ -218,47 +227,47 @@ header h1 {
 }
 
 .overlay-content {
-  background: linear-gradient(145deg, #1e2a44, #16213e);
-  padding: 40px 48px;
-  border-radius: 20px;
+  background: #fff;
+  padding: 42px 50px;
+  border-radius: 22px;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
 }
 
 .overlay-content h2 {
-  font-size: 1.8rem;
-  margin-bottom: 16px;
-  color: #ff6b6b;
+  font-size: 1.7rem;
+  margin-bottom: 14px;
+  color: #ef4444;
+  font-weight: 700;
 }
 
 .overlay-content p {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   margin-bottom: 28px;
-  opacity: 0.9;
+  color: #475569;
 }
 
 .drag-ghost {
   position: fixed;
   pointer-events: none;
   z-index: 1000;
-  opacity: 0.9;
-  transform: scale(1.05);
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+  opacity: 0.92;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.25));
 }
 
 .drag-ghost .mini-cell {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
 }
 
 @media (max-width: 400px) {
   .block-piece .mini-cell {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
   header h1 {
-    font-size: 1.5rem;
+    font-size: 1.55rem;
   }
 }
   </style>
@@ -266,7 +275,7 @@ header h1 {
 <body>
   <div class="game-container">
     <header>
-      <h1>ブロックブラスト</h1>
+      <h1>ポリフィット</h1>
       <div class="score-board">
         <div class="score-item">
           <span class="label">スコア</span>
@@ -353,7 +362,7 @@ header h1 {
 
   let grid = [];
   let score = 0;
-  let highScore = parseInt(localStorage.getItem("blockBlastHighScore") || "0", 10);
+  let highScore = parseInt(localStorage.getItem("polyfitHighScore") || "0", 10);
   let currentBlocks = [];
   let isGameOver = false;
   let dragState = null;
@@ -398,8 +407,8 @@ header h1 {
     currentBlocks.forEach((block, index) => {
       if (block.used) {
         const empty = document.createElement("div");
-        empty.style.width = "60px";
-        empty.style.height = "60px";
+        empty.style.width = "64px";
+        empty.style.height = "64px";
         blocksContainer.appendChild(empty);
         return;
       }
@@ -410,8 +419,8 @@ header h1 {
 
       const maxR = Math.max(...block.shape.map(([r]) => r));
       const maxC = Math.max(...block.shape.map(([, c]) => c));
-      piece.style.gridTemplateColumns = `repeat(${maxC + 1}, 22px)`;
-      piece.style.gridTemplateRows = `repeat(${maxR + 1}, 22px)`;
+      piece.style.gridTemplateColumns = `repeat(${maxC + 1}, 24px)`;
+      piece.style.gridTemplateRows = `repeat(${maxR + 1}, 24px)`;
 
       for (let r = 0; r <= maxR; r++) {
         for (let c = 0; c <= maxC; c++) {
@@ -434,21 +443,30 @@ header h1 {
   function startDrag(e, blockIndex) {
     if (isGameOver) return;
     e.preventDefault();
+    e.stopPropagation();
 
     const block = currentBlocks[blockIndex];
     if (block.used) return;
 
     const piece = e.currentTarget;
     piece.classList.add("dragging");
+    piece.setPointerCapture?.(e.pointerId);
 
     const ghost = piece.cloneNode(true);
     ghost.classList.add("drag-ghost");
     ghost.classList.remove("dragging");
+    ghost.querySelectorAll(".mini-cell").forEach(m => {
+      m.style.width = "30px";
+      m.style.height = "30px";
+    });
     document.body.appendChild(ghost);
 
     const rect = piece.getBoundingClientRect();
     const offsetX = e.clientX - rect.left;
     const offsetY = e.clientY - rect.top;
+
+    const maxR = Math.max(...block.shape.map(([r]) => r));
+    const maxC = Math.max(...block.shape.map(([, c]) => c));
 
     dragState = {
       blockIndex,
@@ -458,20 +476,23 @@ header h1 {
       offsetY,
       ghost,
       piece,
+      shapeW: maxC + 1,
+      shapeH: maxR + 1,
     };
 
     moveGhost(e.clientX, e.clientY);
     clearPreview();
 
-    document.addEventListener("pointermove", onPointerMove);
+    document.addEventListener("pointermove", onPointerMove, { passive: false });
     document.addEventListener("pointerup", onPointerUp);
+    document.addEventListener("pointercancel", onPointerUp);
   }
 
   function onPointerMove(e) {
     if (!dragState) return;
     e.preventDefault();
     moveGhost(e.clientX, e.clientY);
-    updatePreview(e.clientX, e.clientY);
+    updatePreview();
   }
 
   function onPointerUp(e) {
@@ -479,11 +500,12 @@ header h1 {
 
     document.removeEventListener("pointermove", onPointerMove);
     document.removeEventListener("pointerup", onPointerUp);
+    document.removeEventListener("pointercancel", onPointerUp);
 
-    const placed = tryPlace(e.clientX, e.clientY);
+    const placed = tryPlace();
 
     dragState.piece.classList.remove("dragging");
-    if (dragState.ghost.parentNode) {
+    if (dragState.ghost && dragState.ghost.parentNode) {
       dragState.ghost.parentNode.removeChild(dragState.ghost);
     }
     clearPreview();
@@ -495,19 +517,29 @@ header h1 {
   }
 
   function moveGhost(x, y) {
-    if (!dragState) return;
+    if (!dragState || !dragState.ghost) return;
     const g = dragState.ghost;
     g.style.left = `${x - dragState.offsetX}px`;
     g.style.top = `${y - dragState.offsetY}px`;
   }
 
-  function getGridPos(clientX, clientY) {
+  function getGridPosFromGhost() {
+    if (!dragState || !dragState.ghost) return { row: -99, col: -99 };
+
     const gridRect = gridEl.getBoundingClientRect();
-    const cellSize = gridRect.width / GRID_SIZE;
-    const relX = clientX - gridRect.left - dragState.offsetX + 14;
-    const relY = clientY - gridRect.top - dragState.offsetY + 14;
-    const col = Math.floor(relX / cellSize);
-    const row = Math.floor(relY / cellSize);
+    const ghostRect = dragState.ghost.getBoundingClientRect();
+
+    const padding = 10;
+    const gap = 3;
+    const contentW = gridRect.width - padding * 2;
+    const cellSize = (contentW - gap * (GRID_SIZE - 1)) / GRID_SIZE;
+
+    const relX = ghostRect.left - gridRect.left - padding + cellSize * 0.2;
+    const relY = ghostRect.top - gridRect.top - padding + cellSize * 0.2;
+
+    const col = Math.round(relX / (cellSize + gap));
+    const row = Math.round(relY / (cellSize + gap));
+
     return { row, col };
   }
 
@@ -521,9 +553,9 @@ header h1 {
     return true;
   }
 
-  function updatePreview(clientX, clientY) {
+  function updatePreview() {
     clearPreview();
-    const { row, col } = getGridPos(clientX, clientY);
+    const { row, col } = getGridPosFromGhost();
     if (!canPlace(dragState.shape, row, col)) return;
 
     for (const [r, c] of dragState.shape) {
@@ -542,8 +574,8 @@ header h1 {
     });
   }
 
-  function tryPlace(clientX, clientY) {
-    const { row, col } = getGridPos(clientX, clientY);
+  function tryPlace() {
+    const { row, col } = getGridPosFromGhost();
     if (!canPlace(dragState.shape, row, col)) return false;
 
     for (const [r, c] of dragState.shape) {
@@ -567,7 +599,7 @@ header h1 {
       if (score > highScore) {
         highScore = score;
         highScoreEl.textContent = highScore;
-        localStorage.setItem("blockBlastHighScore", highScore);
+        localStorage.setItem("polyfitHighScore", highScore);
       }
     } else {
       score += 1;
@@ -584,7 +616,7 @@ header h1 {
         isGameOver = true;
         finalScoreEl.textContent = score;
         gameOverEl.classList.remove("hidden");
-      }, 300);
+      }, 280);
     }
   }
 
@@ -593,14 +625,10 @@ header h1 {
     const colsToClear = [];
 
     for (let r = 0; r < GRID_SIZE; r++) {
-      if (grid[r].every((cell) => cell !== null)) {
-        rowsToClear.push(r);
-      }
+      if (grid[r].every((cell) => cell !== null)) rowsToClear.push(r);
     }
     for (let c = 0; c < GRID_SIZE; c++) {
-      if (grid.every((row) => row[c] !== null)) {
-        colsToClear.push(c);
-      }
+      if (grid.every((row) => row[c] !== null)) colsToClear.push(c);
     }
 
     if (rowsToClear.length === 0 && colsToClear.length === 0) return 0;
@@ -624,11 +652,9 @@ header h1 {
         const [r, c] = key.split(",").map(Number);
         grid[r][c] = null;
         const cell = gridEl.children[r * GRID_SIZE + c];
-        if (cell) {
-          cell.className = "cell";
-        }
+        if (cell) cell.className = "cell";
       });
-    }, 320);
+    }, 300);
 
     return rowsToClear.length + colsToClear.length;
   }
