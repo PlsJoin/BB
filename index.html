@@ -256,8 +256,8 @@ header h1 {
 }
 
 .drag-ghost .mini-cell {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   border-radius: 6px;
 }
 
@@ -456,8 +456,8 @@ header h1 {
     ghost.classList.add("drag-ghost");
     ghost.classList.remove("dragging");
     ghost.querySelectorAll(".mini-cell").forEach(m => {
-      m.style.width = "30px";
-      m.style.height = "30px";
+      m.style.width = "36px";
+      m.style.height = "36px";
     });
     document.body.appendChild(ghost);
 
@@ -502,7 +502,6 @@ header h1 {
     document.removeEventListener("pointerup", onPointerUp);
     document.removeEventListener("pointercancel", onPointerUp);
 
-    // 先にプレビューを消してから配置する（色が消えるバグ防止）
     clearPreview();
     const placed = tryPlace();
 
@@ -524,6 +523,7 @@ header h1 {
     g.style.top = `${y - dragState.offsetY}px`;
   }
 
+  // ゴーストの中心を基準に、形の中心が来るように計算（左右ズレ防止）
   function getGridPosFromGhost() {
     if (!dragState || !dragState.ghost) return { row: -99, col: -99 };
 
@@ -534,12 +534,22 @@ header h1 {
     const gap = 3;
     const contentW = gridRect.width - padding * 2;
     const cellSize = (contentW - gap * (GRID_SIZE - 1)) / GRID_SIZE;
+    const step = cellSize + gap;
 
-    const relX = ghostRect.left - gridRect.left - padding + cellSize * 0.2;
-    const relY = ghostRect.top - gridRect.top - padding + cellSize * 0.2;
+    // ゴーストの中心座標
+    const centerX = ghostRect.left + ghostRect.width / 2;
+    const centerY = ghostRect.top + ghostRect.height / 2;
 
-    const col = Math.round(relX / (cellSize + gap));
-    const row = Math.round(relY / (cellSize + gap));
+    // グリッド内の相対位置
+    const relX = centerX - gridRect.left - padding;
+    const relY = centerY - gridRect.top - padding;
+
+    // 形の中心がポインター（ゴースト中心）に来るようにオフセット
+    const shapeCols = dragState.shapeW;
+    const shapeRows = dragState.shapeH;
+
+    const col = Math.round(relX / step - shapeCols / 2);
+    const row = Math.round(relY / step - shapeRows / 2);
 
     return { row, col };
   }
@@ -584,7 +594,6 @@ header h1 {
       const gc = col + c;
       grid[gr][gc] = dragState.color;
       const cell = gridEl.children[gr * GRID_SIZE + gc];
-      // preview クラスを確実に消してから色を付ける
       cell.classList.remove("preview", ...COLORS);
       cell.classList.add("filled", dragState.color);
     }
