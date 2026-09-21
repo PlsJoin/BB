@@ -502,13 +502,14 @@ header h1 {
     document.removeEventListener("pointerup", onPointerUp);
     document.removeEventListener("pointercancel", onPointerUp);
 
+    // 先にプレビューを消してから配置する（色が消えるバグ防止）
+    clearPreview();
     const placed = tryPlace();
 
     dragState.piece.classList.remove("dragging");
     if (dragState.ghost && dragState.ghost.parentNode) {
       dragState.ghost.parentNode.removeChild(dragState.ghost);
     }
-    clearPreview();
     dragState = null;
 
     if (placed) {
@@ -583,6 +584,8 @@ header h1 {
       const gc = col + c;
       grid[gr][gc] = dragState.color;
       const cell = gridEl.children[gr * GRID_SIZE + gc];
+      // preview クラスを確実に消してから色を付ける
+      cell.classList.remove("preview", ...COLORS);
       cell.classList.add("filled", dragState.color);
     }
 
