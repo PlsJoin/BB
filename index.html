@@ -1,693 +1,1810 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>ポリフィット</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>フリマ - みんなのマーケット</title>
+
+<style>
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-  font-family: "Segoe UI", "Hiragino Sans", "Meiryo", sans-serif;
-  background: linear-gradient(160deg, #f0f4f8 0%, #e8eef5 50%, #dfe7f0 100%);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #1a2332;
-  overflow-x: hidden;
+    margin: 0;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        "Yu Gothic",
+        YuGothic,
+        Arial,
+        sans-serif;
+    color: #222;
+    background: #f5f5f5;
 }
 
-.game-container {
-  width: 100%;
-  max-width: 480px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+button,
+input,
+select,
+textarea {
+    font: inherit;
 }
 
-header {
-  text-align: center;
+button {
+    cursor: pointer;
 }
 
-header h1 {
-  font-size: 1.9rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  color: #2c3e50;
-  margin-bottom: 14px;
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
-.score-board {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
 }
 
-.score-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #fff;
-  padding: 10px 22px;
-  border-radius: 14px;
-  min-width: 110px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(0, 0, 0, 0.04);
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
 }
 
-.score-item .label {
-  font-size: 0.72rem;
-  color: #7a8699;
-  margin-bottom: 2px;
-  font-weight: 500;
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #ff4b55;
+    white-space: nowrap;
 }
 
-.score-item span:last-child {
-  font-size: 1.45rem;
-  font-weight: 700;
-  color: #2b6cb0;
+.search-box {
+    flex: 1;
+    position: relative;
 }
 
-.main-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 22px;
+.search-box input {
+    width: 100%;
+    height: 42px;
+    border: 1px solid #d8d8d8;
+    border-radius: 7px;
+    background: #f7f7f7;
+    padding: 0 46px 0 15px;
+    outline: none;
+    transition: 0.2s;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 3px;
-  background: #fff;
-  padding: 10px;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-  width: min(92vw, 360px);
-  aspect-ratio: 1;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+.search-box input:focus {
+    background: #fff;
+    border-color: #aaa;
 }
 
-.cell {
-  background: #eef2f7;
-  border-radius: 5px;
-  transition: background 0.12s ease, transform 0.1s ease, box-shadow 0.12s ease;
+.search-icon {
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+    font-size: 19px;
 }
 
-.cell.filled {
-  border-radius: 5px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    white-space: nowrap;
 }
 
-.cell.preview {
-  opacity: 0.85;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.12);
-  transform: scale(0.96);
+.header-link {
+    font-size: 14px;
+    color: #444;
 }
 
-.cell.clearing {
-  animation: clearAnim 0.32s ease forwards;
+.header-link:hover {
+    color: #ff4b55;
 }
 
-@keyframes clearAnim {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.12); opacity: 0.7; }
-  100% { transform: scale(0); opacity: 0; }
+.sell-button {
+    border: none;
+    background: #ff4b55;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 7px;
+    font-weight: 700;
 }
 
-.blocks-area {
-  width: 100%;
-  max-width: 360px;
+/* =========================
+   NAV
+========================= */
+
+.category-nav {
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
 }
 
-.blocks-label {
-  text-align: center;
-  font-size: 0.82rem;
-  color: #7a8699;
-  margin-bottom: 12px;
-  font-weight: 500;
+.category-nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
 }
 
-.blocks-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 12px;
-  min-height: 120px;
-  background: #fff;
-  border-radius: 16px;
-  padding: 14px 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.04);
+.category-button {
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #444;
+    border-radius: 20px;
+    padding: 7px 15px;
+    white-space: nowrap;
+    font-size: 13px;
 }
 
-.block-piece {
-  display: grid;
-  gap: 3px;
-  padding: 6px;
-  cursor: grab;
-  touch-action: none;
-  transition: transform 0.15s ease, opacity 0.2s ease;
-  border-radius: 8px;
+.category-button:hover,
+.category-button.active {
+    border-color: #ff4b55;
+    color: #ff4b55;
 }
 
-.block-piece:active {
-  cursor: grabbing;
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px 80px;
 }
 
-.block-piece.dragging {
-  opacity: 0.35;
-  transform: scale(0.88);
+.hero {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 28px;
+    border: 1px solid #e9e9e9;
 }
 
-.block-piece .mini-cell {
-  width: 24px;
-  height: 24px;
-  border-radius: 5px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+.hero h1 {
+    margin: 0 0 10px;
+    font-size: 28px;
 }
 
-.color-1 { background: #ef4444; }
-.color-2 { background: #14b8a6; }
-.color-3 { background: #f59e0b; }
-.color-4 { background: #8b5cf6; }
-.color-5 { background: #f97316; }
-.color-6 { background: #3b82f6; }
-.color-7 { background: #ec4899; }
+.hero p {
+    margin: 0;
+    color: #777;
+    line-height: 1.7;
+}
+
+.section {
+    margin-bottom: 38px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.section-title {
+    margin: 0;
+    font-size: 20px;
+}
+
+.section-subtitle {
+    font-size: 13px;
+    color: #888;
+}
 
 .controls {
-  display: flex;
-  justify-content: center;
-  margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.btn {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-  color: #fff;
-  border: none;
-  padding: 13px 36px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+.sort-select {
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 6px;
+    padding: 8px 12px;
+    outline: none;
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.45);
+/* =========================
+   PRODUCT GRID
+========================= */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
 }
 
-.btn:active {
-  transform: translateY(0);
+.product-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e8e8e8;
+    transition: transform 0.15s, box-shadow 0.15s;
+    cursor: pointer;
 }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(30, 41, 59, 0.55);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  backdrop-filter: blur(8px);
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
-.overlay.hidden {
-  display: none;
+.product-image {
+    aspect-ratio: 1 / 1;
+    background: #eee;
+    position: relative;
+    overflow: hidden;
 }
 
-.overlay-content {
-  background: #fff;
-  padding: 42px 50px;
-  border-radius: 22px;
-  text-align: center;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+.product-image-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    background: linear-gradient(135deg, #f3f3f3, #e5e5e5);
 }
 
-.overlay-content h2 {
-  font-size: 1.7rem;
-  margin-bottom: 14px;
-  color: #ef4444;
-  font-weight: 700;
+.product-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 5px;
+    padding: 4px 7px;
+    font-size: 11px;
+    font-weight: 700;
 }
 
-.overlay-content p {
-  font-size: 1.15rem;
-  margin-bottom: 28px;
-  color: #475569;
+.favorite {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.95);
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.drag-ghost {
-  position: fixed;
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0.92;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.25));
+.favorite.active {
+    color: #ff4b55;
 }
 
-.drag-ghost .mini-cell {
-  width: 36px;
-  height: 36px;
-  border-radius: 6px;
+.product-info {
+    padding: 11px;
 }
 
-@media (max-width: 400px) {
-  .block-piece .mini-cell {
-    width: 20px;
-    height: 20px;
-  }
-  header h1 {
-    font-size: 1.55rem;
-  }
+.product-name {
+    font-size: 14px;
+    line-height: 1.5;
+    height: 42px;
+    overflow: hidden;
 }
-  </style>
+
+.product-price {
+    margin-top: 8px;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.product-meta {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    color: #888;
+    font-size: 11px;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.48);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+    padding: 20px;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal {
+    width: min(900px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 12px;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.06);
+    font-size: 22px;
+    z-index: 2;
+}
+
+.product-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.detail-image {
+    min-height: 500px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 120px;
+}
+
+.detail-content {
+    padding: 35px;
+}
+
+.detail-title {
+    font-size: 22px;
+    line-height: 1.5;
+    margin: 0 0 18px;
+}
+
+.detail-price {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.detail-info {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+    margin-bottom: 20px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.info-row span:first-child {
+    color: #888;
+}
+
+.detail-description {
+    line-height: 1.8;
+    color: #444;
+    font-size: 14px;
+    white-space: pre-line;
+    margin-bottom: 25px;
+}
+
+.action-button {
+    width: 100%;
+    border: none;
+    border-radius: 7px;
+    padding: 14px;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.buy-button {
+    background: #ff4b55;
+    color: #fff;
+}
+
+.negotiate-button {
+    background: #fff;
+    border: 1px solid #ff4b55;
+    color: #ff4b55;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-modal {
+    width: min(620px, 100%);
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.form-modal h2 {
+    margin-top: 0;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    border: 1px solid #d8d8d8;
+    border-radius: 7px;
+    padding: 11px;
+    outline: none;
+    background: #fff;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.submit-button {
+    width: 100%;
+    border: none;
+    border-radius: 7px;
+    padding: 14px;
+    background: #ff4b55;
+    color: white;
+    font-weight: 700;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 25px;
+    transform: translateX(-50%) translateY(20px);
+    background: #222;
+    color: white;
+    padding: 13px 20px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.25s;
+    z-index: 500;
+    font-size: 14px;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    background: #fff;
+    border-top: 1px solid #e5e5e5;
+    padding: 35px 20px;
+    color: #777;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    color: #ff4b55;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.footer p {
+    font-size: 12px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+    .product-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .header-actions .header-link {
+        display: none;
+    }
+}
+
+@media (max-width: 750px) {
+    .header-inner {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .search-box {
+        order: 3;
+        flex-basis: 100%;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .product-detail {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-image {
+        min-height: 330px;
+    }
+}
+
+@media (max-width: 500px) {
+    .main {
+        padding: 18px 10px 70px;
+    }
+
+    .hero {
+        padding: 22px;
+    }
+
+    .hero h1 {
+        font-size: 22px;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .section-header {
+        align-items: flex-start;
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .detail-content {
+        padding: 22px;
+    }
+
+    .sell-button {
+        padding: 9px 12px;
+    }
+}
+</style>
 </head>
+
 <body>
-  <div class="game-container">
-    <header>
-      <h1>ポリフィット</h1>
-      <div class="score-board">
-        <div class="score-item">
-          <span class="label">スコア</span>
-          <span id="score">0</span>
+
+<header class="header">
+    <div class="header-inner">
+
+        <div class="logo">
+            フリマ
         </div>
-        <div class="score-item">
-          <span class="label">ハイスコア</span>
-          <span id="high-score">0</span>
+
+        <div class="search-box">
+            <input
+                id="searchInput"
+                type="search"
+                placeholder="なにをお探しですか？"
+                autocomplete="off"
+            >
+            <span class="search-icon">⌕</span>
         </div>
-      </div>
-    </header>
 
-    <div class="main-area">
-      <div id="grid" class="grid"></div>
+        <div class="header-actions">
+            <button class="header-link" id="notificationButton">
+                お知らせ
+            </button>
 
-      <div class="blocks-area">
-        <div class="blocks-label">次のブロック</div>
-        <div id="blocks-container" class="blocks-container"></div>
-      </div>
+            <button class="header-link" id="mypageButton">
+                マイページ
+            </button>
+
+            <button class="sell-button" id="sellButton">
+                出品する
+            </button>
+        </div>
+
+    </div>
+</header>
+
+<nav class="category-nav">
+    <div class="category-nav-inner">
+
+        <button class="category-button active" data-category="すべて">
+            すべて
+        </button>
+
+        <button class="category-button" data-category="ゲーム">
+            ゲーム
+        </button>
+
+        <button class="category-button" data-category="スマホ・家電">
+            スマホ・家電
+        </button>
+
+        <button class="category-button" data-category="ファッション">
+            ファッション
+        </button>
+
+        <button class="category-button" data-category="本・漫画">
+            本・漫画
+        </button>
+
+        <button class="category-button" data-category="ホビー">
+            ホビー
+        </button>
+
+        <button class="category-button" data-category="その他">
+            その他
+        </button>
+
+    </div>
+</nav>
+
+<main class="main">
+
+    <section class="hero">
+        <h1>欲しいものを、もっとおトクに。</h1>
+        <p>
+            みんなが出品した商品から、掘り出し物を探してみよう。
+            <br>
+            気になる商品は、値下げをお願いすることもできます。
+        </p>
+    </section>
+
+    <section class="section">
+
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">おすすめの商品</h2>
+                <div class="section-subtitle">
+                    あなたにおすすめの商品
+                </div>
+            </div>
+
+            <div class="controls">
+                <select id="sortSelect" class="sort-select">
+                    <option value="recommend">おすすめ順</option>
+                    <option value="new">新しい順</option>
+                    <option value="low">価格の安い順</option>
+                    <option value="high">価格の高い順</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="productGrid" class="product-grid"></div>
+
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-logo">フリマ</div>
+        <p>
+            これはフリマサービスを題材にしたゲーム用プロトタイプです。
+        </p>
+    </div>
+</footer>
+
+<!-- 商品詳細 -->
+
+<div class="modal-overlay" id="productModal">
+
+    <div class="modal">
+
+        <button class="modal-close" id="productModalClose">
+            ×
+        </button>
+
+        <div class="product-detail">
+
+            <div class="detail-image" id="detailImage">
+                🎮
+            </div>
+
+            <div class="detail-content">
+
+                <h2 class="detail-title" id="detailTitle">
+                    商品名
+                </h2>
+
+                <div class="detail-price" id="detailPrice">
+                    ¥0
+                </div>
+
+                <div class="detail-info">
+
+                    <div class="info-row">
+                        <span>商品の状態</span>
+                        <span id="detailCondition"></span>
+                    </div>
+
+                    <div class="info-row">
+                        <span>送料</span>
+                        <span id="detailShipping"></span>
+                    </div>
+
+                    <div class="info-row">
+                        <span>出品者</span>
+                        <span id="detailSeller"></span>
+                    </div>
+
+                    <div class="info-row">
+                        <span>出品日時</span>
+                        <span id="detailDate"></span>
+                    </div>
+
+                </div>
+
+                <div class="detail-description" id="detailDescription"></div>
+
+                <button
+                    class="action-button buy-button"
+                    id="buyButton"
+                >
+                    購入する
+                </button>
+
+                <button
+                    class="action-button negotiate-button"
+                    id="negotiateButton"
+                >
+                    値下げを依頼する
+                </button>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="controls">
-      <button id="restart-btn" class="btn">リスタート</button>
+</div>
+
+<!-- 値下げ依頼 -->
+
+<div class="modal-overlay" id="negotiateModal">
+
+    <div class="form-modal">
+
+        <button class="modal-close" id="negotiateClose">
+            ×
+        </button>
+
+        <h2>値下げを依頼する</h2>
+
+        <p style="color:#777;font-size:14px;">
+            希望する価格を入力してください。
+        </p>
+
+        <div class="form-group">
+            <label>現在の価格</label>
+            <input id="currentPrice" type="text" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>希望価格</label>
+            <input
+                id="offerPrice"
+                type="number"
+                min="300"
+                step="100"
+                placeholder="例：5000"
+            >
+        </div>
+
+        <button
+            class="submit-button"
+            id="sendOffer"
+        >
+            値下げを依頼する
+        </button>
+
     </div>
 
-    <div id="game-over" class="overlay hidden">
-      <div class="overlay-content">
-        <h2>ゲームオーバー</h2>
-        <p>スコア: <span id="final-score">0</span></p>
-        <button id="play-again-btn" class="btn">もう一度遊ぶ</button>
-      </div>
+</div>
+
+<!-- 出品 -->
+
+<div class="modal-overlay" id="sellModal">
+
+    <div class="form-modal">
+
+        <button class="modal-close" id="sellClose">
+            ×
+        </button>
+
+        <h2>商品を出品する</h2>
+
+        <form id="sellForm">
+
+            <div class="form-group">
+                <label>商品名</label>
+                <input
+                    id="sellName"
+                    type="text"
+                    placeholder="商品名を入力"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>価格</label>
+                <input
+                    id="sellPrice"
+                    type="number"
+                    min="300"
+                    step="100"
+                    placeholder="300"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>カテゴリ</label>
+
+                <select id="sellCategory">
+
+                    <option value="ゲーム">
+                        ゲーム
+                    </option>
+
+                    <option value="スマホ・家電">
+                        スマホ・家電
+                    </option>
+
+                    <option value="ファッション">
+                        ファッション
+                    </option>
+
+                    <option value="本・漫画">
+                        本・漫画
+                    </option>
+
+                    <option value="ホビー">
+                        ホビー
+                    </option>
+
+                    <option value="その他">
+                        その他
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label>商品の状態</label>
+
+                <select id="sellCondition">
+
+                    <option>
+                        新品、未使用
+                    </option>
+
+                    <option>
+                        未使用に近い
+                    </option>
+
+                    <option>
+                        目立った傷や汚れなし
+                    </option>
+
+                    <option>
+                        やや傷や汚れあり
+                    </option>
+
+                    <option>
+                        傷や汚れあり
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label>商品説明</label>
+
+                <textarea
+                    id="sellDescription"
+                    placeholder="商品の状態や注意点などを入力してください"
+                    required
+                ></textarea>
+
+            </div>
+
+            <button
+                class="submit-button"
+                type="submit"
+            >
+                出品する
+            </button>
+
+        </form>
+
     </div>
-  </div>
 
-  <script>
-(() => {
-  const GRID_SIZE = 8;
-  const COLORS = ["color-1", "color-2", "color-3", "color-4", "color-5", "color-6", "color-7"];
+</div>
 
-  const SHAPES = [
-    [[0, 0]],
-    [[0, 0], [0, 1]],
-    [[0, 0], [1, 0]],
-    [[0, 0], [0, 1], [0, 2]],
-    [[0, 0], [1, 0], [2, 0]],
-    [[0, 0], [0, 1], [1, 0]],
-    [[0, 0], [0, 1], [1, 1]],
-    [[0, 1], [1, 0], [1, 1]],
-    [[0, 0], [1, 0], [1, 1]],
-    [[0, 0], [0, 1], [0, 2], [0, 3]],
-    [[0, 0], [1, 0], [2, 0], [3, 0]],
-    [[0, 0], [0, 1], [1, 0], [1, 1]],
-    [[0, 0], [1, 0], [2, 0], [2, 1]],
-    [[0, 1], [1, 1], [2, 0], [2, 1]],
-    [[0, 0], [0, 1], [0, 2], [1, 0]],
-    [[0, 0], [0, 1], [0, 2], [1, 2]],
-    [[0, 0], [1, 0], [1, 1], [1, 2]],
-    [[0, 2], [1, 0], [1, 1], [1, 2]],
-    [[0, 0], [0, 1], [1, 1], [2, 1]],
-    [[0, 1], [1, 1], [2, 0], [2, 1]],
-    [[0, 0], [1, 0], [2, 0], [1, 1]],
-    [[0, 1], [1, 0], [1, 1], [1, 2]],
-    [[0, 1], [1, 0], [1, 1], [2, 1]],
-    [[0, 0], [0, 1], [0, 2], [1, 1]],
-    [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4]],
-    [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]],
-    [[0, 0], [0, 1], [0, 2], [1, 0], [2, 0]],
-    [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]],
-    [[0, 2], [1, 2], [2, 0], [2, 1], [2, 2]],
-    [[0, 0], [0, 1], [0, 2], [1, 2], [2, 2]],
-    [[0, 1], [1, 1], [2, 0], [2, 1], [2, 2]],
-    [[0, 0], [0, 1], [0, 2], [1, 1], [2, 1]],
-    [[0, 0], [1, 0], [1, 1], [1, 2], [2, 0]],
-  ];
+<div class="toast" id="toast"></div>
 
-  const gridEl = document.getElementById("grid");
-  const blocksContainer = document.getElementById("blocks-container");
-  const scoreEl = document.getElementById("score");
-  const highScoreEl = document.getElementById("high-score");
-  const gameOverEl = document.getElementById("game-over");
-  const finalScoreEl = document.getElementById("final-score");
-  const restartBtn = document.getElementById("restart-btn");
-  const playAgainBtn = document.getElementById("play-again-btn");
+<script>
+/* =========================
+   DATA
+========================= */
 
-  let grid = [];
-  let score = 0;
-  let highScore = parseInt(localStorage.getItem("polyfitHighScore") || "0", 10);
-  let currentBlocks = [];
-  let isGameOver = false;
-  let dragState = null;
+let products = [
 
-  highScoreEl.textContent = highScore;
+    {
+        id: 1,
+        name: "Nintendo Switch 本体 グレー",
+        price: 18500,
+        category: "ゲーム",
+        condition: "やや傷や汚れあり",
+        shipping: "送料込み",
+        seller: "game_user",
+        date: "12分前",
+        icon: "🎮",
+        likes: 24,
+        description:
+            "Nintendo Switch本体です。\n\n使用感がありますが、動作は確認済みです。\n本体のみの出品となります。"
+    },
 
-  function init() {
-    createGrid();
-    score = 0;
-    scoreEl.textContent = "0";
-    isGameOver = false;
-    gameOverEl.classList.add("hidden");
-    generateNewBlocks();
-    renderBlocks();
-  }
+    {
+        id: 2,
+        name: "ワイヤレスイヤホン ブラック",
+        price: 4800,
+        category: "スマホ・家電",
+        condition: "目立った傷や汚れなし",
+        shipping: "送料込み",
+        seller: "audio_user",
+        date: "25分前",
+        icon: "🎧",
+        likes: 18,
+        description:
+            "数回使用しました。\n目立った傷はありません。\n動作確認済みです。"
+    },
 
-  function createGrid() {
-    grid = Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(null));
-    gridEl.innerHTML = "";
-    for (let r = 0; r < GRID_SIZE; r++) {
-      for (let c = 0; c < GRID_SIZE; c++) {
-        const cell = document.createElement("div");
-        cell.className = "cell";
-        cell.dataset.row = r;
-        cell.dataset.col = c;
-        gridEl.appendChild(cell);
-      }
+    {
+        id: 3,
+        name: "人気ゲームソフト 3本セット",
+        price: 6200,
+        category: "ゲーム",
+        condition: "目立った傷や汚れなし",
+        shipping: "送料込み",
+        seller: "retro_shop",
+        date: "31分前",
+        icon: "💿",
+        likes: 42,
+        description:
+            "人気ゲームソフト3本セットです。\nすべて動作確認済みです。"
+    },
+
+    {
+        id: 4,
+        name: "オーバーサイズ パーカー",
+        price: 3900,
+        category: "ファッション",
+        condition: "目立った傷や汚れなし",
+        shipping: "送料込み",
+        seller: "fashion_user",
+        date: "48分前",
+        icon: "👕",
+        likes: 12,
+        description:
+            "数回着用したパーカーです。\nサイズはLです。"
+    },
+
+    {
+        id: 5,
+        name: "Minecraft 攻略本",
+        price: 1200,
+        category: "本・漫画",
+        condition: "やや傷や汚れあり",
+        shipping: "送料込み",
+        seller: "book_user",
+        date: "1時間前",
+        icon: "📚",
+        likes: 7,
+        description:
+            "Minecraftの攻略本です。\n多少の使用感があります。"
+    },
+
+    {
+        id: 6,
+        name: "フィギュア 未開封",
+        price: 7500,
+        category: "ホビー",
+        condition: "新品、未使用",
+        shipping: "送料込み",
+        seller: "figure_user",
+        date: "1時間前",
+        icon: "🧸",
+        likes: 35,
+        description:
+            "未開封品です。\n暗所で保管していました。"
+    },
+
+    {
+        id: 7,
+        name: "Bluetooth スピーカー",
+        price: 2800,
+        category: "スマホ・家電",
+        condition: "目立った傷や汚れなし",
+        shipping: "送料込み",
+        seller: "music_user",
+        date: "2時間前",
+        icon: "🔊",
+        likes: 9,
+        description:
+            "Bluetoothスピーカーです。\n問題なく使用できます。"
+    },
+
+    {
+        id: 8,
+        name: "ゲームコントローラー",
+        price: 3400,
+        category: "ゲーム",
+        condition: "未使用に近い",
+        shipping: "送料込み",
+        seller: "controller_user",
+        date: "2時間前",
+        icon: "🕹️",
+        likes: 21,
+        description:
+            "ほとんど使用していないコントローラーです。"
+    },
+
+    {
+        id: 9,
+        name: "古着 デニムジャケット",
+        price: 2500,
+        category: "ファッション",
+        condition: "やや傷や汚れあり",
+        shipping: "送料込み",
+        seller: "oldfashion",
+        date: "3時間前",
+        icon: "🧥",
+        likes: 15,
+        description:
+            "古着のデニムジャケットです。\n古着特有の使用感があります。"
+    },
+
+    {
+        id: 10,
+        name: "ゲーム攻略大全",
+        price: 900,
+        category: "本・漫画",
+        condition: "目立った傷や汚れなし",
+        shipping: "送料込み",
+        seller: "reader",
+        date: "3時間前",
+        icon: "📖",
+        likes: 5,
+        description:
+            "ゲーム攻略本です。\n書き込みなどはありません。"
     }
-  }
 
-  function generateNewBlocks() {
-    currentBlocks = [];
-    for (let i = 0; i < 3; i++) {
-      const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
-      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-      currentBlocks.push({ shape, color, used: false });
+];
+
+let currentCategory = "すべて";
+let currentProduct = null;
+let likedProducts = new Set();
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const productGrid =
+    document.getElementById("productGrid");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const sortSelect =
+    document.getElementById("sortSelect");
+
+const productModal =
+    document.getElementById("productModal");
+
+const negotiateModal =
+    document.getElementById("negotiateModal");
+
+const sellModal =
+    document.getElementById("sellModal");
+
+const toast =
+    document.getElementById("toast");
+
+/* =========================
+   RENDER
+========================= */
+
+function renderProducts() {
+
+    let keyword =
+        searchInput.value.trim().toLowerCase();
+
+    let filtered =
+        products.filter(product => {
+
+            const categoryMatch =
+                currentCategory === "すべて" ||
+                product.category === currentCategory;
+
+            const keywordMatch =
+                !keyword ||
+                product.name.toLowerCase().includes(keyword) ||
+                product.description.toLowerCase().includes(keyword);
+
+            return categoryMatch && keywordMatch;
+        });
+
+    const sort =
+        sortSelect.value;
+
+    if (sort === "low") {
+
+        filtered.sort(
+            (a, b) => a.price - b.price
+        );
+
+    } else if (sort === "high") {
+
+        filtered.sort(
+            (a, b) => b.price - a.price
+        );
+
+    } else if (sort === "new") {
+
+        filtered.sort(
+            (a, b) => a.id - b.id
+        );
     }
-  }
 
-  function renderBlocks() {
-    blocksContainer.innerHTML = "";
-    currentBlocks.forEach((block, index) => {
-      if (block.used) {
-        const empty = document.createElement("div");
-        empty.style.width = "64px";
-        empty.style.height = "64px";
-        blocksContainer.appendChild(empty);
+    productGrid.innerHTML = "";
+
+    if (filtered.length === 0) {
+
+        productGrid.innerHTML = `
+            <div class="empty" style="grid-column:1/-1;">
+                <div style="font-size:42px;margin-bottom:12px;">
+                    🔎
+                </div>
+                <strong>商品が見つかりませんでした</strong>
+                <p>検索条件を変えてみてください。</p>
+            </div>
+        `;
+
         return;
-      }
+    }
 
-      const piece = document.createElement("div");
-      piece.className = "block-piece";
-      piece.dataset.index = index;
+    filtered.forEach(product => {
 
-      const maxR = Math.max(...block.shape.map(([r]) => r));
-      const maxC = Math.max(...block.shape.map(([, c]) => c));
-      piece.style.gridTemplateColumns = `repeat(${maxC + 1}, 24px)`;
-      piece.style.gridTemplateRows = `repeat(${maxR + 1}, 24px)`;
+        const card =
+            document.createElement("article");
 
-      for (let r = 0; r <= maxR; r++) {
-        for (let c = 0; c <= maxC; c++) {
-          const mini = document.createElement("div");
-          const isFilled = block.shape.some(([sr, sc]) => sr === r && sc === c);
-          if (isFilled) {
-            mini.className = `mini-cell ${block.color}`;
-          } else {
-            mini.style.visibility = "hidden";
-          }
-          piece.appendChild(mini);
-        }
-      }
+        card.className = "product-card";
 
-      piece.addEventListener("pointerdown", (e) => startDrag(e, index));
-      blocksContainer.appendChild(piece);
+        card.innerHTML = `
+
+            <div class="product-image">
+
+                <div class="product-image-inner">
+                    ${product.icon}
+                </div>
+
+                <div class="product-badge">
+                    ${product.condition}
+                </div>
+
+                <button
+                    class="favorite ${
+                        likedProducts.has(product.id)
+                            ? "active"
+                            : ""
+                    }"
+                    data-like="${product.id}"
+                    aria-label="いいね"
+                    type="button"
+                >
+                    ${
+                        likedProducts.has(product.id)
+                            ? "♥"
+                            : "♡"
+                    }
+                </button>
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-name">
+                    ${escapeHtml(product.name)}
+                </div>
+
+                <div class="product-price">
+                    ¥${product.price.toLocaleString()}
+                </div>
+
+                <div class="product-meta">
+
+                    <span>
+                        ${product.shipping}
+                    </span>
+
+                    <span>
+                        ♡ ${product.likes}
+                    </span>
+
+                </div>
+
+            </div>
+        `;
+
+        card.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target.closest("[data-like]")
+                ) {
+                    return;
+                }
+
+                openProduct(product);
+            }
+        );
+
+        const likeButton =
+            card.querySelector("[data-like]");
+
+        likeButton.addEventListener(
+            "click",
+            event => {
+
+                event.stopPropagation();
+
+                toggleLike(product.id);
+            }
+        );
+
+        productGrid.appendChild(card);
     });
-  }
+}
 
-  function startDrag(e, blockIndex) {
-    if (isGameOver) return;
-    e.preventDefault();
-    e.stopPropagation();
+/* =========================
+   PRODUCT DETAIL
+========================= */
 
-    const block = currentBlocks[blockIndex];
-    if (block.used) return;
+function openProduct(product) {
 
-    const piece = e.currentTarget;
-    piece.classList.add("dragging");
-    piece.setPointerCapture?.(e.pointerId);
+    currentProduct = product;
 
-    const ghost = piece.cloneNode(true);
-    ghost.classList.add("drag-ghost");
-    ghost.classList.remove("dragging");
-    ghost.querySelectorAll(".mini-cell").forEach(m => {
-      m.style.width = "36px";
-      m.style.height = "36px";
-    });
-    document.body.appendChild(ghost);
+    document.getElementById("detailImage").textContent =
+        product.icon;
 
-    const rect = piece.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left;
-    const offsetY = e.clientY - rect.top;
+    document.getElementById("detailTitle").textContent =
+        product.name;
 
-    const maxR = Math.max(...block.shape.map(([r]) => r));
-    const maxC = Math.max(...block.shape.map(([, c]) => c));
+    document.getElementById("detailPrice").textContent =
+        "¥" + product.price.toLocaleString();
 
-    dragState = {
-      blockIndex,
-      shape: block.shape,
-      color: block.color,
-      offsetX,
-      offsetY,
-      ghost,
-      piece,
-      shapeW: maxC + 1,
-      shapeH: maxR + 1,
-    };
+    document.getElementById("detailCondition").textContent =
+        product.condition;
 
-    moveGhost(e.clientX, e.clientY);
-    clearPreview();
+    document.getElementById("detailShipping").textContent =
+        product.shipping;
 
-    document.addEventListener("pointermove", onPointerMove, { passive: false });
-    document.addEventListener("pointerup", onPointerUp);
-    document.addEventListener("pointercancel", onPointerUp);
-  }
+    document.getElementById("detailSeller").textContent =
+        product.seller;
 
-  function onPointerMove(e) {
-    if (!dragState) return;
-    e.preventDefault();
-    moveGhost(e.clientX, e.clientY);
-    updatePreview();
-  }
+    document.getElementById("detailDate").textContent =
+        product.date;
 
-  function onPointerUp(e) {
-    if (!dragState) return;
+    document.getElementById("detailDescription").textContent =
+        product.description;
 
-    document.removeEventListener("pointermove", onPointerMove);
-    document.removeEventListener("pointerup", onPointerUp);
-    document.removeEventListener("pointercancel", onPointerUp);
+    productModal.classList.add("show");
+}
 
-    clearPreview();
-    const placed = tryPlace();
+function closeProduct() {
 
-    dragState.piece.classList.remove("dragging");
-    if (dragState.ghost && dragState.ghost.parentNode) {
-      dragState.ghost.parentNode.removeChild(dragState.ghost);
-    }
-    dragState = null;
+    productModal.classList.remove("show");
+}
 
-    if (placed) {
-      afterPlace();
-    }
-  }
+/* =========================
+   LIKE
+========================= */
 
-  function moveGhost(x, y) {
-    if (!dragState || !dragState.ghost) return;
-    const g = dragState.ghost;
-    g.style.left = `${x - dragState.offsetX}px`;
-    g.style.top = `${y - dragState.offsetY}px`;
-  }
+function toggleLike(id) {
 
-  // ゴーストの中心を基準に、形の中心が来るように計算（左右ズレ防止）
-  function getGridPosFromGhost() {
-    if (!dragState || !dragState.ghost) return { row: -99, col: -99 };
+    if (likedProducts.has(id)) {
 
-    const gridRect = gridEl.getBoundingClientRect();
-    const ghostRect = dragState.ghost.getBoundingClientRect();
+        likedProducts.delete(id);
 
-    const padding = 10;
-    const gap = 3;
-    const contentW = gridRect.width - padding * 2;
-    const cellSize = (contentW - gap * (GRID_SIZE - 1)) / GRID_SIZE;
-    const step = cellSize + gap;
+        showToast("いいねを取り消しました");
 
-    // ゴーストの中心座標
-    const centerX = ghostRect.left + ghostRect.width / 2;
-    const centerY = ghostRect.top + ghostRect.height / 2;
-
-    // グリッド内の相対位置
-    const relX = centerX - gridRect.left - padding;
-    const relY = centerY - gridRect.top - padding;
-
-    // 形の中心がポインター（ゴースト中心）に来るようにオフセット
-    const shapeCols = dragState.shapeW;
-    const shapeRows = dragState.shapeH;
-
-    const col = Math.round(relX / step - shapeCols / 2);
-    const row = Math.round(relY / step - shapeRows / 2);
-
-    return { row, col };
-  }
-
-  function canPlace(shape, startRow, startCol) {
-    for (const [r, c] of shape) {
-      const gr = startRow + r;
-      const gc = startCol + c;
-      if (gr < 0 || gr >= GRID_SIZE || gc < 0 || gc >= GRID_SIZE) return false;
-      if (grid[gr][gc] !== null) return false;
-    }
-    return true;
-  }
-
-  function updatePreview() {
-    clearPreview();
-    const { row, col } = getGridPosFromGhost();
-    if (!canPlace(dragState.shape, row, col)) return;
-
-    for (const [r, c] of dragState.shape) {
-      const gr = row + r;
-      const gc = col + c;
-      const cell = gridEl.children[gr * GRID_SIZE + gc];
-      if (cell) {
-        cell.classList.add("preview", dragState.color);
-      }
-    }
-  }
-
-  function clearPreview() {
-    document.querySelectorAll(".cell.preview").forEach((cell) => {
-      cell.classList.remove("preview", ...COLORS);
-    });
-  }
-
-  function tryPlace() {
-    const { row, col } = getGridPosFromGhost();
-    if (!canPlace(dragState.shape, row, col)) return false;
-
-    for (const [r, c] of dragState.shape) {
-      const gr = row + r;
-      const gc = col + c;
-      grid[gr][gc] = dragState.color;
-      const cell = gridEl.children[gr * GRID_SIZE + gc];
-      cell.classList.remove("preview", ...COLORS);
-      cell.classList.add("filled", dragState.color);
-    }
-
-    currentBlocks[dragState.blockIndex].used = true;
-    return true;
-  }
-
-  function afterPlace() {
-    const cleared = clearLines();
-    if (cleared > 0) {
-      const points = cleared * 10 * (cleared > 1 ? cleared : 1) + 5;
-      score += points;
-      scoreEl.textContent = score;
-      if (score > highScore) {
-        highScore = score;
-        highScoreEl.textContent = highScore;
-        localStorage.setItem("polyfitHighScore", highScore);
-      }
     } else {
-      score += 1;
-      scoreEl.textContent = score;
+
+        likedProducts.add(id);
+
+        showToast("いいねしました");
     }
 
-    if (currentBlocks.every((b) => b.used)) {
-      generateNewBlocks();
-    }
-    renderBlocks();
+    renderProducts();
+}
 
-    if (!canPlaceAny()) {
-      setTimeout(() => {
-        isGameOver = true;
-        finalScoreEl.textContent = score;
-        gameOverEl.classList.remove("hidden");
-      }, 280);
-    }
-  }
+/* =========================
+   NEGOTIATE
+========================= */
 
-  function clearLines() {
-    const rowsToClear = [];
-    const colsToClear = [];
+function openNegotiation() {
 
-    for (let r = 0; r < GRID_SIZE; r++) {
-      if (grid[r].every((cell) => cell !== null)) rowsToClear.push(r);
-    }
-    for (let c = 0; c < GRID_SIZE; c++) {
-      if (grid.every((row) => row[c] !== null)) colsToClear.push(c);
+    if (!currentProduct) {
+        return;
     }
 
-    if (rowsToClear.length === 0 && colsToClear.length === 0) return 0;
+    document.getElementById("currentPrice").value =
+        "¥" + currentProduct.price.toLocaleString();
 
-    const cellsToClear = new Set();
-    rowsToClear.forEach((r) => {
-      for (let c = 0; c < GRID_SIZE; c++) cellsToClear.add(`${r},${c}`);
-    });
-    colsToClear.forEach((c) => {
-      for (let r = 0; r < GRID_SIZE; r++) cellsToClear.add(`${r},${c}`);
-    });
+    document.getElementById("offerPrice").value =
+        "";
 
-    cellsToClear.forEach((key) => {
-      const [r, c] = key.split(",").map(Number);
-      const cell = gridEl.children[r * GRID_SIZE + c];
-      if (cell) cell.classList.add("clearing");
-    });
+    negotiateModal.classList.add("show");
+}
 
-    setTimeout(() => {
-      cellsToClear.forEach((key) => {
-        const [r, c] = key.split(",").map(Number);
-        grid[r][c] = null;
-        const cell = gridEl.children[r * GRID_SIZE + c];
-        if (cell) cell.className = "cell";
-      });
-    }, 300);
+function closeNegotiation() {
 
-    return rowsToClear.length + colsToClear.length;
-  }
+    negotiateModal.classList.remove("show");
+}
 
-  function canPlaceAny() {
-    for (const block of currentBlocks) {
-      if (block.used) continue;
-      for (let r = 0; r < GRID_SIZE; r++) {
-        for (let c = 0; c < GRID_SIZE; c++) {
-          if (canPlace(block.shape, r, c)) return true;
+document
+    .getElementById("sendOffer")
+    .addEventListener("click", () => {
+
+        const value =
+            Number(
+                document.getElementById("offerPrice").value
+            );
+
+        if (!Number.isFinite(value)) {
+
+            showToast("希望価格を入力してください");
+
+            return;
         }
-      }
+
+        if (value < 300) {
+
+            showToast("希望価格は300円以上で入力してください");
+
+            return;
+        }
+
+        if (value >= currentProduct.price) {
+
+            showToast(
+                "現在価格より安い金額を入力してください"
+            );
+
+            return;
+        }
+
+        closeNegotiation();
+
+        showToast(
+            "¥" +
+            value.toLocaleString() +
+            "で値下げを依頼しました"
+        );
+    });
+
+/* =========================
+   BUY
+========================= */
+
+document
+    .getElementById("buyButton")
+    .addEventListener("click", () => {
+
+        if (!currentProduct) {
+            return;
+        }
+
+        closeProduct();
+
+        showToast(
+            "購入手続きへ進みます"
+        );
+    });
+
+/* =========================
+   SELL
+========================= */
+
+document
+    .getElementById("sellButton")
+    .addEventListener("click", () => {
+
+        sellModal.classList.add("show");
+    });
+
+document
+    .getElementById("sellForm")
+    .addEventListener("submit", event => {
+
+        event.preventDefault();
+
+        const name =
+            document.getElementById("sellName").value.trim();
+
+        const price =
+            Number(
+                document.getElementById("sellPrice").value
+            );
+
+        const category =
+            document.getElementById("sellCategory").value;
+
+        const condition =
+            document.getElementById("sellCondition").value;
+
+        const description =
+            document.getElementById("sellDescription").value.trim();
+
+        if (!name) {
+
+            showToast("商品名を入力してください");
+
+            return;
+        }
+
+        if (!Number.isFinite(price) || price < 300) {
+
+            showToast("価格は300円以上で入力してください");
+
+            return;
+        }
+
+        if (!description) {
+
+            showToast("商品説明を入力してください");
+
+            return;
+        }
+
+        const newProduct = {
+
+            id:
+                Date.now(),
+
+            name:
+                name,
+
+            price:
+                price,
+
+            category:
+                category,
+
+            condition:
+                condition,
+
+            shipping:
+                "送料込み",
+
+            seller:
+                "あなた",
+
+            date:
+                "たった今",
+
+            icon:
+                category === "ゲーム"
+                    ? "🎮"
+                    : category === "スマホ・家電"
+                    ? "📱"
+                    : category === "ファッション"
+                    ? "👕"
+                    : category === "本・漫画"
+                    ? "📚"
+                    : category === "ホビー"
+                    ? "🧸"
+                    : "📦",
+
+            likes:
+                0,
+
+            description:
+                description
+        };
+
+        products.unshift(newProduct);
+
+        event.target.reset();
+
+        sellModal.classList.remove("show");
+
+        currentCategory = "すべて";
+
+        document
+            .querySelectorAll(".category-button")
+            .forEach(button => {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.category === "すべて"
+                );
+            });
+
+        renderProducts();
+
+        showToast("商品を出品しました");
+    });
+
+/* =========================
+   CATEGORY
+========================= */
+
+document
+    .querySelectorAll(".category-button")
+    .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            currentCategory =
+                button.dataset.category;
+
+            document
+                .querySelectorAll(".category-button")
+                .forEach(item => {
+
+                    item.classList.remove("active");
+                });
+
+            button.classList.add("active");
+
+            renderProducts();
+        });
+    });
+
+/* =========================
+   SEARCH
+========================= */
+
+searchInput.addEventListener(
+    "input",
+    () => {
+
+        renderProducts();
     }
-    return false;
-  }
+);
 
-  restartBtn.addEventListener("click", init);
-  playAgainBtn.addEventListener("click", init);
+/* =========================
+   SORT
+========================= */
 
-  init();
-})();
-  </script>
+sortSelect.addEventListener(
+    "change",
+    () => {
+
+        renderProducts();
+    }
+);
+
+/* =========================
+   CLOSE BUTTONS
+========================= */
+
+document
+    .getElementById("productModalClose")
+    .addEventListener(
+        "click",
+        closeProduct
+    );
+
+document
+    .getElementById("negotiateClose")
+    .addEventListener(
+        "click",
+        closeNegotiation
+    );
+
+document
+    .getElementById("sellClose")
+    .addEventListener(
+        "click",
+        () => {
+
+            sellModal.classList.remove("show");
+        }
+    );
+
+document
+    .getElementById("negotiateButton")
+    .addEventListener(
+        "click",
+        openNegotiation
+    );
+
+/* =========================
+   OUTSIDE CLICK
+========================= */
+
+productModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === productModal
+        ) {
+            closeProduct();
+        }
+    }
+);
+
+negotiateModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === negotiateModal
+        ) {
+            closeNegotiation();
+        }
+    }
+);
+
+sellModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === sellModal
+        ) {
+            sellModal.classList.remove("show");
+        }
+    }
+);
+
+/* =========================
+   HEADER BUTTONS
+========================= */
+
+document
+    .getElementById("notificationButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            showToast(
+                "新しいお知らせはありません"
+            );
+        }
+    );
+
+document
+    .getElementById("mypageButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            showToast(
+                "マイページ機能は準備中です"
+            );
+        }
+    );
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function showToast(message) {
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 2400);
+}
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+/* =========================
+   INITIALIZE
+========================= */
+
+renderProducts();
+</script>
+
 </body>
 </html>
