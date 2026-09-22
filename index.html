@@ -3,635 +3,755 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>フリマ - みんなのマーケット</title>
+
+<title>フリマ</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+html{
+    scroll-behavior:smooth;
 }
 
-body {
-    margin: 0;
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Helvetica Neue",
-        "Yu Gothic",
-        YuGothic,
-        Arial,
-        sans-serif;
-    color: #222;
-    background: #f5f5f5;
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",
+    "Yu Gothic",YuGothic,Arial,sans-serif;
+    color:#222;
+    background:#f5f5f5;
 }
 
 button,
 input,
-select,
-textarea {
-    font: inherit;
+select{
+    font:inherit;
 }
 
-button {
-    cursor: pointer;
+button{
+    cursor:pointer;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
+a{
+    color:inherit;
+    text-decoration:none;
 }
 
 /* =========================
    HEADER
 ========================= */
 
-.header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: #fff;
-    border-bottom: 1px solid #e5e5e5;
+.header{
+    height:64px;
+    background:#fff;
+    border-bottom:1px solid #ddd;
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
 
-.header-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 12px 20px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
+.header-inner{
+    max-width:1180px;
+    height:100%;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:0 18px;
 }
 
-.logo {
-    font-size: 25px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    color: #ff4b55;
-    white-space: nowrap;
+.logo{
+    font-size:23px;
+    font-weight:800;
+    color:#e53935;
+    white-space:nowrap;
 }
 
-.search-box {
-    flex: 1;
-    position: relative;
+.search{
+    flex:1;
+    position:relative;
 }
 
-.search-box input {
-    width: 100%;
-    height: 42px;
-    border: 1px solid #d8d8d8;
-    border-radius: 7px;
-    background: #f7f7f7;
-    padding: 0 46px 0 15px;
-    outline: none;
-    transition: 0.2s;
+.search input{
+    width:100%;
+    height:42px;
+    border:1px solid #ccc;
+    background:#f5f5f5;
+    border-radius:7px;
+    padding:0 46px 0 16px;
+    outline:none;
+    font-size:14px;
 }
 
-.search-box input:focus {
-    background: #fff;
-    border-color: #aaa;
+.search input:focus{
+    border-color:#aaa;
+    background:#fff;
 }
 
-.search-icon {
-    position: absolute;
-    right: 13px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #777;
-    font-size: 19px;
+.search-icon{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#777;
+    font-size:18px;
 }
 
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    white-space: nowrap;
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    white-space:nowrap;
 }
 
-.header-link {
-    font-size: 14px;
-    color: #444;
+.header-link{
+    border:0;
+    background:none;
+    color:#444;
+    font-size:13px;
 }
 
-.header-link:hover {
-    color: #ff4b55;
+.header-link:hover{
+    color:#e53935;
 }
 
-.sell-button {
-    border: none;
-    background: #ff4b55;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 7px;
-    font-weight: 700;
+.sell-button{
+    border:0;
+    background:#e53935;
+    color:white;
+    padding:11px 18px;
+    border-radius:7px;
+    font-weight:bold;
 }
 
 /* =========================
-   NAV
+   CATEGORY BAR
 ========================= */
 
-.category-nav {
-    background: #fff;
-    border-bottom: 1px solid #e8e8e8;
+.category-bar{
+    background:#fff;
+    border-bottom:1px solid #ddd;
 }
 
-.category-nav-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px 20px;
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
+.category-inner{
+    max-width:1180px;
+    margin:auto;
+    display:flex;
+    gap:22px;
+    overflow-x:auto;
+    padding:12px 18px;
 }
 
-.category-button {
-    border: 1px solid #ddd;
-    background: #fff;
-    color: #444;
-    border-radius: 20px;
-    padding: 7px 15px;
-    white-space: nowrap;
-    font-size: 13px;
+.category-button{
+    border:0;
+    background:none;
+    color:#555;
+    font-size:13px;
+    white-space:nowrap;
+    padding:3px 0;
 }
 
-.category-button:hover,
-.category-button.active {
-    border-color: #ff4b55;
-    color: #ff4b55;
+.category-button.active{
+    color:#e53935;
+    font-weight:bold;
 }
 
 /* =========================
    MAIN
 ========================= */
 
-.main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 30px 20px 80px;
+.main{
+    max-width:1180px;
+    margin:auto;
+    padding:24px 18px 70px;
 }
 
-.hero {
-    background: #fff;
-    border-radius: 10px;
-    padding: 30px;
-    margin-bottom: 28px;
-    border: 1px solid #e9e9e9;
+/* =========================
+   NOTICE
+========================= */
+
+.notice{
+    display:none;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:15px 17px;
+    margin-bottom:20px;
 }
 
-.hero h1 {
-    margin: 0 0 10px;
-    font-size: 28px;
+.notice.show{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
 }
 
-.hero p {
-    margin: 0;
-    color: #777;
-    line-height: 1.7;
+.notice strong{
+    color:#e53935;
 }
 
-.section {
-    margin-bottom: 38px;
+.notice button{
+    border:0;
+    background:#e53935;
+    color:#fff;
+    padding:8px 14px;
+    border-radius:5px;
 }
 
-.section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    background:#fff;
+    border:1px solid #e5e5e5;
+    padding:30px;
+    border-radius:8px;
+    margin-bottom:28px;
 }
 
-.section-title {
-    margin: 0;
-    font-size: 20px;
+.hero h1{
+    margin:0 0 10px;
+    font-size:26px;
 }
 
-.section-subtitle {
-    font-size: 13px;
-    color: #888;
+.hero p{
+    margin:0;
+    color:#777;
+    font-size:14px;
 }
 
-.controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* =========================
+   TOOLBAR
+========================= */
+
+.toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
 }
 
-.sort-select {
-    border: 1px solid #ddd;
-    background: #fff;
-    border-radius: 6px;
-    padding: 8px 12px;
-    outline: none;
+.result-count{
+    font-size:14px;
+    color:#555;
+}
+
+.sort{
+    border:1px solid #ccc;
+    background:#fff;
+    border-radius:6px;
+    padding:8px 12px;
 }
 
 /* =========================
    PRODUCT GRID
 ========================= */
 
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 14px;
+.products{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:16px;
 }
 
-.product-card {
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #e8e8e8;
-    transition: transform 0.15s, box-shadow 0.15s;
-    cursor: pointer;
+.product{
+    background:#fff;
+    border-radius:7px;
+    overflow:hidden;
+    border:1px solid #e6e6e6;
+    cursor:pointer;
+    transition:.15s;
 }
 
-.product-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+.product:hover{
+    transform:translateY(-2px);
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
 }
 
-.product-image {
-    aspect-ratio: 1 / 1;
-    background: #eee;
-    position: relative;
-    overflow: hidden;
+.product-image{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    display:block;
+    background:#eee;
 }
 
-.product-image-inner {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 60px;
-    background: linear-gradient(135deg, #f3f3f3, #e5e5e5);
+.product-body{
+    padding:10px 11px 13px;
 }
 
-.product-badge {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    background: rgba(255,255,255,0.95);
-    border-radius: 5px;
-    padding: 4px 7px;
-    font-size: 11px;
-    font-weight: 700;
+.product-name{
+    font-size:13px;
+    line-height:1.5;
+    min-height:39px;
+    margin-bottom:6px;
 }
 
-.favorite {
-    position: absolute;
-    right: 8px;
-    bottom: 8px;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(255,255,255,0.95);
-    font-size: 19px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.product-price{
+    font-size:16px;
+    font-weight:bold;
 }
 
-.favorite.active {
-    color: #ff4b55;
+.product-meta{
+    color:#888;
+    font-size:11px;
+    margin-top:5px;
 }
 
-.product-info {
-    padding: 11px;
+.product-like{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:8px;
+    color:#888;
+    font-size:11px;
 }
 
-.product-name {
-    font-size: 14px;
-    line-height: 1.5;
-    height: 42px;
-    overflow: hidden;
+.like-button{
+    border:0;
+    background:none;
+    padding:0;
+    color:#777;
 }
 
-.product-price {
-    margin-top: 8px;
-    font-size: 17px;
-    font-weight: 800;
-}
-
-.product-meta {
-    margin-top: 5px;
-    display: flex;
-    justify-content: space-between;
-    color: #888;
-    font-size: 11px;
+.like-button.liked{
+    color:#e53935;
 }
 
 /* =========================
    EMPTY
 ========================= */
 
-.empty {
-    background: #fff;
-    border: 1px solid #e5e5e5;
-    border-radius: 10px;
-    text-align: center;
-    padding: 60px 20px;
-    color: #888;
+.empty{
+    display:none;
+    text-align:center;
+    background:#fff;
+    border:1px solid #ddd;
+    padding:70px 20px;
+    color:#777;
+}
+
+.empty.show{
+    display:block;
 }
 
 /* =========================
    MODAL
 ========================= */
 
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.48);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 300;
-    padding: 20px;
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:2000;
+    padding:20px;
 }
 
-.modal-overlay.show {
-    display: flex;
+.modal.show{
+    display:flex;
 }
 
-.modal {
-    width: min(900px, 100%);
-    max-height: 90vh;
-    overflow-y: auto;
-    background: #fff;
-    border-radius: 12px;
-    position: relative;
+.modal-box{
+    background:#fff;
+    width:min(900px,100%);
+    max-height:90vh;
+    overflow:auto;
+    border-radius:8px;
+    position:relative;
 }
 
-.modal-close {
-    position: absolute;
-    right: 15px;
-    top: 12px;
-    width: 38px;
-    height: 38px;
-    border: none;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.06);
-    font-size: 22px;
-    z-index: 2;
+.modal-small{
+    width:min(500px,100%);
 }
 
-.product-detail {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.modal-close{
+    position:absolute;
+    right:15px;
+    top:12px;
+    width:35px;
+    height:35px;
+    border:0;
+    background:#f5f5f5;
+    border-radius:50%;
+    font-size:20px;
+    z-index:2;
 }
 
-.detail-image {
-    min-height: 500px;
-    background: #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 120px;
+.modal-content{
+    padding:30px;
 }
 
-.detail-content {
-    padding: 35px;
+/* =========================
+   PRODUCT DETAIL
+========================= */
+
+.detail{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:35px;
 }
 
-.detail-title {
-    font-size: 22px;
-    line-height: 1.5;
-    margin: 0 0 18px;
+.detail-image{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    background:#eee;
 }
 
-.detail-price {
-    font-size: 28px;
-    font-weight: 800;
-    margin-bottom: 20px;
+.detail-info h2{
+    font-size:21px;
+    line-height:1.5;
+    margin:0 0 16px;
 }
 
-.detail-info {
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    padding: 15px 0;
-    margin-bottom: 20px;
+.detail-price{
+    font-size:29px;
+    font-weight:bold;
+    margin-bottom:6px;
 }
 
-.info-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-    font-size: 14px;
+.detail-shipping{
+    font-size:13px;
+    color:#777;
+    margin-bottom:20px;
 }
 
-.info-row span:first-child {
-    color: #888;
+.detail-description{
+    font-size:14px;
+    line-height:1.8;
+    white-space:pre-wrap;
+    padding:15px 0;
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
 }
 
-.detail-description {
-    line-height: 1.8;
-    color: #444;
-    font-size: 14px;
-    white-space: pre-line;
-    margin-bottom: 25px;
+.seller{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:18px 0;
 }
 
-.action-button {
-    width: 100%;
-    border: none;
-    border-radius: 7px;
-    padding: 14px;
-    font-weight: 700;
-    font-size: 16px;
-    margin-bottom: 10px;
+.seller-avatar{
+    width:42px;
+    height:42px;
+    background:#eee;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
 }
 
-.buy-button {
-    background: #ff4b55;
-    color: #fff;
+.detail-actions{
+    display:grid;
+    gap:10px;
+    margin-top:18px;
 }
 
-.negotiate-button {
-    background: #fff;
-    border: 1px solid #ff4b55;
-    color: #ff4b55;
+.primary{
+    border:0;
+    background:#e53935;
+    color:white;
+    padding:15px;
+    border-radius:6px;
+    font-weight:bold;
+    font-size:15px;
+}
+
+.secondary{
+    border:1px solid #ddd;
+    background:#fff;
+    color:#333;
+    padding:13px;
+    border-radius:6px;
+    font-weight:bold;
+}
+
+.secondary:hover{
+    background:#f8f8f8;
+}
+
+.primary:disabled,
+.secondary:disabled{
+    opacity:.45;
+    cursor:not-allowed;
 }
 
 /* =========================
    FORM
 ========================= */
 
-.form-modal {
-    width: min(620px, 100%);
-    background: #fff;
-    border-radius: 12px;
-    padding: 30px;
-    position: relative;
-    max-height: 90vh;
-    overflow-y: auto;
+.form-group{
+    margin-bottom:18px;
 }
 
-.form-modal h2 {
-    margin-top: 0;
-}
-
-.form-group {
-    margin-bottom: 18px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 700;
-    font-size: 14px;
-    margin-bottom: 7px;
+.form-group label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:7px;
 }
 
 .form-group input,
 .form-group textarea,
-.form-group select {
-    width: 100%;
-    border: 1px solid #d8d8d8;
-    border-radius: 7px;
-    padding: 11px;
-    outline: none;
-    background: #fff;
+.form-group select{
+    width:100%;
+    border:1px solid #ccc;
+    border-radius:6px;
+    padding:12px;
+    outline:none;
+    background:#fff;
 }
 
-.form-group textarea {
-    min-height: 120px;
-    resize: vertical;
+.form-group textarea{
+    min-height:110px;
+    resize:vertical;
 }
 
-.submit-button {
-    width: 100%;
-    border: none;
-    border-radius: 7px;
-    padding: 14px;
-    background: #ff4b55;
-    color: white;
-    font-weight: 700;
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:#999;
+}
+
+/* =========================
+   PRICE REQUEST
+========================= */
+
+.price-current{
+    background:#f7f7f7;
+    padding:16px;
+    margin-bottom:20px;
+    border-radius:6px;
+}
+
+.price-current span{
+    color:#777;
+    font-size:12px;
+}
+
+.price-current strong{
+    display:block;
+    font-size:24px;
+    margin-top:5px;
+}
+
+.price-input-wrap{
+    position:relative;
+}
+
+.price-input-wrap span{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#777;
+}
+
+.price-input-wrap input{
+    padding-left:28px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+/* =========================
+   PURCHASE
+========================= */
+
+.purchase-summary{
+    background:#f7f7f7;
+    padding:18px;
+    border-radius:6px;
+    margin-bottom:20px;
+}
+
+.purchase-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.purchase-row.total{
+    border-top:1px solid #ddd;
+    padding-top:15px;
+    margin-top:15px;
+    font-weight:bold;
+    font-size:18px;
+}
+
+/* =========================
+   MY PAGE
+========================= */
+
+.mypage{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:20px;
+}
+
+.my-menu{
+    background:#fff;
+    border:1px solid #ddd;
+}
+
+.my-menu button{
+    width:100%;
+    text-align:left;
+    padding:15px;
+    background:#fff;
+    border:0;
+    border-bottom:1px solid #eee;
+}
+
+.my-menu button:hover{
+    background:#f7f7f7;
+}
+
+.my-content{
+    background:#fff;
+    border:1px solid #ddd;
+    padding:25px;
+}
+
+.my-profile{
+    border-bottom:1px solid #eee;
+    padding-bottom:20px;
+    margin-bottom:20px;
+}
+
+.balance{
+    font-size:28px;
+    font-weight:bold;
+    margin-top:7px;
+}
+
+.history-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:15px 0;
+    border-bottom:1px solid #eee;
+}
+
+.history-item img{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+}
+
+/* =========================
+   SELL
+========================= */
+
+.sell-preview{
+    border:1px dashed #bbb;
+    background:#fafafa;
+    padding:35px;
+    text-align:center;
+    color:#888;
+    margin-bottom:20px;
 }
 
 /* =========================
    TOAST
 ========================= */
 
-.toast {
-    position: fixed;
-    left: 50%;
-    bottom: 25px;
-    transform: translateX(-50%) translateY(20px);
-    background: #222;
-    color: white;
-    padding: 13px 20px;
-    border-radius: 8px;
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.25s;
-    z-index: 500;
-    font-size: 14px;
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:30px;
+    transform:translate(-50%,30px);
+    background:#333;
+    color:#fff;
+    padding:13px 20px;
+    border-radius:7px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:5000;
+    font-size:13px;
 }
 
-.toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer {
-    background: #fff;
-    border-top: 1px solid #e5e5e5;
-    padding: 35px 20px;
-    color: #777;
-}
-
-.footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-logo {
-    color: #ff4b55;
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 10px;
-}
-
-.footer p {
-    font-size: 12px;
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media (max-width: 1000px) {
-    .product-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .header-actions .header-link {
-        display: none;
+@media(max-width:1000px){
+    .products{
+        grid-template-columns:repeat(4,1fr);
     }
 }
 
-@media (max-width: 750px) {
-    .header-inner {
-        flex-wrap: wrap;
-        gap: 10px;
+@media(max-width:760px){
+    .header{
+        height:auto;
     }
 
-    .logo {
-        font-size: 22px;
+    .header-inner{
+        flex-wrap:wrap;
+        padding:10px 12px;
     }
 
-    .search-box {
-        order: 3;
-        flex-basis: 100%;
+    .logo{
+        order:1;
     }
 
-    .product-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+    .header-actions{
+        order:2;
+        margin-left:auto;
     }
 
-    .product-detail {
-        grid-template-columns: 1fr;
+    .search{
+        order:3;
+        flex-basis:100%;
     }
 
-    .detail-image {
-        min-height: 330px;
+    .detail{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
+
+    .hero{
+        padding:22px;
+    }
+
+    .mypage{
+        grid-template-columns:1fr;
+    }
+
+    .main{
+        padding:15px 10px 50px;
     }
 }
 
-@media (max-width: 500px) {
-    .main {
-        padding: 18px 10px 70px;
+@media(max-width:450px){
+    .header-link{
+        display:none;
     }
 
-    .hero {
-        padding: 22px;
+    .sell-button{
+        padding:8px 12px;
+        font-size:12px;
     }
 
-    .hero h1 {
-        font-size: 22px;
-    }
-
-    .product-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 9px;
-    }
-
-    .section-header {
-        align-items: flex-start;
-        gap: 10px;
-        flex-direction: column;
-    }
-
-    .detail-content {
-        padding: 22px;
-    }
-
-    .sell-button {
-        padding: 9px 12px;
+    .product-name{
+        font-size:12px;
     }
 }
 </style>
@@ -639,17 +759,19 @@ a {
 
 <body>
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header class="header">
     <div class="header-inner">
 
-        <div class="logo">
-            フリマ
-        </div>
+        <div class="logo">フリマ</div>
 
-        <div class="search-box">
+        <div class="search">
             <input
                 id="searchInput"
-                type="search"
+                type="text"
                 placeholder="なにをお探しですか？"
                 autocomplete="off"
             >
@@ -657,512 +779,690 @@ a {
         </div>
 
         <div class="header-actions">
-            <button class="header-link" id="notificationButton">
+
+            <button
+                class="header-link"
+                onclick="openNotifications()"
+            >
                 お知らせ
             </button>
 
-            <button class="header-link" id="mypageButton">
+            <button
+                class="header-link"
+                onclick="openMypage()"
+            >
                 マイページ
             </button>
 
-            <button class="sell-button" id="sellButton">
-                出品する
+            <button
+                class="sell-button"
+                onclick="openSell()"
+            >
+                出品
             </button>
-        </div>
 
+        </div>
     </div>
 </header>
 
-<nav class="category-nav">
-    <div class="category-nav-inner">
+<!-- =========================
+     CATEGORY
+========================= -->
 
-        <button class="category-button active" data-category="すべて">
+<nav class="category-bar">
+    <div class="category-inner">
+
+        <button class="category-button active"
+            data-category="すべて">
             すべて
         </button>
 
-        <button class="category-button" data-category="ゲーム">
-            ゲーム
+        <button class="category-button"
+            data-category="レディース">
+            レディース
         </button>
 
-        <button class="category-button" data-category="スマホ・家電">
-            スマホ・家電
+        <button class="category-button"
+            data-category="メンズ">
+            メンズ
         </button>
 
-        <button class="category-button" data-category="ファッション">
-            ファッション
+        <button class="category-button"
+            data-category="ベビー・キッズ">
+            ベビー・キッズ
         </button>
 
-        <button class="category-button" data-category="本・漫画">
-            本・漫画
+        <button class="category-button"
+            data-category="ゲーム・おもちゃ・グッズ">
+            ゲーム・おもちゃ・グッズ
         </button>
 
-        <button class="category-button" data-category="ホビー">
-            ホビー
+        <button class="category-button"
+            data-category="家電・スマホ・カメラ">
+            家電・スマホ・カメラ
         </button>
 
-        <button class="category-button" data-category="その他">
+        <button class="category-button"
+            data-category="本・音楽・ゲーム">
+            本・音楽・ゲーム
+        </button>
+
+        <button class="category-button"
+            data-category="その他">
             その他
         </button>
 
     </div>
 </nav>
 
+<!-- =========================
+     MAIN
+========================= -->
+
 <main class="main">
 
-    <section class="hero">
-        <h1>欲しいものを、もっとおトクに。</h1>
-        <p>
-            みんなが出品した商品から、掘り出し物を探してみよう。
-            <br>
-            気になる商品は、値下げをお願いすることもできます。
-        </p>
-    </section>
-
-    <section class="section">
-
-        <div class="section-header">
-            <div>
-                <h2 class="section-title">おすすめの商品</h2>
-                <div class="section-subtitle">
-                    あなたにおすすめの商品
-                </div>
-            </div>
-
-            <div class="controls">
-                <select id="sortSelect" class="sort-select">
-                    <option value="recommend">おすすめ順</option>
-                    <option value="new">新しい順</option>
-                    <option value="low">価格の安い順</option>
-                    <option value="high">価格の高い順</option>
-                </select>
+    <div
+        id="notice"
+        class="notice"
+    >
+        <div>
+            <strong id="noticeTitle">お知らせがあります</strong>
+            <div id="noticeText">
+                値下げ依頼を確認してください。
             </div>
         </div>
 
-        <div id="productGrid" class="product-grid"></div>
+        <button onclick="openNotifications()">
+            確認する
+        </button>
+    </div>
 
+    <section class="hero">
+        <h1>欲しいものを、もっと身近に。</h1>
+        <p>
+            たくさんの商品から気になるものを探してみよう。
+        </p>
     </section>
+
+    <div class="toolbar">
+
+        <div
+            class="result-count"
+            id="resultCount"
+        >
+            商品
+        </div>
+
+        <select
+            class="sort"
+            id="sortSelect"
+        >
+            <option value="recommended">おすすめ順</option>
+            <option value="new">新しい順</option>
+            <option value="low">価格の安い順</option>
+            <option value="high">価格の高い順</option>
+            <option value="like">いいね！が多い順</option>
+        </select>
+
+    </div>
+
+    <div
+        class="products"
+        id="products"
+    ></div>
+
+    <div
+        class="empty"
+        id="empty"
+    >
+        商品が見つかりませんでした。
+    </div>
 
 </main>
 
-<footer class="footer">
-    <div class="footer-inner">
-        <div class="footer-logo">フリマ</div>
-        <p>
-            これはフリマサービスを題材にしたゲーム用プロトタイプです。
-        </p>
-    </div>
-</footer>
+<!-- =========================
+     PRODUCT MODAL
+========================= -->
 
-<!-- 商品詳細 -->
-
-<div class="modal-overlay" id="productModal">
-
-    <div class="modal">
-
-        <button class="modal-close" id="productModalClose">
-            ×
-        </button>
-
-        <div class="product-detail">
-
-            <div class="detail-image" id="detailImage">
-                🎮
-            </div>
-
-            <div class="detail-content">
-
-                <h2 class="detail-title" id="detailTitle">
-                    商品名
-                </h2>
-
-                <div class="detail-price" id="detailPrice">
-                    ¥0
-                </div>
-
-                <div class="detail-info">
-
-                    <div class="info-row">
-                        <span>商品の状態</span>
-                        <span id="detailCondition"></span>
-                    </div>
-
-                    <div class="info-row">
-                        <span>送料</span>
-                        <span id="detailShipping"></span>
-                    </div>
-
-                    <div class="info-row">
-                        <span>出品者</span>
-                        <span id="detailSeller"></span>
-                    </div>
-
-                    <div class="info-row">
-                        <span>出品日時</span>
-                        <span id="detailDate"></span>
-                    </div>
-
-                </div>
-
-                <div class="detail-description" id="detailDescription"></div>
-
-                <button
-                    class="action-button buy-button"
-                    id="buyButton"
-                >
-                    購入する
-                </button>
-
-                <button
-                    class="action-button negotiate-button"
-                    id="negotiateButton"
-                >
-                    値下げを依頼する
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- 値下げ依頼 -->
-
-<div class="modal-overlay" id="negotiateModal">
-
-    <div class="form-modal">
-
-        <button class="modal-close" id="negotiateClose">
-            ×
-        </button>
-
-        <h2>値下げを依頼する</h2>
-
-        <p style="color:#777;font-size:14px;">
-            希望する価格を入力してください。
-        </p>
-
-        <div class="form-group">
-            <label>現在の価格</label>
-            <input id="currentPrice" type="text" readonly>
-        </div>
-
-        <div class="form-group">
-            <label>希望価格</label>
-            <input
-                id="offerPrice"
-                type="number"
-                min="300"
-                step="100"
-                placeholder="例：5000"
-            >
-        </div>
+<div
+    class="modal"
+    id="productModal"
+    onclick="outsideClose(event,'productModal')"
+>
+    <div class="modal-box">
 
         <button
-            class="submit-button"
-            id="sendOffer"
+            class="modal-close"
+            onclick="closeModal('productModal')"
         >
-            値下げを依頼する
-        </button>
-
-    </div>
-
-</div>
-
-<!-- 出品 -->
-
-<div class="modal-overlay" id="sellModal">
-
-    <div class="form-modal">
-
-        <button class="modal-close" id="sellClose">
             ×
         </button>
 
-        <h2>商品を出品する</h2>
-
-        <form id="sellForm">
-
-            <div class="form-group">
-                <label>商品名</label>
-                <input
-                    id="sellName"
-                    type="text"
-                    placeholder="商品名を入力"
-                    required
-                >
-            </div>
-
-            <div class="form-group">
-                <label>価格</label>
-                <input
-                    id="sellPrice"
-                    type="number"
-                    min="300"
-                    step="100"
-                    placeholder="300"
-                    required
-                >
-            </div>
-
-            <div class="form-group">
-                <label>カテゴリ</label>
-
-                <select id="sellCategory">
-
-                    <option value="ゲーム">
-                        ゲーム
-                    </option>
-
-                    <option value="スマホ・家電">
-                        スマホ・家電
-                    </option>
-
-                    <option value="ファッション">
-                        ファッション
-                    </option>
-
-                    <option value="本・漫画">
-                        本・漫画
-                    </option>
-
-                    <option value="ホビー">
-                        ホビー
-                    </option>
-
-                    <option value="その他">
-                        その他
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div class="form-group">
-                <label>商品の状態</label>
-
-                <select id="sellCondition">
-
-                    <option>
-                        新品、未使用
-                    </option>
-
-                    <option>
-                        未使用に近い
-                    </option>
-
-                    <option>
-                        目立った傷や汚れなし
-                    </option>
-
-                    <option>
-                        やや傷や汚れあり
-                    </option>
-
-                    <option>
-                        傷や汚れあり
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div class="form-group">
-                <label>商品説明</label>
-
-                <textarea
-                    id="sellDescription"
-                    placeholder="商品の状態や注意点などを入力してください"
-                    required
-                ></textarea>
-
-            </div>
-
-            <button
-                class="submit-button"
-                type="submit"
-            >
-                出品する
-            </button>
-
-        </form>
+        <div
+            class="modal-content"
+            id="productDetail"
+        ></div>
 
     </div>
-
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- =========================
+     PRICE REQUEST MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="priceModal"
+>
+    <div class="modal-box modal-small">
+
+        <button
+            class="modal-close"
+            onclick="closeModal('priceModal')"
+        >
+            ×
+        </button>
+
+        <div class="modal-content">
+
+            <h2>値下げ依頼</h2>
+
+            <p
+                id="priceRequestProduct"
+                style="color:#666;font-size:14px;"
+            ></p>
+
+            <div class="price-current">
+
+                <span>現在の販売価格</span>
+
+                <strong id="requestCurrentPrice">
+                    ￥0
+                </strong>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    希望価格
+                </label>
+
+                <div class="price-input-wrap">
+
+                    <span>￥</span>
+
+                    <input
+                        id="requestPrice"
+                        type="number"
+                        min="300"
+                        step="1"
+                        placeholder="希望価格を入力"
+                    >
+
+                </div>
+
+            </div>
+
+            <p
+                style="font-size:12px;color:#888;line-height:1.6;"
+            >
+                出品者が承諾した場合、その価格で購入できるようになります。
+                値下げ依頼は購入を確約するものではありません。
+            </p>
+
+            <button
+                class="primary"
+                style="width:100%;margin-top:10px;"
+                onclick="sendPriceRequest()"
+            >
+                値下げを依頼する
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     PURCHASE MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="purchaseModal"
+>
+    <div class="modal-box modal-small">
+
+        <button
+            class="modal-close"
+            onclick="closeModal('purchaseModal')"
+        >
+            ×
+        </button>
+
+        <div class="modal-content">
+
+            <h2>購入確認</h2>
+
+            <div
+                class="purchase-summary"
+                id="purchaseSummary"
+            ></div>
+
+            <button
+                class="primary"
+                style="width:100%;"
+                onclick="completePurchase()"
+            >
+                購入を確定する
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     NOTIFICATION MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="notificationModal"
+>
+    <div class="modal-box modal-small">
+
+        <button
+            class="modal-close"
+            onclick="closeModal('notificationModal')"
+        >
+            ×
+        </button>
+
+        <div
+            class="modal-content"
+            id="notifications"
+        ></div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MYPAGE MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="mypageModal"
+>
+    <div class="modal-box">
+
+        <button
+            class="modal-close"
+            onclick="closeModal('mypageModal')"
+        >
+            ×
+        </button>
+
+        <div class="modal-content">
+
+            <div class="mypage">
+
+                <div class="my-menu">
+
+                    <button onclick="showMySection('profile')">
+                        アカウント
+                    </button>
+
+                    <button onclick="showMySection('history')">
+                        購入した商品
+                    </button>
+
+                    <button onclick="showMySection('likes')">
+                        いいね！した商品
+                    </button>
+
+                    <button onclick="showMySection('selling')">
+                        出品した商品
+                    </button>
+
+                </div>
+
+                <div
+                    class="my-content"
+                    id="myContent"
+                ></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     SELL MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="sellModal"
+>
+    <div class="modal-box modal-small">
+
+        <button
+            class="modal-close"
+            onclick="closeModal('sellModal')"
+        >
+            ×
+        </button>
+
+        <div class="modal-content">
+
+            <h2>商品の出品</h2>
+
+            <form id="sellForm">
+
+                <div class="form-group">
+
+                    <label>
+                        商品名
+                    </label>
+
+                    <input
+                        id="sellName"
+                        required
+                        placeholder="商品名を入力"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        商品説明
+                    </label>
+
+                    <textarea
+                        id="sellDescription"
+                        required
+                        placeholder="商品の状態などを入力"
+                    ></textarea>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        カテゴリ
+                    </label>
+
+                    <select id="sellCategory">
+
+                        <option>
+                            その他
+                        </option>
+
+                        <option>
+                            レディース
+                        </option>
+
+                        <option>
+                            メンズ
+                        </option>
+
+                        <option>
+                            ベビー・キッズ
+                        </option>
+
+                        <option>
+                            ゲーム・おもちゃ・グッズ
+                        </option>
+
+                        <option>
+                            家電・スマホ・カメラ
+                        </option>
+
+                        <option>
+                            本・音楽・ゲーム
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        販売価格
+                    </label>
+
+                    <input
+                        id="sellPrice"
+                        type="number"
+                        min="300"
+                        required
+                        placeholder="300"
+                    >
+
+                </div>
+
+                <button
+                    class="primary"
+                    style="width:100%;"
+                    type="submit"
+                >
+                    出品する
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
 
 <script>
-/* =========================
+
+/* =====================================================
    DATA
-========================= */
+===================================================== */
 
 let products = [
 
     {
-        id: 1,
-        name: "Nintendo Switch 本体 グレー",
-        price: 18500,
-        category: "ゲーム",
-        condition: "やや傷や汚れあり",
-        shipping: "送料込み",
-        seller: "game_user",
-        date: "12分前",
-        icon: "🎮",
-        likes: 24,
-        description:
-            "Nintendo Switch本体です。\n\n使用感がありますが、動作は確認済みです。\n本体のみの出品となります。"
+        id:1,
+        name:"Nintendo Switch 本体",
+        description:"Nintendo Switch本体です。動作確認済みです。多少の使用感があります。",
+        price:24800,
+        category:"ゲーム・おもちゃ・グッズ",
+        condition:"やや傷や汚れあり",
+        shipping:"送料込み",
+        seller:"ゲーム好き",
+        likes:34,
+        image:"https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?auto=format&fit=crop&w=800&q=80",
+        created:Date.now()-100000
     },
 
     {
-        id: 2,
-        name: "ワイヤレスイヤホン ブラック",
-        price: 4800,
-        category: "スマホ・家電",
-        condition: "目立った傷や汚れなし",
-        shipping: "送料込み",
-        seller: "audio_user",
-        date: "25分前",
-        icon: "🎧",
-        likes: 18,
-        description:
-            "数回使用しました。\n目立った傷はありません。\n動作確認済みです。"
+        id:2,
+        name:"ワイヤレスイヤホン",
+        description:"数回使用しました。ケース付きです。",
+        price:4800,
+        category:"家電・スマホ・カメラ",
+        condition:"目立った傷や汚れなし",
+        shipping:"送料込み",
+        seller:"audio_user",
+        likes:18,
+        image:"https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=800&q=80",
+        created:Date.now()-200000
     },
 
     {
-        id: 3,
-        name: "人気ゲームソフト 3本セット",
-        price: 6200,
-        category: "ゲーム",
-        condition: "目立った傷や汚れなし",
-        shipping: "送料込み",
-        seller: "retro_shop",
-        date: "31分前",
-        icon: "💿",
-        likes: 42,
-        description:
-            "人気ゲームソフト3本セットです。\nすべて動作確認済みです。"
+        id:3,
+        name:"黒いパーカー",
+        description:"シンプルな黒のパーカーです。サイズはMです。",
+        price:3200,
+        category:"メンズ",
+        condition:"目立った傷や汚れなし",
+        shipping:"送料込み",
+        seller:"shop_01",
+        likes:12,
+        image:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=80",
+        created:Date.now()-300000
     },
 
     {
-        id: 4,
-        name: "オーバーサイズ パーカー",
-        price: 3900,
-        category: "ファッション",
-        condition: "目立った傷や汚れなし",
-        shipping: "送料込み",
-        seller: "fashion_user",
-        date: "48分前",
-        icon: "👕",
-        likes: 12,
-        description:
-            "数回着用したパーカーです。\nサイズはLです。"
+        id:4,
+        name:"人気ゲームソフト",
+        description:"動作確認済み。ケースあり。",
+        price:4200,
+        category:"ゲーム・おもちゃ・グッズ",
+        condition:"目立った傷や汚れなし",
+        shipping:"送料込み",
+        seller:"ゲーム倉庫",
+        likes:27,
+        image:"https://images.unsplash.com/photo-1592840496694-26c035b52b8e?auto=format&fit=crop&w=800&q=80",
+        created:Date.now()-400000
     },
 
     {
-        id: 5,
-        name: "Minecraft 攻略本",
-        price: 1200,
-        category: "本・漫画",
-        condition: "やや傷や汚れあり",
-        shipping: "送料込み",
-        seller: "book_user",
-        date: "1時間前",
-        icon: "📚",
-        likes: 7,
-        description:
-            "Minecraftの攻略本です。\n多少の使用感があります。"
+        id:5,
+        name:"マンガ 10冊セット",
+        description:"人気作品のコミックセットです。",
+        price:2500,
+        category:"本・音楽・ゲーム",
+        condition:"やや傷や汚れあり",
+        shipping:"送料込み",
+        seller:"book_store",
+        likes:9,
+        image:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80",
+        created:Date.now()-500000
     },
 
     {
-        id: 6,
-        name: "フィギュア 未開封",
-        price: 7500,
-        category: "ホビー",
-        condition: "新品、未使用",
-        shipping: "送料込み",
-        seller: "figure_user",
-        date: "1時間前",
-        icon: "🧸",
-        likes: 35,
-        description:
-            "未開封品です。\n暗所で保管していました。"
+        id:6,
+        name:"レディースバッグ",
+        description:"普段使いしやすいバッグです。",
+        price:5500,
+        category:"レディース",
+        condition:"目立った傷や汚れなし",
+        shipping:"送料込み",
+        seller:"mimi",
+        likes:21,
+        image:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80",
+        created:Date.now()-600000
     },
 
     {
-        id: 7,
-        name: "Bluetooth スピーカー",
-        price: 2800,
-        category: "スマホ・家電",
-        condition: "目立った傷や汚れなし",
-        shipping: "送料込み",
-        seller: "music_user",
-        date: "2時間前",
-        icon: "🔊",
-        likes: 9,
-        description:
-            "Bluetoothスピーカーです。\n問題なく使用できます。"
+        id:7,
+        name:"スマートウォッチ",
+        description:"数ヶ月使用しました。充電器付き。",
+        price:7800,
+        category:"家電・スマホ・カメラ",
+        condition:"やや傷や汚れあり",
+        shipping:"送料込み",
+        seller:"tech_user",
+        likes:31,
+        image:"https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80",
+        created:Date.now()-700000
     },
 
     {
-        id: 8,
-        name: "ゲームコントローラー",
-        price: 3400,
-        category: "ゲーム",
-        condition: "未使用に近い",
-        shipping: "送料込み",
-        seller: "controller_user",
-        date: "2時間前",
-        icon: "🕹️",
-        likes: 21,
-        description:
-            "ほとんど使用していないコントローラーです。"
+        id:8,
+        name:"フィギュア",
+        description:"コレクション整理のため出品します。",
+        price:6800,
+        category:"ゲーム・おもちゃ・グッズ",
+        condition:"新品、未使用",
+        shipping:"送料込み",
+        seller:"collection",
+        likes:42,
+        image:"https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?auto=format&fit=crop&w=800&q=80",
+        created:Date.now()-800000
     },
 
     {
-        id: 9,
-        name: "古着 デニムジャケット",
-        price: 2500,
-        category: "ファッション",
-        condition: "やや傷や汚れあり",
-        shipping: "送料込み",
-        seller: "oldfashion",
-        date: "3時間前",
-        icon: "🧥",
-        likes: 15,
-        description:
-            "古着のデニムジャケットです。\n古着特有の使用感があります。"
+        id:9,
+        name:"キーボード",
+        description:"ゲーミングキーボードです。動作問題ありません。",
+        price:6200,
+        category:"家電・スマホ・カメラ",
+        condition:"目立った傷や汚れなし",
+        shipping:"送料込み",
+        seller:"pc_user",
+        likes:16,
+        image:"https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80",
+        created:Date.now()-900000
     },
 
     {
-        id: 10,
-        name: "ゲーム攻略大全",
-        price: 900,
-        category: "本・漫画",
-        condition: "目立った傷や汚れなし",
-        shipping: "送料込み",
-        seller: "reader",
-        date: "3時間前",
-        icon: "📖",
-        likes: 5,
-        description:
-            "ゲーム攻略本です。\n書き込みなどはありません。"
+        id:10,
+        name:"スニーカー",
+        description:"数回着用しました。サイズ26cm。",
+        price:7300,
+        category:"メンズ",
+        condition:"やや傷や汚れあり",
+        shipping:"送料込み",
+        seller:"sneaker",
+        likes:25,
+        image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+        created:Date.now()-1000000
     }
 
 ];
 
+
+/* =====================================================
+   PLAYER
+===================================================== */
+
+let player = {
+
+    name:"あなた",
+
+    balance:50000,
+
+    likes:[],
+
+    purchased:[],
+
+    selling:[]
+
+};
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
 let currentCategory = "すべて";
-let currentProduct = null;
-let likedProducts = new Set();
 
-/* =========================
+let currentProductId = null;
+
+let purchaseProductId = null;
+
+let notifications = [];
+
+let priceRequests = [];
+
+
+/* =====================================================
    ELEMENTS
-========================= */
+===================================================== */
 
-const productGrid =
-    document.getElementById("productGrid");
+const productsElement =
+    document.getElementById("products");
+
+const emptyElement =
+    document.getElementById("empty");
 
 const searchInput =
     document.getElementById("searchInput");
@@ -1170,137 +1470,130 @@ const searchInput =
 const sortSelect =
     document.getElementById("sortSelect");
 
-const productModal =
-    document.getElementById("productModal");
+const resultCount =
+    document.getElementById("resultCount");
 
-const negotiateModal =
-    document.getElementById("negotiateModal");
 
-const sellModal =
-    document.getElementById("sellModal");
+/* =====================================================
+   RENDER PRODUCTS
+===================================================== */
 
-const toast =
-    document.getElementById("toast");
+function renderProducts(){
 
-/* =========================
-   RENDER
-========================= */
-
-function renderProducts() {
-
-    let keyword =
+    const keyword =
         searchInput.value.trim().toLowerCase();
 
-    let filtered =
+    let result =
         products.filter(product => {
 
-            const categoryMatch =
+            const matchCategory =
                 currentCategory === "すべて" ||
                 product.category === currentCategory;
 
-            const keywordMatch =
+            const matchKeyword =
                 !keyword ||
                 product.name.toLowerCase().includes(keyword) ||
                 product.description.toLowerCase().includes(keyword);
 
-            return categoryMatch && keywordMatch;
+            const sold =
+                player.purchased.includes(product.id);
+
+            return matchCategory &&
+                   matchKeyword &&
+                   !sold;
+
         });
+
 
     const sort =
         sortSelect.value;
 
-    if (sort === "low") {
 
-        filtered.sort(
-            (a, b) => a.price - b.price
+    if(sort === "new"){
+
+        result.sort((a,b)=>
+            b.created-a.created
         );
 
-    } else if (sort === "high") {
-
-        filtered.sort(
-            (a, b) => b.price - a.price
-        );
-
-    } else if (sort === "new") {
-
-        filtered.sort(
-            (a, b) => a.id - b.id
-        );
     }
 
-    productGrid.innerHTML = "";
+    else if(sort === "low"){
 
-    if (filtered.length === 0) {
+        result.sort((a,b)=>
+            a.price-b.price
+        );
 
-        productGrid.innerHTML = `
-            <div class="empty" style="grid-column:1/-1;">
-                <div style="font-size:42px;margin-bottom:12px;">
-                    🔎
-                </div>
-                <strong>商品が見つかりませんでした</strong>
-                <p>検索条件を変えてみてください。</p>
-            </div>
-        `;
-
-        return;
     }
 
-    filtered.forEach(product => {
+    else if(sort === "high"){
 
-        const card =
+        result.sort((a,b)=>
+            b.price-a.price
+        );
+
+    }
+
+    else if(sort === "like"){
+
+        result.sort((a,b)=>
+            b.likes-a.likes
+        );
+
+    }
+
+
+    productsElement.innerHTML = "";
+
+
+    result.forEach(product => {
+
+        const liked =
+            player.likes.includes(product.id);
+
+        const element =
             document.createElement("article");
 
-        card.className = "product-card";
+        element.className = "product";
 
-        card.innerHTML = `
+        element.onclick = () =>
+            openProduct(product.id);
 
-            <div class="product-image">
 
-                <div class="product-image-inner">
-                    ${product.icon}
-                </div>
+        element.innerHTML = `
 
-                <div class="product-badge">
-                    ${product.condition}
-                </div>
+            <img
+                class="product-image"
+                src="${product.image}"
+                alt=""
+            >
 
-                <button
-                    class="favorite ${
-                        likedProducts.has(product.id)
-                            ? "active"
-                            : ""
-                    }"
-                    data-like="${product.id}"
-                    aria-label="いいね"
-                    type="button"
-                >
-                    ${
-                        likedProducts.has(product.id)
-                            ? "♥"
-                            : "♡"
-                    }
-                </button>
-
-            </div>
-
-            <div class="product-info">
+            <div class="product-body">
 
                 <div class="product-name">
                     ${escapeHtml(product.name)}
                 </div>
 
                 <div class="product-price">
-                    ¥${product.price.toLocaleString()}
+                    ￥${formatPrice(product.price)}
                 </div>
 
                 <div class="product-meta">
+                    ${escapeHtml(product.condition)}
+                    ・${escapeHtml(product.shipping)}
+                </div>
+
+                <div class="product-like">
+
+                    <button
+                        class="like-button ${liked ? "liked" : ""}"
+                        onclick="event.stopPropagation();toggleLike(${product.id})"
+                    >
+                        ${liked ? "♥" : "♡"}
+                        ${product.likes}
+                    </button>
 
                     <span>
-                        ${product.shipping}
-                    </span>
-
-                    <span>
-                        ♡ ${product.likes}
+                        ${escapeHtml(product.seller)}
                     </span>
 
                 </div>
@@ -1308,502 +1601,1334 @@ function renderProducts() {
             </div>
         `;
 
-        card.addEventListener(
-            "click",
-            event => {
+        productsElement.appendChild(element);
 
-                if (
-                    event.target.closest("[data-like]")
-                ) {
-                    return;
-                }
-
-                openProduct(product);
-            }
-        );
-
-        const likeButton =
-            card.querySelector("[data-like]");
-
-        likeButton.addEventListener(
-            "click",
-            event => {
-
-                event.stopPropagation();
-
-                toggleLike(product.id);
-            }
-        );
-
-        productGrid.appendChild(card);
     });
-}
 
-/* =========================
-   PRODUCT DETAIL
-========================= */
 
-function openProduct(product) {
+    resultCount.textContent =
+        `${result.length}件の商品`;
 
-    currentProduct = product;
 
-    document.getElementById("detailImage").textContent =
-        product.icon;
+    if(result.length === 0){
 
-    document.getElementById("detailTitle").textContent =
-        product.name;
+        emptyElement.classList.add("show");
 
-    document.getElementById("detailPrice").textContent =
-        "¥" + product.price.toLocaleString();
+    }else{
 
-    document.getElementById("detailCondition").textContent =
-        product.condition;
+        emptyElement.classList.remove("show");
 
-    document.getElementById("detailShipping").textContent =
-        product.shipping;
-
-    document.getElementById("detailSeller").textContent =
-        product.seller;
-
-    document.getElementById("detailDate").textContent =
-        product.date;
-
-    document.getElementById("detailDescription").textContent =
-        product.description;
-
-    productModal.classList.add("show");
-}
-
-function closeProduct() {
-
-    productModal.classList.remove("show");
-}
-
-/* =========================
-   LIKE
-========================= */
-
-function toggleLike(id) {
-
-    if (likedProducts.has(id)) {
-
-        likedProducts.delete(id);
-
-        showToast("いいねを取り消しました");
-
-    } else {
-
-        likedProducts.add(id);
-
-        showToast("いいねしました");
     }
+
+}
+
+
+/* =====================================================
+   PRODUCT DETAIL
+===================================================== */
+
+function openProduct(id){
+
+    const product =
+        products.find(p=>p.id===id);
+
+    if(!product) return;
+
+    currentProductId = id;
+
+
+    const liked =
+        player.likes.includes(id);
+
+    const alreadyPurchased =
+        player.purchased.includes(id);
+
+
+    document.getElementById(
+        "productDetail"
+    ).innerHTML = `
+
+        <div class="detail">
+
+            <div>
+
+                <img
+                    class="detail-image"
+                    src="${product.image}"
+                    alt=""
+                >
+
+            </div>
+
+            <div class="detail-info">
+
+                <h2>
+                    ${escapeHtml(product.name)}
+                </h2>
+
+                <div class="detail-price">
+                    ￥${formatPrice(product.price)}
+                </div>
+
+                <div class="detail-shipping">
+                    ${escapeHtml(product.shipping)}
+                </div>
+
+                <div class="detail-description">
+                    ${escapeHtml(product.description)}
+                </div>
+
+                <div class="seller">
+
+                    <div class="seller-avatar">
+                        ${escapeHtml(
+                            product.seller.charAt(0)
+                        )}
+                    </div>
+
+                    <div>
+                        <strong>
+                            ${escapeHtml(product.seller)}
+                        </strong>
+
+                        <div
+                            style="font-size:12px;color:#888;"
+                        >
+                            出品者
+                        </div>
+                    </div>
+
+                </div>
+
+                <div
+                    style="font-size:13px;color:#666;"
+                >
+                    商品の状態：
+                    ${escapeHtml(product.condition)}
+                </div>
+
+                <div
+                    style="font-size:13px;color:#666;margin-top:7px;"
+                >
+                    いいね！
+                    ${product.likes}
+                </div>
+
+                <div class="detail-actions">
+
+                    <button
+                        class="secondary"
+                        onclick="toggleLike(${product.id})"
+                    >
+                        ${liked ? "♥ いいね！済み" : "♡ いいね！"}
+                    </button>
+
+                    <button
+                        class="secondary"
+                        onclick="openPriceRequest(${product.id})"
+                        ${alreadyPurchased ? "disabled" : ""}
+                    >
+                        値下げ依頼
+                    </button>
+
+                    <button
+                        class="primary"
+                        onclick="openPurchase(${product.id})"
+                        ${alreadyPurchased ? "disabled" : ""}
+                    >
+                        ${alreadyPurchased
+                            ? "購入済み"
+                            : "購入する"}
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+
+    document
+        .getElementById("productModal")
+        .classList.add("show");
+
+}
+
+
+/* =====================================================
+   LIKE
+===================================================== */
+
+function toggleLike(id){
+
+    const product =
+        products.find(p=>p.id===id);
+
+    if(!product) return;
+
+
+    const index =
+        player.likes.indexOf(id);
+
+
+    if(index === -1){
+
+        player.likes.push(id);
+
+        product.likes++;
+
+        showToast("いいね！しました");
+
+    }else{
+
+        player.likes.splice(index,1);
+
+        product.likes =
+            Math.max(0,product.likes-1);
+
+        showToast("いいね！を解除しました");
+
+    }
+
 
     renderProducts();
-}
 
-/* =========================
-   NEGOTIATE
-========================= */
 
-function openNegotiation() {
+    if(currentProductId === id){
 
-    if (!currentProduct) {
-        return;
+        openProduct(id);
+
     }
 
-    document.getElementById("currentPrice").value =
-        "¥" + currentProduct.price.toLocaleString();
-
-    document.getElementById("offerPrice").value =
-        "";
-
-    negotiateModal.classList.add("show");
 }
 
-function closeNegotiation() {
 
-    negotiateModal.classList.remove("show");
+/* =====================================================
+   PRICE REQUEST
+===================================================== */
+
+function openPriceRequest(id){
+
+    const product =
+        products.find(p=>p.id===id);
+
+    if(!product) return;
+
+
+    if(product.price <= 300){
+
+        showToast(
+            "この商品は値下げ依頼できません"
+        );
+
+        return;
+
+    }
+
+
+    currentProductId = id;
+
+
+    document.getElementById(
+        "priceRequestProduct"
+    ).textContent =
+        product.name;
+
+
+    document.getElementById(
+        "requestCurrentPrice"
+    ).textContent =
+        `￥${formatPrice(product.price)}`;
+
+
+    document.getElementById(
+        "requestPrice"
+    ).value = "";
+
+
+    closeModal("productModal");
+
+    document
+        .getElementById("priceModal")
+        .classList.add("show");
+
 }
 
-document
-    .getElementById("sendOffer")
-    .addEventListener("click", () => {
 
-        const value =
-            Number(
-                document.getElementById("offerPrice").value
-            );
+function sendPriceRequest(){
 
-        if (!Number.isFinite(value)) {
+    const product =
+        products.find(p=>p.id===currentProductId);
 
-            showToast("希望価格を入力してください");
+    if(!product) return;
 
-            return;
-        }
 
-        if (value < 300) {
+    const input =
+        document.getElementById("requestPrice");
 
-            showToast("希望価格は300円以上で入力してください");
+    const price =
+        Number(input.value);
 
-            return;
-        }
 
-        if (value >= currentProduct.price) {
-
-            showToast(
-                "現在価格より安い金額を入力してください"
-            );
-
-            return;
-        }
-
-        closeNegotiation();
+    if(!price || price < 300){
 
         showToast(
-            "¥" +
-            value.toLocaleString() +
-            "で値下げを依頼しました"
+            "300円以上の価格を入力してください"
         );
-    });
 
-/* =========================
-   BUY
-========================= */
+        return;
 
-document
-    .getElementById("buyButton")
-    .addEventListener("click", () => {
+    }
 
-        if (!currentProduct) {
-            return;
-        }
 
-        closeProduct();
+    if(price >= product.price){
 
         showToast(
-            "購入手続きへ進みます"
+            "現在価格より安い金額を入力してください"
         );
+
+        return;
+
+    }
+
+
+    priceRequests.push({
+
+        id:Date.now(),
+
+        productId:product.id,
+
+        productName:product.name,
+
+        originalPrice:product.price,
+
+        requestedPrice:price,
+
+        status:"pending"
+
     });
 
-/* =========================
+
+    notifications.push({
+
+        type:"request",
+
+        title:"値下げ依頼を送信しました",
+
+        text:
+            `${product.name}に￥${formatPrice(price)}の値下げ依頼を送りました。`
+
+    });
+
+
+    closeModal("priceModal");
+
+    updateNotice();
+
+    showToast(
+        "値下げ依頼を送りました"
+    );
+
+}
+
+
+/* =====================================================
+   SIMULATED SELLER RESPONSE
+===================================================== */
+
+function acceptPriceRequest(requestId){
+
+    const request =
+        priceRequests.find(
+            r=>r.id===requestId
+        );
+
+    if(!request) return;
+
+
+    const product =
+        products.find(
+            p=>p.id===request.productId
+        );
+
+    if(!product) return;
+
+
+    product.price =
+        request.requestedPrice;
+
+
+    request.status =
+        "accepted";
+
+
+    notifications.push({
+
+        type:"accepted",
+
+        title:"値下げ依頼が承諾されました",
+
+        text:
+            `${product.name}が￥${formatPrice(product.price)}になりました。`
+
+    });
+
+
+    updateNotice();
+
+    showToast(
+        "値下げ依頼が承諾されました"
+    );
+
+
+    renderProducts();
+
+}
+
+
+function rejectPriceRequest(requestId){
+
+    const request =
+        priceRequests.find(
+            r=>r.id===requestId
+        );
+
+    if(!request) return;
+
+
+    request.status =
+        "rejected";
+
+
+    notifications.push({
+
+        type:"rejected",
+
+        title:"値下げ依頼が見送られました",
+
+        text:
+            `${request.productName}の値下げ依頼は見送られました。`
+
+    });
+
+
+    updateNotice();
+
+    showToast(
+        "値下げ依頼を見送りました"
+    );
+
+}
+
+
+/* =====================================================
+   PURCHASE
+===================================================== */
+
+function openPurchase(id){
+
+    const product =
+        products.find(p=>p.id===id);
+
+    if(!product) return;
+
+
+    if(player.purchased.includes(id)){
+
+        showToast("すでに購入済みです");
+
+        return;
+
+    }
+
+
+    if(player.balance < product.price){
+
+        showToast(
+            "所持金が足りません"
+        );
+
+        return;
+
+    }
+
+
+    purchaseProductId = id;
+
+
+    document.getElementById(
+        "purchaseSummary"
+    ).innerHTML = `
+
+        <div
+            style="display:flex;gap:14px;align-items:center;"
+        >
+
+            <img
+                src="${product.image}"
+                style="
+                    width:80px;
+                    height:80px;
+                    object-fit:cover;
+                    border-radius:5px;
+                "
+            >
+
+            <div>
+
+                <strong>
+                    ${escapeHtml(product.name)}
+                </strong>
+
+                <div
+                    style="color:#777;margin-top:5px;"
+                >
+                    ￥${formatPrice(product.price)}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="purchase-row">
+            <span>商品価格</span>
+            <span>￥${formatPrice(product.price)}</span>
+        </div>
+
+        <div class="purchase-row">
+            <span>送料</span>
+            <span>込み</span>
+        </div>
+
+        <div class="purchase-row total">
+            <span>支払い金額</span>
+            <span>￥${formatPrice(product.price)}</span>
+        </div>
+
+        <div
+            style="
+                margin-top:15px;
+                color:#777;
+                font-size:12px;
+            "
+        >
+            購入後の残高：
+            ￥${formatPrice(
+                player.balance-product.price
+            )}
+        </div>
+    `;
+
+
+    document
+        .getElementById("purchaseModal")
+        .classList.add("show");
+
+}
+
+
+function completePurchase(){
+
+    const product =
+        products.find(
+            p=>p.id===purchaseProductId
+        );
+
+    if(!product) return;
+
+
+    if(player.balance < product.price){
+
+        showToast(
+            "所持金が足りません"
+        );
+
+        closeModal("purchaseModal");
+
+        return;
+
+    }
+
+
+    player.balance -=
+        product.price;
+
+
+    player.purchased.push(
+        product.id
+    );
+
+
+    const acceptedRequest =
+        priceRequests.find(
+            r =>
+                r.productId === product.id &&
+                r.status === "accepted"
+        );
+
+
+    if(acceptedRequest){
+
+        acceptedRequest.status =
+            "purchased";
+
+    }
+
+
+    notifications.push({
+
+        type:"purchase",
+
+        title:"購入しました",
+
+        text:
+            `${product.name}を購入しました。`
+
+    });
+
+
+    closeModal("purchaseModal");
+
+    closeModal("productModal");
+
+    renderProducts();
+
+    updateNotice();
+
+    showToast(
+        "購入が完了しました"
+    );
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function updateNotice(){
+
+    const notice =
+        document.getElementById("notice");
+
+
+    if(notifications.length > 0){
+
+        const latest =
+            notifications[
+                notifications.length-1
+            ];
+
+
+        document.getElementById(
+            "noticeTitle"
+        ).textContent =
+            latest.title;
+
+
+        document.getElementById(
+            "noticeText"
+        ).textContent =
+            latest.text;
+
+
+        notice.classList.add("show");
+
+    }else{
+
+        notice.classList.remove("show");
+
+    }
+
+}
+
+
+function openNotifications(){
+
+    const box =
+        document.getElementById(
+            "notifications"
+        );
+
+
+    let html =
+        `<h2>お知らせ</h2>`;
+
+
+    if(notifications.length === 0){
+
+        html += `
+            <p style="color:#888;">
+                お知らせはありません。
+            </p>
+        `;
+
+    }else{
+
+        [...notifications]
+            .reverse()
+            .forEach(notification => {
+
+                html += `
+
+                    <div
+                        style="
+                            border-bottom:1px solid #eee;
+                            padding:15px 0;
+                        "
+                    >
+
+                        <strong>
+                            ${escapeHtml(
+                                notification.title
+                            )}
+                        </strong>
+
+                        <div
+                            style="
+                                color:#777;
+                                font-size:13px;
+                                margin-top:6px;
+                            "
+                        >
+                            ${escapeHtml(
+                                notification.text
+                            )}
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+    }
+
+
+    /*
+       ゲーム用：
+       自分が送った値下げ依頼を
+       売り手側の判断として確認できる。
+    */
+
+    const pending =
+        priceRequests.filter(
+            r=>r.status==="pending"
+        );
+
+
+    if(pending.length > 0){
+
+        html += `
+            <h3
+                style="
+                    margin-top:25px;
+                    border-top:1px solid #eee;
+                    padding-top:20px;
+                "
+            >
+                値下げ依頼
+            </h3>
+        `;
+
+
+        pending.forEach(request => {
+
+            html += `
+
+                <div
+                    style="
+                        border:1px solid #ddd;
+                        padding:15px;
+                        margin-top:10px;
+                        border-radius:6px;
+                    "
+                >
+
+                    <strong>
+                        ${escapeHtml(
+                            request.productName
+                        )}
+                    </strong>
+
+                    <div
+                        style="
+                            margin:8px 0;
+                            font-size:13px;
+                            color:#777;
+                        "
+                    >
+                        現在価格：
+                        ￥${formatPrice(
+                            request.originalPrice
+                        )}
+                        <br>
+                        希望価格：
+                        ￥${formatPrice(
+                            request.requestedPrice
+                        )}
+                    </div>
+
+                    <div
+                        style="
+                            display:flex;
+                            gap:8px;
+                        "
+                    >
+
+                        <button
+                            class="primary"
+                            style="flex:1;"
+                            onclick="
+                                acceptPriceRequest(${request.id});
+                                openNotifications();
+                            "
+                        >
+                            承諾する
+                        </button>
+
+                        <button
+                            class="secondary"
+                            style="flex:1;"
+                            onclick="
+                                rejectPriceRequest(${request.id});
+                                openNotifications();
+                            "
+                        >
+                            お断りする
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+    document
+        .getElementById(
+            "notificationModal"
+        )
+        .classList.add("show");
+
+}
+
+
+/* =====================================================
+   MYPAGE
+===================================================== */
+
+function openMypage(){
+
+    showMySection("profile");
+
+    document
+        .getElementById("mypageModal")
+        .classList.add("show");
+
+}
+
+
+function showMySection(section){
+
+    const content =
+        document.getElementById(
+            "myContent"
+        );
+
+
+    if(section === "profile"){
+
+        content.innerHTML = `
+
+            <div class="my-profile">
+
+                <h2>マイページ</h2>
+
+                <div>
+                    ${escapeHtml(player.name)}
+                </div>
+
+                <div
+                    style="
+                        font-size:13px;
+                        color:#777;
+                        margin-top:15px;
+                    "
+                >
+                    残高
+                </div>
+
+                <div class="balance">
+                    ￥${formatPrice(player.balance)}
+                </div>
+
+            </div>
+
+            <h3>アカウント情報</h3>
+
+            <p style="color:#777;font-size:13px;">
+                購入数：
+                ${player.purchased.length}件
+            </p>
+
+            <p style="color:#777;font-size:13px;">
+                いいね！：
+                ${player.likes.length}件
+            </p>
+
+            <p style="color:#777;font-size:13px;">
+                出品数：
+                ${player.selling.length}件
+            </p>
+
+        `;
+
+    }
+
+
+    if(section === "history"){
+
+        const history =
+            player.purchased
+                .map(id =>
+                    products.find(p=>p.id===id)
+                )
+                .filter(Boolean);
+
+
+        content.innerHTML = `
+            <h2>購入した商品</h2>
+        `;
+
+
+        if(history.length === 0){
+
+            content.innerHTML += `
+                <p style="color:#888;">
+                    購入した商品はありません。
+                </p>
+            `;
+
+        }else{
+
+            history.forEach(product => {
+
+                content.innerHTML += `
+
+                    <div class="history-item">
+
+                        <img src="${product.image}">
+
+                        <div>
+
+                            <strong>
+                                ${escapeHtml(product.name)}
+                            </strong>
+
+                            <div
+                                style="
+                                    color:#777;
+                                    margin-top:5px;
+                                "
+                            >
+                                ￥${formatPrice(product.price)}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+    }
+
+
+    if(section === "likes"){
+
+        const liked =
+            player.likes
+                .map(id =>
+                    products.find(p=>p.id===id)
+                )
+                .filter(Boolean);
+
+
+        content.innerHTML = `
+            <h2>いいね！した商品</h2>
+        `;
+
+
+        if(liked.length === 0){
+
+            content.innerHTML += `
+                <p style="color:#888;">
+                    いいね！した商品はありません。
+                </p>
+            `;
+
+        }else{
+
+            liked.forEach(product => {
+
+                content.innerHTML += `
+
+                    <div class="history-item">
+
+                        <img src="${product.image}">
+
+                        <div>
+
+                            <strong>
+                                ${escapeHtml(product.name)}
+                            </strong>
+
+                            <div>
+                                ￥${formatPrice(product.price)}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+    }
+
+
+    if(section === "selling"){
+
+        content.innerHTML = `
+            <h2>出品した商品</h2>
+        `;
+
+
+        if(player.selling.length === 0){
+
+            content.innerHTML += `
+                <p style="color:#888;">
+                    出品した商品はありません。
+                </p>
+            `;
+
+        }else{
+
+            player.selling.forEach(id => {
+
+                const product =
+                    products.find(
+                        p=>p.id===id
+                    );
+
+                if(!product) return;
+
+
+                content.innerHTML += `
+
+                    <div class="history-item">
+
+                        <img src="${product.image}">
+
+                        <div>
+
+                            <strong>
+                                ${escapeHtml(product.name)}
+                            </strong>
+
+                            <div>
+                                ￥${formatPrice(product.price)}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
    SELL
-========================= */
+===================================================== */
 
-document
-    .getElementById("sellButton")
-    .addEventListener("click", () => {
+function openSell(){
 
-        sellModal.classList.add("show");
-    });
+    document
+        .getElementById("sellModal")
+        .classList.add("show");
+
+}
+
 
 document
     .getElementById("sellForm")
-    .addEventListener("submit", event => {
+    .addEventListener(
+        "submit",
+        function(event){
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const name =
-            document.getElementById("sellName").value.trim();
 
-        const price =
-            Number(
-                document.getElementById("sellPrice").value
-            );
+            const name =
+                document.getElementById(
+                    "sellName"
+                ).value.trim();
 
-        const category =
-            document.getElementById("sellCategory").value;
 
-        const condition =
-            document.getElementById("sellCondition").value;
+            const description =
+                document.getElementById(
+                    "sellDescription"
+                ).value.trim();
 
-        const description =
-            document.getElementById("sellDescription").value.trim();
 
-        if (!name) {
+            const category =
+                document.getElementById(
+                    "sellCategory"
+                ).value;
 
-            showToast("商品名を入力してください");
 
-            return;
-        }
+            const price =
+                Number(
+                    document.getElementById(
+                        "sellPrice"
+                    ).value
+                );
 
-        if (!Number.isFinite(price) || price < 300) {
 
-            showToast("価格は300円以上で入力してください");
+            if(!name ||
+               !description ||
+               !price ||
+               price < 300){
 
-            return;
-        }
+                showToast(
+                    "入力内容を確認してください"
+                );
 
-        if (!description) {
+                return;
 
-            showToast("商品説明を入力してください");
+            }
 
-            return;
-        }
 
-        const newProduct = {
+            const product = {
 
-            id:
-                Date.now(),
+                id:
+                    Date.now(),
 
-            name:
                 name,
 
-            price:
+                description,
+
                 price,
 
-            category:
                 category,
 
-            condition:
-                condition,
+                condition:
+                    "目立った傷や汚れなし",
 
-            shipping:
-                "送料込み",
+                shipping:
+                    "送料込み",
 
-            seller:
-                "あなた",
+                seller:
+                    player.name,
 
-            date:
-                "たった今",
+                likes:0,
 
-            icon:
-                category === "ゲーム"
-                    ? "🎮"
-                    : category === "スマホ・家電"
-                    ? "📱"
-                    : category === "ファッション"
-                    ? "👕"
-                    : category === "本・漫画"
-                    ? "📚"
-                    : category === "ホビー"
-                    ? "🧸"
-                    : "📦",
+                image:
+                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
 
-            likes:
-                0,
+                created:
+                    Date.now()
 
-            description:
-                description
-        };
+            };
 
-        products.unshift(newProduct);
 
-        event.target.reset();
+            products.unshift(product);
 
-        sellModal.classList.remove("show");
+            player.selling.push(
+                product.id
+            );
 
-        currentCategory = "すべて";
 
-        document
-            .querySelectorAll(".category-button")
-            .forEach(button => {
+            this.reset();
 
-                button.classList.toggle(
-                    "active",
-                    button.dataset.category === "すべて"
-                );
-            });
+            closeModal("sellModal");
 
-        renderProducts();
+            renderProducts();
 
-        showToast("商品を出品しました");
-    });
+            showToast(
+                "商品を出品しました"
+            );
 
-/* =========================
+        }
+    );
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+    "input",
+    renderProducts
+);
+
+
+/* =====================================================
+   SORT
+===================================================== */
+
+sortSelect.addEventListener(
+    "change",
+    renderProducts
+);
+
+
+/* =====================================================
    CATEGORY
-========================= */
+===================================================== */
 
 document
     .querySelectorAll(".category-button")
     .forEach(button => {
 
-        button.addEventListener("click", () => {
+        button.addEventListener(
+            "click",
+            function(){
 
-            currentCategory =
-                button.dataset.category;
+                document
+                    .querySelectorAll(
+                        ".category-button"
+                    )
+                    .forEach(
+                        b =>
+                        b.classList.remove(
+                            "active"
+                        )
+                    );
 
-            document
-                .querySelectorAll(".category-button")
-                .forEach(item => {
 
-                    item.classList.remove("active");
-                });
+                this.classList.add("active");
 
-            button.classList.add("active");
 
-            renderProducts();
-        });
+                currentCategory =
+                    this.dataset.category;
+
+
+                renderProducts();
+
+            }
+        );
+
     });
 
-/* =========================
-   SEARCH
-========================= */
 
-searchInput.addEventListener(
-    "input",
-    () => {
+/* =====================================================
+   MODAL
+===================================================== */
 
-        renderProducts();
+function closeModal(id){
+
+    document
+        .getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+function outsideClose(event,id){
+
+    if(event.target.id === id){
+
+        closeModal(id);
+
     }
-);
 
-/* =========================
-   SORT
-========================= */
+}
 
-sortSelect.addEventListener(
-    "change",
-    () => {
 
-        renderProducts();
-    }
-);
-
-/* =========================
-   CLOSE BUTTONS
-========================= */
-
-document
-    .getElementById("productModalClose")
-    .addEventListener(
-        "click",
-        closeProduct
-    );
-
-document
-    .getElementById("negotiateClose")
-    .addEventListener(
-        "click",
-        closeNegotiation
-    );
-
-document
-    .getElementById("sellClose")
-    .addEventListener(
-        "click",
-        () => {
-
-            sellModal.classList.remove("show");
-        }
-    );
-
-document
-    .getElementById("negotiateButton")
-    .addEventListener(
-        "click",
-        openNegotiation
-    );
-
-/* =========================
-   OUTSIDE CLICK
-========================= */
-
-productModal.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target === productModal
-        ) {
-            closeProduct();
-        }
-    }
-);
-
-negotiateModal.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target === negotiateModal
-        ) {
-            closeNegotiation();
-        }
-    }
-);
-
-sellModal.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target === sellModal
-        ) {
-            sellModal.classList.remove("show");
-        }
-    }
-);
-
-/* =========================
-   HEADER BUTTONS
-========================= */
-
-document
-    .getElementById("notificationButton")
-    .addEventListener(
-        "click",
-        () => {
-
-            showToast(
-                "新しいお知らせはありません"
-            );
-        }
-    );
-
-document
-    .getElementById("mypageButton")
-    .addEventListener(
-        "click",
-        () => {
-
-            showToast(
-                "マイページ機能は準備中です"
-            );
-        }
-    );
-
-/* =========================
+/* =====================================================
    TOAST
-========================= */
+===================================================== */
 
 let toastTimer;
 
-function showToast(message) {
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
 
     toast.textContent =
         message;
 
+
     toast.classList.add("show");
+
 
     clearTimeout(toastTimer);
 
+
     toastTimer =
-        setTimeout(() => {
+        setTimeout(
+            () =>
+            toast.classList.remove("show"),
+            2400
+        );
 
-            toast.classList.remove("show");
-
-        }, 2400);
 }
 
-/* =========================
-   ESCAPE HTML
-========================= */
 
-function escapeHtml(value) {
+/* =====================================================
+   UTIL
+===================================================== */
+
+function formatPrice(number){
+
+    return Number(number)
+        .toLocaleString("ja-JP");
+
+}
+
+
+function escapeHtml(value){
 
     return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
 }
 
-/* =========================
-   INITIALIZE
-========================= */
+
+/* =====================================================
+   START
+===================================================== */
 
 renderProducts();
+
 </script>
 
 </body>
