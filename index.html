@@ -3,755 +3,591 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>フリマ</title>
+<title>Search Battle</title>
 
 <style>
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",
-    "Yu Gothic",YuGothic,Arial,sans-serif;
-    color:#222;
-    background:#f5f5f5;
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, "Noto Sans JP", sans-serif;
+    color: #202124;
+    background: #fff;
 }
 
 button,
-input,
-select{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
+input {
+    font: inherit;
 }
 
 /* =========================
-   HEADER
+   TOP
 ========================= */
 
-.header{
-    height:64px;
-    background:#fff;
-    border-bottom:1px solid #ddd;
-    position:sticky;
-    top:0;
-    z-index:1000;
+.topbar {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+    padding: 0 24px;
+    font-size: 14px;
 }
 
-.header-inner{
-    max-width:1180px;
-    height:100%;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    gap:18px;
-    padding:0 18px;
+.topbar a {
+    color: #202124;
+    text-decoration: none;
 }
 
-.logo{
-    font-size:23px;
-    font-weight:800;
-    color:#e53935;
-    white-space:nowrap;
+.topbar a:hover {
+    text-decoration: underline;
 }
 
-.search{
-    flex:1;
-    position:relative;
+.apps {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
 }
 
-.search input{
-    width:100%;
-    height:42px;
-    border:1px solid #ccc;
-    background:#f5f5f5;
-    border-radius:7px;
-    padding:0 46px 0 16px;
-    outline:none;
-    font-size:14px;
+.apps:hover {
+    background: #f1f3f4;
 }
 
-.search input:focus{
-    border-color:#aaa;
-    background:#fff;
+.apps-grid {
+    width: 18px;
+    height: 18px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
 }
 
-.search-icon{
-    position:absolute;
-    right:14px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#777;
-    font-size:18px;
+.apps-grid span {
+    width: 4px;
+    height: 4px;
+    background: #5f6368;
+    border-radius: 50%;
 }
 
-.header-actions{
-    display:flex;
-    align-items:center;
-    gap:16px;
-    white-space:nowrap;
-}
-
-.header-link{
-    border:0;
-    background:none;
-    color:#444;
-    font-size:13px;
-}
-
-.header-link:hover{
-    color:#e53935;
-}
-
-.sell-button{
-    border:0;
-    background:#e53935;
-    color:white;
-    padding:11px 18px;
-    border-radius:7px;
-    font-weight:bold;
+.user-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #1a73e8;
+    color: white;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
 }
 
 /* =========================
-   CATEGORY BAR
+   GAME HEADER
 ========================= */
 
-.category-bar{
-    background:#fff;
-    border-bottom:1px solid #ddd;
+.game-header {
+    border-bottom: 1px solid #dadce0;
+    padding: 10px 24px 14px;
+    display: none;
 }
 
-.category-inner{
-    max-width:1180px;
-    margin:auto;
-    display:flex;
-    gap:22px;
-    overflow-x:auto;
-    padding:12px 18px;
+.game-header-inner {
+    max-width: 900px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 22px;
 }
 
-.category-button{
-    border:0;
-    background:none;
-    color:#555;
-    font-size:13px;
-    white-space:nowrap;
-    padding:3px 0;
+.mini-logo {
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -1px;
 }
 
-.category-button.active{
-    color:#e53935;
-    font-weight:bold;
+.mini-logo span:nth-child(1) { color: #4285f4; }
+.mini-logo span:nth-child(2) { color: #ea4335; }
+.mini-logo span:nth-child(3) { color: #fbbc05; }
+.mini-logo span:nth-child(4) { color: #4285f4; }
+.mini-logo span:nth-child(5) { color: #34a853; }
+.mini-logo span:nth-child(6) { color: #ea4335; }
+
+/* =========================
+   START SCREEN
+========================= */
+
+.start-screen {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 130px;
+}
+
+.logo {
+    font-size: 86px;
+    font-weight: 500;
+    letter-spacing: -7px;
+    margin-bottom: 30px;
+}
+
+.logo span:nth-child(1) { color: #4285f4; }
+.logo span:nth-child(2) { color: #ea4335; }
+.logo span:nth-child(3) { color: #fbbc05; }
+.logo span:nth-child(4) { color: #4285f4; }
+.logo span:nth-child(5) { color: #34a853; }
+.logo span:nth-child(6) { color: #ea4335; }
+
+.game-title {
+    font-size: 18px;
+    color: #5f6368;
+    margin-bottom: 24px;
+}
+
+.search-box {
+    width: min(584px, calc(100vw - 40px));
+    height: 48px;
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    box-shadow: 0 1px 6px rgba(32,33,36,.12);
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    color: #9aa0a6;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #202124;
+    background: transparent;
+}
+
+.start-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.start-button {
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    color: #202124;
+    padding: 11px 22px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.start-button:hover {
+    border-color: #dadce0;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+}
+
+.challenge-info {
+    margin-top: 35px;
+    color: #5f6368;
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.8;
 }
 
 /* =========================
-   MAIN
+   GAME
 ========================= */
 
-.main{
-    max-width:1180px;
-    margin:auto;
-    padding:24px 18px 70px;
+.game-screen {
+    display: none;
+}
+
+.challenge-bar {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dadce0;
+    padding: 18px 24px;
+}
+
+.challenge-inner {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.challenge-label {
+    color: #5f6368;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.challenge-text {
+    font-size: 18px;
+    font-weight: 500;
+    flex: 1;
+}
+
+.timer {
+    min-width: 80px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.score-mini {
+    min-width: 120px;
+    text-align: right;
+    color: #188038;
+    font-weight: bold;
 }
 
 /* =========================
-   NOTICE
+   SEARCH
 ========================= */
 
-.notice{
-    display:none;
-    background:#fff;
-    border:1px solid #ddd;
-    border-radius:8px;
-    padding:15px 17px;
-    margin-bottom:20px;
+.search-area {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 20px;
 }
 
-.notice.show{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
+.game-search {
+    width: 100%;
+    height: 46px;
+    border: 1px solid #dfe1e5;
+    border-radius: 23px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    box-shadow: 0 1px 3px rgba(32,33,36,.12);
 }
 
-.notice strong{
-    color:#e53935;
+.game-search:focus-within {
+    box-shadow: 0 1px 6px rgba(32,33,36,.18);
 }
 
-.notice button{
-    border:0;
-    background:#e53935;
-    color:#fff;
-    padding:8px 14px;
-    border-radius:5px;
+.search-submit {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #4285f4;
+    font-weight: bold;
 }
 
 /* =========================
-   HERO
+   RESULTS
 ========================= */
 
-.hero{
-    background:#fff;
-    border:1px solid #e5e5e5;
-    padding:30px;
-    border-radius:8px;
-    margin-bottom:28px;
+.results {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
 }
 
-.hero h1{
-    margin:0 0 10px;
-    font-size:26px;
+.result-count {
+    color: #70757a;
+    font-size: 13px;
+    margin: 18px 0;
 }
 
-.hero p{
-    margin:0;
-    color:#777;
-    font-size:14px;
+.result {
+    margin-bottom: 30px;
+    max-width: 720px;
+}
+
+.result-url {
+    color: #202124;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.result-title {
+    color: #1a0dab;
+    font-size: 20px;
+    margin: 0 0 5px;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.result-title:hover {
+    text-decoration: underline;
+}
+
+.result-description {
+    color: #4d5156;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.result-meta {
+    margin-top: 7px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.badge {
+    padding: 3px 7px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.badge-official {
+    background: #e6f4ea;
+    color: #137333;
+}
+
+.badge-ad {
+    background: #fef7e0;
+    color: #8a6116;
+}
+
+.badge-old {
+    background: #f1f3f4;
+    color: #5f6368;
+}
+
+.badge-fake {
+    background: #fce8e6;
+    color: #c5221f;
+}
+
+.result-source {
+    color: #70757a;
 }
 
 /* =========================
-   TOOLBAR
+   ANSWER PANEL
 ========================= */
 
-.toolbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:15px;
+.answer-panel {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 320px;
+    background: white;
+    border: 1px solid #dadce0;
+    box-shadow: 0 3px 14px rgba(60,64,67,.25);
+    padding: 18px;
+    z-index: 20;
 }
 
-.result-count{
-    font-size:14px;
-    color:#555;
+.answer-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.sort{
-    border:1px solid #ccc;
-    background:#fff;
-    border-radius:6px;
-    padding:8px 12px;
+.answer-input {
+    width: 100%;
+    height: 42px;
+    border: 1px solid #dadce0;
+    padding: 0 12px;
+    outline: none;
+}
+
+.answer-input:focus {
+    border-color: #4285f4;
+}
+
+.submit-answer {
+    width: 100%;
+    margin-top: 10px;
+    height: 40px;
+    border: none;
+    background: #1a73e8;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.submit-answer:hover {
+    background: #1765c1;
+}
+
+.hint {
+    margin-top: 9px;
+    font-size: 11px;
+    color: #70757a;
+    line-height: 1.5;
 }
 
 /* =========================
-   PRODUCT GRID
+   RESULT DETAIL
 ========================= */
 
-.products{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:16px;
+.result-detail {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,.98);
+    z-index: 50;
+    overflow-y: auto;
 }
 
-.product{
-    background:#fff;
-    border-radius:7px;
-    overflow:hidden;
-    border:1px solid #e6e6e6;
-    cursor:pointer;
-    transition:.15s;
+.detail-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 25px 100px;
 }
 
-.product:hover{
-    transform:translateY(-2px);
-    box-shadow:0 4px 14px rgba(0,0,0,.08);
+.close-detail {
+    position: fixed;
+    top: 20px;
+    right: 25px;
+    border: none;
+    background: #f1f3f4;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
 }
 
-.product-image{
-    width:100%;
-    aspect-ratio:1/1;
-    object-fit:cover;
-    display:block;
-    background:#eee;
+.detail-url {
+    color: #188038;
+    font-size: 14px;
+    margin-bottom: 8px;
 }
 
-.product-body{
-    padding:10px 11px 13px;
+.detail-title {
+    color: #1a0dab;
+    font-size: 30px;
+    margin-bottom: 25px;
 }
 
-.product-name{
-    font-size:13px;
-    line-height:1.5;
-    min-height:39px;
-    margin-bottom:6px;
+.detail-content {
+    font-size: 16px;
+    line-height: 2;
+    color: #3c4043;
 }
 
-.product-price{
-    font-size:16px;
-    font-weight:bold;
+.detail-content strong {
+    color: #202124;
 }
 
-.product-meta{
-    color:#888;
-    font-size:11px;
-    margin-top:5px;
-}
-
-.product-like{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-top:8px;
-    color:#888;
-    font-size:11px;
-}
-
-.like-button{
-    border:0;
-    background:none;
-    padding:0;
-    color:#777;
-}
-
-.like-button.liked{
-    color:#e53935;
+.source-warning {
+    margin-top: 35px;
+    padding: 18px;
+    border-left: 4px solid #fbbc04;
+    background: #fff8e1;
+    font-size: 14px;
+    line-height: 1.7;
 }
 
 /* =========================
-   EMPTY
+   RESULT SCREEN
 ========================= */
 
-.empty{
-    display:none;
-    text-align:center;
-    background:#fff;
-    border:1px solid #ddd;
-    padding:70px 20px;
-    color:#777;
+.result-screen {
+    display: none;
+    min-height: 100vh;
+    text-align: center;
+    padding-top: 100px;
 }
 
-.empty.show{
-    display:block;
+.result-logo {
+    font-size: 45px;
+    letter-spacing: -3px;
+    margin-bottom: 35px;
+}
+
+.result-main {
+    font-size: 60px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.result-label {
+    color: #5f6368;
+    margin-bottom: 40px;
+}
+
+.result-card {
+    width: min(600px, calc(100vw - 40px));
+    margin: auto;
+    border: 1px solid #dadce0;
+    padding: 25px;
+    text-align: left;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.stat:last-child {
+    border-bottom: none;
+}
+
+.stat span:first-child {
+    color: #5f6368;
+}
+
+.rank {
+    margin-top: 25px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.restart {
+    margin-top: 30px;
+    padding: 12px 25px;
+    border: none;
+    background: #1a73e8;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
 /* =========================
-   MODAL
+   MOBILE
 ========================= */
 
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:2000;
-    padding:20px;
-}
+@media (max-width: 700px) {
 
-.modal.show{
-    display:flex;
-}
-
-.modal-box{
-    background:#fff;
-    width:min(900px,100%);
-    max-height:90vh;
-    overflow:auto;
-    border-radius:8px;
-    position:relative;
-}
-
-.modal-small{
-    width:min(500px,100%);
-}
-
-.modal-close{
-    position:absolute;
-    right:15px;
-    top:12px;
-    width:35px;
-    height:35px;
-    border:0;
-    background:#f5f5f5;
-    border-radius:50%;
-    font-size:20px;
-    z-index:2;
-}
-
-.modal-content{
-    padding:30px;
-}
-
-/* =========================
-   PRODUCT DETAIL
-========================= */
-
-.detail{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:35px;
-}
-
-.detail-image{
-    width:100%;
-    aspect-ratio:1/1;
-    object-fit:cover;
-    background:#eee;
-}
-
-.detail-info h2{
-    font-size:21px;
-    line-height:1.5;
-    margin:0 0 16px;
-}
-
-.detail-price{
-    font-size:29px;
-    font-weight:bold;
-    margin-bottom:6px;
-}
-
-.detail-shipping{
-    font-size:13px;
-    color:#777;
-    margin-bottom:20px;
-}
-
-.detail-description{
-    font-size:14px;
-    line-height:1.8;
-    white-space:pre-wrap;
-    padding:15px 0;
-    border-top:1px solid #eee;
-    border-bottom:1px solid #eee;
-}
-
-.seller{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:18px 0;
-}
-
-.seller-avatar{
-    width:42px;
-    height:42px;
-    background:#eee;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-}
-
-.detail-actions{
-    display:grid;
-    gap:10px;
-    margin-top:18px;
-}
-
-.primary{
-    border:0;
-    background:#e53935;
-    color:white;
-    padding:15px;
-    border-radius:6px;
-    font-weight:bold;
-    font-size:15px;
-}
-
-.secondary{
-    border:1px solid #ddd;
-    background:#fff;
-    color:#333;
-    padding:13px;
-    border-radius:6px;
-    font-weight:bold;
-}
-
-.secondary:hover{
-    background:#f8f8f8;
-}
-
-.primary:disabled,
-.secondary:disabled{
-    opacity:.45;
-    cursor:not-allowed;
-}
-
-/* =========================
-   FORM
-========================= */
-
-.form-group{
-    margin-bottom:18px;
-}
-
-.form-group label{
-    display:block;
-    font-size:13px;
-    font-weight:bold;
-    margin-bottom:7px;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select{
-    width:100%;
-    border:1px solid #ccc;
-    border-radius:6px;
-    padding:12px;
-    outline:none;
-    background:#fff;
-}
-
-.form-group textarea{
-    min-height:110px;
-    resize:vertical;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus{
-    border-color:#999;
-}
-
-/* =========================
-   PRICE REQUEST
-========================= */
-
-.price-current{
-    background:#f7f7f7;
-    padding:16px;
-    margin-bottom:20px;
-    border-radius:6px;
-}
-
-.price-current span{
-    color:#777;
-    font-size:12px;
-}
-
-.price-current strong{
-    display:block;
-    font-size:24px;
-    margin-top:5px;
-}
-
-.price-input-wrap{
-    position:relative;
-}
-
-.price-input-wrap span{
-    position:absolute;
-    left:12px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#777;
-}
-
-.price-input-wrap input{
-    padding-left:28px;
-    font-size:20px;
-    font-weight:bold;
-}
-
-/* =========================
-   PURCHASE
-========================= */
-
-.purchase-summary{
-    background:#f7f7f7;
-    padding:18px;
-    border-radius:6px;
-    margin-bottom:20px;
-}
-
-.purchase-row{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:10px;
-    font-size:14px;
-}
-
-.purchase-row.total{
-    border-top:1px solid #ddd;
-    padding-top:15px;
-    margin-top:15px;
-    font-weight:bold;
-    font-size:18px;
-}
-
-/* =========================
-   MY PAGE
-========================= */
-
-.mypage{
-    display:grid;
-    grid-template-columns:220px 1fr;
-    gap:20px;
-}
-
-.my-menu{
-    background:#fff;
-    border:1px solid #ddd;
-}
-
-.my-menu button{
-    width:100%;
-    text-align:left;
-    padding:15px;
-    background:#fff;
-    border:0;
-    border-bottom:1px solid #eee;
-}
-
-.my-menu button:hover{
-    background:#f7f7f7;
-}
-
-.my-content{
-    background:#fff;
-    border:1px solid #ddd;
-    padding:25px;
-}
-
-.my-profile{
-    border-bottom:1px solid #eee;
-    padding-bottom:20px;
-    margin-bottom:20px;
-}
-
-.balance{
-    font-size:28px;
-    font-weight:bold;
-    margin-top:7px;
-}
-
-.history-item{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:15px 0;
-    border-bottom:1px solid #eee;
-}
-
-.history-item img{
-    width:70px;
-    height:70px;
-    object-fit:cover;
-}
-
-/* =========================
-   SELL
-========================= */
-
-.sell-preview{
-    border:1px dashed #bbb;
-    background:#fafafa;
-    padding:35px;
-    text-align:center;
-    color:#888;
-    margin-bottom:20px;
-}
-
-/* =========================
-   TOAST
-========================= */
-
-.toast{
-    position:fixed;
-    left:50%;
-    bottom:30px;
-    transform:translate(-50%,30px);
-    background:#333;
-    color:#fff;
-    padding:13px 20px;
-    border-radius:7px;
-    opacity:0;
-    pointer-events:none;
-    transition:.25s;
-    z-index:5000;
-    font-size:13px;
-}
-
-.toast.show{
-    opacity:1;
-    transform:translate(-50%,0);
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:1000px){
-    .products{
-        grid-template-columns:repeat(4,1fr);
-    }
-}
-
-@media(max-width:760px){
-    .header{
-        height:auto;
+    .logo {
+        font-size: 64px;
     }
 
-    .header-inner{
-        flex-wrap:wrap;
-        padding:10px 12px;
+    .start-screen {
+        padding-top: 90px;
     }
 
-    .logo{
-        order:1;
+    .challenge-inner {
+        flex-wrap: wrap;
     }
 
-    .header-actions{
-        order:2;
-        margin-left:auto;
+    .challenge-text {
+        width: 100%;
+        order: 3;
     }
 
-    .search{
-        order:3;
-        flex-basis:100%;
+    .answer-panel {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: auto;
     }
 
-    .detail{
-        grid-template-columns:1fr;
-        gap:20px;
-    }
-
-    .products{
-        grid-template-columns:repeat(2,1fr);
-        gap:10px;
-    }
-
-    .hero{
-        padding:22px;
-    }
-
-    .mypage{
-        grid-template-columns:1fr;
-    }
-
-    .main{
-        padding:15px 10px 50px;
-    }
-}
-
-@media(max-width:450px){
-    .header-link{
-        display:none;
-    }
-
-    .sell-button{
-        padding:8px 12px;
-        font-size:12px;
-    }
-
-    .product-name{
-        font-size:12px;
+    .results {
+        padding-bottom: 180px;
     }
 }
 </style>
@@ -760,2174 +596,799 @@ a{
 <body>
 
 <!-- =========================
-     HEADER
+     TOP BAR
 ========================= -->
 
-<header class="header">
-    <div class="header-inner">
+<div class="topbar">
+    <a href="#">Gmail</a>
+    <a href="#">画像</a>
 
-        <div class="logo">フリマ</div>
+    <div class="apps">
+        <div class="apps-grid">
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+        </div>
+    </div>
 
-        <div class="search">
+    <div class="user-icon">S</div>
+</div>
+
+<!-- =========================
+     START
+========================= -->
+
+<section class="start-screen" id="startScreen">
+
+    <div class="logo">
+        <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
+    </div>
+
+    <div class="game-title">
+        SEARCH BATTLE
+    </div>
+
+    <div class="search-box">
+        <div class="search-icon">⌕</div>
+        <input
+            class="search-input"
+            id="startSearch"
+            placeholder="検索してゲームを開始"
+        >
+    </div>
+
+    <div class="start-buttons">
+        <button class="start-button" onclick="startGame()">
+            検索ゲームを開始
+        </button>
+
+        <button class="start-button" onclick="showRules()">
+            遊び方
+        </button>
+    </div>
+
+    <div class="challenge-info">
+        WEBを検索して答えを探そう。<br>
+        正確さだけではなく、情報を見極める力も重要です。
+    </div>
+
+</section>
+
+<!-- =========================
+     GAME
+========================= -->
+
+<section class="game-screen" id="gameScreen">
+
+    <div class="game-header" id="gameHeader">
+        <div class="game-header-inner">
+            <div class="mini-logo">
+                <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="challenge-bar">
+
+        <div class="challenge-inner">
+
+            <div class="challenge-label">
+                お題
+            </div>
+
+            <div class="challenge-text" id="challengeText">
+                日本で一番高い山の標高を調べろ
+            </div>
+
+            <div class="timer" id="timer">
+                90.0
+            </div>
+
+            <div class="score-mini" id="scoreMini">
+                SCORE 0
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="search-area">
+
+        <div class="game-search">
+
+            <div class="search-icon">⌕</div>
+
             <input
-                id="searchInput"
-                type="text"
-                placeholder="なにをお探しですか？"
-                autocomplete="off"
+                class="search-input"
+                id="gameSearch"
+                placeholder="検索"
+                onkeydown="handleSearchKey(event)"
             >
-            <span class="search-icon">⌕</span>
-        </div>
-
-        <div class="header-actions">
 
             <button
-                class="header-link"
-                onclick="openNotifications()"
+                class="search-submit"
+                onclick="performSearch()"
             >
-                お知らせ
-            </button>
-
-            <button
-                class="header-link"
-                onclick="openMypage()"
-            >
-                マイページ
-            </button>
-
-            <button
-                class="sell-button"
-                onclick="openSell()"
-            >
-                出品
-            </button>
-
-        </div>
-    </div>
-</header>
-
-<!-- =========================
-     CATEGORY
-========================= -->
-
-<nav class="category-bar">
-    <div class="category-inner">
-
-        <button class="category-button active"
-            data-category="すべて">
-            すべて
-        </button>
-
-        <button class="category-button"
-            data-category="レディース">
-            レディース
-        </button>
-
-        <button class="category-button"
-            data-category="メンズ">
-            メンズ
-        </button>
-
-        <button class="category-button"
-            data-category="ベビー・キッズ">
-            ベビー・キッズ
-        </button>
-
-        <button class="category-button"
-            data-category="ゲーム・おもちゃ・グッズ">
-            ゲーム・おもちゃ・グッズ
-        </button>
-
-        <button class="category-button"
-            data-category="家電・スマホ・カメラ">
-            家電・スマホ・カメラ
-        </button>
-
-        <button class="category-button"
-            data-category="本・音楽・ゲーム">
-            本・音楽・ゲーム
-        </button>
-
-        <button class="category-button"
-            data-category="その他">
-            その他
-        </button>
-
-    </div>
-</nav>
-
-<!-- =========================
-     MAIN
-========================= -->
-
-<main class="main">
-
-    <div
-        id="notice"
-        class="notice"
-    >
-        <div>
-            <strong id="noticeTitle">お知らせがあります</strong>
-            <div id="noticeText">
-                値下げ依頼を確認してください。
-            </div>
-        </div>
-
-        <button onclick="openNotifications()">
-            確認する
-        </button>
-    </div>
-
-    <section class="hero">
-        <h1>欲しいものを、もっと身近に。</h1>
-        <p>
-            たくさんの商品から気になるものを探してみよう。
-        </p>
-    </section>
-
-    <div class="toolbar">
-
-        <div
-            class="result-count"
-            id="resultCount"
-        >
-            商品
-        </div>
-
-        <select
-            class="sort"
-            id="sortSelect"
-        >
-            <option value="recommended">おすすめ順</option>
-            <option value="new">新しい順</option>
-            <option value="low">価格の安い順</option>
-            <option value="high">価格の高い順</option>
-            <option value="like">いいね！が多い順</option>
-        </select>
-
-    </div>
-
-    <div
-        class="products"
-        id="products"
-    ></div>
-
-    <div
-        class="empty"
-        id="empty"
-    >
-        商品が見つかりませんでした。
-    </div>
-
-</main>
-
-<!-- =========================
-     PRODUCT MODAL
-========================= -->
-
-<div
-    class="modal"
-    id="productModal"
-    onclick="outsideClose(event,'productModal')"
->
-    <div class="modal-box">
-
-        <button
-            class="modal-close"
-            onclick="closeModal('productModal')"
-        >
-            ×
-        </button>
-
-        <div
-            class="modal-content"
-            id="productDetail"
-        ></div>
-
-    </div>
-</div>
-
-<!-- =========================
-     PRICE REQUEST MODAL
-========================= -->
-
-<div
-    class="modal"
-    id="priceModal"
->
-    <div class="modal-box modal-small">
-
-        <button
-            class="modal-close"
-            onclick="closeModal('priceModal')"
-        >
-            ×
-        </button>
-
-        <div class="modal-content">
-
-            <h2>値下げ依頼</h2>
-
-            <p
-                id="priceRequestProduct"
-                style="color:#666;font-size:14px;"
-            ></p>
-
-            <div class="price-current">
-
-                <span>現在の販売価格</span>
-
-                <strong id="requestCurrentPrice">
-                    ￥0
-                </strong>
-
-            </div>
-
-            <div class="form-group">
-
-                <label>
-                    希望価格
-                </label>
-
-                <div class="price-input-wrap">
-
-                    <span>￥</span>
-
-                    <input
-                        id="requestPrice"
-                        type="number"
-                        min="300"
-                        step="1"
-                        placeholder="希望価格を入力"
-                    >
-
-                </div>
-
-            </div>
-
-            <p
-                style="font-size:12px;color:#888;line-height:1.6;"
-            >
-                出品者が承諾した場合、その価格で購入できるようになります。
-                値下げ依頼は購入を確約するものではありません。
-            </p>
-
-            <button
-                class="primary"
-                style="width:100%;margin-top:10px;"
-                onclick="sendPriceRequest()"
-            >
-                値下げを依頼する
-            </button>
-
-        </div>
-    </div>
-</div>
-
-<!-- =========================
-     PURCHASE MODAL
-========================= -->
-
-<div
-    class="modal"
-    id="purchaseModal"
->
-    <div class="modal-box modal-small">
-
-        <button
-            class="modal-close"
-            onclick="closeModal('purchaseModal')"
-        >
-            ×
-        </button>
-
-        <div class="modal-content">
-
-            <h2>購入確認</h2>
-
-            <div
-                class="purchase-summary"
-                id="purchaseSummary"
-            ></div>
-
-            <button
-                class="primary"
-                style="width:100%;"
-                onclick="completePurchase()"
-            >
-                購入を確定する
+                検索
             </button>
 
         </div>
 
     </div>
-</div>
 
-<!-- =========================
-     NOTIFICATION MODAL
-========================= -->
+    <div class="results">
 
-<div
-    class="modal"
-    id="notificationModal"
->
-    <div class="modal-box modal-small">
-
-        <button
-            class="modal-close"
-            onclick="closeModal('notificationModal')"
-        >
-            ×
-        </button>
-
-        <div
-            class="modal-content"
-            id="notifications"
-        ></div>
-
-    </div>
-</div>
-
-<!-- =========================
-     MYPAGE MODAL
-========================= -->
-
-<div
-    class="modal"
-    id="mypageModal"
->
-    <div class="modal-box">
-
-        <button
-            class="modal-close"
-            onclick="closeModal('mypageModal')"
-        >
-            ×
-        </button>
-
-        <div class="modal-content">
-
-            <div class="mypage">
-
-                <div class="my-menu">
-
-                    <button onclick="showMySection('profile')">
-                        アカウント
-                    </button>
-
-                    <button onclick="showMySection('history')">
-                        購入した商品
-                    </button>
-
-                    <button onclick="showMySection('likes')">
-                        いいね！した商品
-                    </button>
-
-                    <button onclick="showMySection('selling')">
-                        出品した商品
-                    </button>
-
-                </div>
-
-                <div
-                    class="my-content"
-                    id="myContent"
-                ></div>
-
-            </div>
-
+        <div class="result-count" id="resultCount">
+            検索結果
         </div>
+
+        <div id="resultList"></div>
+
     </div>
-</div>
 
-<!-- =========================
-     SELL MODAL
-========================= -->
+    <div class="answer-panel">
 
-<div
-    class="modal"
-    id="sellModal"
->
-    <div class="modal-box modal-small">
+        <div class="answer-title">
+            答えを入力
+        </div>
+
+        <input
+            class="answer-input"
+            id="answerInput"
+            placeholder="例：3776m"
+        >
 
         <button
-            class="modal-close"
-            onclick="closeModal('sellModal')"
+            class="submit-answer"
+            onclick="submitAnswer()"
         >
-            ×
+            回答する
         </button>
 
-        <div class="modal-content">
-
-            <h2>商品の出品</h2>
-
-            <form id="sellForm">
-
-                <div class="form-group">
-
-                    <label>
-                        商品名
-                    </label>
-
-                    <input
-                        id="sellName"
-                        required
-                        placeholder="商品名を入力"
-                    >
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>
-                        商品説明
-                    </label>
-
-                    <textarea
-                        id="sellDescription"
-                        required
-                        placeholder="商品の状態などを入力"
-                    ></textarea>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>
-                        カテゴリ
-                    </label>
-
-                    <select id="sellCategory">
-
-                        <option>
-                            その他
-                        </option>
-
-                        <option>
-                            レディース
-                        </option>
-
-                        <option>
-                            メンズ
-                        </option>
-
-                        <option>
-                            ベビー・キッズ
-                        </option>
-
-                        <option>
-                            ゲーム・おもちゃ・グッズ
-                        </option>
-
-                        <option>
-                            家電・スマホ・カメラ
-                        </option>
-
-                        <option>
-                            本・音楽・ゲーム
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>
-                        販売価格
-                    </label>
-
-                    <input
-                        id="sellPrice"
-                        type="number"
-                        min="300"
-                        required
-                        placeholder="300"
-                    >
-
-                </div>
-
-                <button
-                    class="primary"
-                    style="width:100%;"
-                    type="submit"
-                >
-                    出品する
-                </button>
-
-            </form>
-
+        <div class="hint">
+            答えだけでなく、情報源を見極めることが重要です。
         </div>
+
     </div>
+
+</section>
+
+<!-- =========================
+     DETAIL
+========================= -->
+
+<div class="result-detail" id="resultDetail">
+
+    <button class="close-detail" onclick="closeDetail()">
+        ×
+    </button>
+
+    <div class="detail-inner">
+
+        <div class="detail-url" id="detailUrl"></div>
+
+        <div class="detail-title" id="detailTitle"></div>
+
+        <div class="detail-content" id="detailContent"></div>
+
+        <div class="source-warning" id="sourceWarning"></div>
+
+    </div>
+
 </div>
 
 <!-- =========================
-     TOAST
+     RESULT
 ========================= -->
 
-<div
-    class="toast"
-    id="toast"
-></div>
+<section class="result-screen" id="resultScreen">
+
+    <div class="result-logo">
+        <span style="color:#4285f4">G</span><span style="color:#ea4335">o</span><span style="color:#fbbc05">o</span><span style="color:#4285f4">g</span><span style="color:#34a853">l</span><span style="color:#ea4335">e</span>
+    </div>
+
+    <div class="result-main" id="finalScore">
+        0
+    </div>
+
+    <div class="result-label">
+        SCORE
+    </div>
+
+    <div class="result-card">
+
+        <div class="stat">
+            <span>回答</span>
+            <strong id="finalAnswer">-</strong>
+        </div>
+
+        <div class="stat">
+            <span>正解</span>
+            <strong id="correctAnswer">-</strong>
+        </div>
+
+        <div class="stat">
+            <span>回答時間</span>
+            <strong id="finalTime">-</strong>
+        </div>
+
+        <div class="stat">
+            <span>情報源の評価</span>
+            <strong id="sourceScore">-</strong>
+        </div>
+
+    </div>
+
+    <div class="rank" id="rankText">
+        検索結果を集計中...
+    </div>
+
+    <button class="restart" onclick="restartGame()">
+        もう一度プレイ
+    </button>
+
+</section>
 
 <script>
 
 /* =====================================================
-   DATA
+   GAME DATA
 ===================================================== */
 
-let products = [
+const challenge = {
+    question: "日本で一番高い山の標高を調べろ",
+    answer: "3776",
+    answerDisplay: "3,776m",
+};
+
+const searchDatabase = [
 
     {
-        id:1,
-        name:"Nintendo Switch 本体",
-        description:"Nintendo Switch本体です。動作確認済みです。多少の使用感があります。",
-        price:24800,
-        category:"ゲーム・おもちゃ・グッズ",
-        condition:"やや傷や汚れあり",
-        shipping:"送料込み",
-        seller:"ゲーム好き",
-        likes:34,
-        image:"https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?auto=format&fit=crop&w=800&q=80",
-        created:Date.now()-100000
+        keywords: ["日本", "一番", "高い", "山", "富士山", "標高", "高さ"],
+
+        url: "www.gsi.go.jp",
+        title: "富士山の標高について | 国土地理院",
+        description:
+            "日本の国土に関する測量・地図情報を提供する国土地理院。富士山の標高は3,776mとされています。",
+
+        type: "official",
+
+        content:
+            "<strong>富士山の標高は3,776mです。</strong><br><br>" +
+            "国土地理院が公開している日本の地形・標高に関する情報です。" +
+            "富士山は日本で最も高い山で、標高は3,776mです。",
+
+        warning:
+            "公的機関による情報。今回のお題では信頼性の高い情報源として扱えます。"
     },
 
     {
-        id:2,
-        name:"ワイヤレスイヤホン",
-        description:"数回使用しました。ケース付きです。",
-        price:4800,
-        category:"家電・スマホ・カメラ",
-        condition:"目立った傷や汚れなし",
-        shipping:"送料込み",
-        seller:"audio_user",
-        likes:18,
-        image:"https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=800&q=80",
-        created:Date.now()-200000
+        keywords: ["日本", "一番", "高い", "山", "富士山", "標高"],
+
+        url: "www.japan-guide.example",
+        title: "日本で一番高い山ランキング！意外な山も紹介",
+        description:
+            "日本全国の山をランキング形式で紹介。富士山の高さや観光情報について詳しく解説します。",
+
+        type: "normal",
+
+        content:
+            "日本で最も高い山として一般的に知られているのは富士山です。<br><br>" +
+            "富士山の標高は3,776mと紹介されています。",
+
+        warning:
+            "内容はお題に関係していますが、公的な一次情報ではありません。"
     },
 
     {
-        id:3,
-        name:"黒いパーカー",
-        description:"シンプルな黒のパーカーです。サイズはMです。",
-        price:3200,
-        category:"メンズ",
-        condition:"目立った傷や汚れなし",
-        shipping:"送料込み",
-        seller:"shop_01",
-        likes:12,
-        image:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=80",
-        created:Date.now()-300000
+        keywords: ["日本", "一番", "高い", "山", "標高"],
+
+        url: "www.osusume-mountain.example",
+        title: "【2026年最新】日本の高い山TOP10！知らないと損",
+        description:
+            "登山初心者必見！日本で一番高い山をランキング形式で紹介。おすすめ登山グッズも紹介しています。",
+
+        type: "ad",
+
+        content:
+            "日本の高い山をランキング形式で紹介しています。<br><br>" +
+            "記事内では富士山を1位として紹介しています。",
+
+        warning:
+            "商品紹介・広告への誘導を主目的とするサイト。情報が正しい可能性はありますが、今回のゲームでは信頼度を低く評価します。"
     },
 
     {
-        id:4,
-        name:"人気ゲームソフト",
-        description:"動作確認済み。ケースあり。",
-        price:4200,
-        category:"ゲーム・おもちゃ・グッズ",
-        condition:"目立った傷や汚れなし",
-        shipping:"送料込み",
-        seller:"ゲーム倉庫",
-        likes:27,
-        image:"https://images.unsplash.com/photo-1592840496694-26c035b52b8e?auto=format&fit=crop&w=800&q=80",
-        created:Date.now()-400000
+        keywords: ["日本", "一番", "高い", "山", "富士山", "標高"],
+
+        url: "www.truth-news.example",
+        title: "【衝撃】富士山の本当の高さは3776mではなかった？",
+        description:
+            "これまで常識だと思われていた富士山の標高。その数字には意外な秘密が隠されているという情報を独自調査しました。",
+
+        type: "fake",
+
+        content:
+            "富士山の高さについて独自の説を紹介しています。<br><br>" +
+            "一般的には3,776mとされていますが、この記事では別の数字を主張しています。",
+
+        warning:
+            "強い煽り表現を使い、根拠となる一次資料が明確ではありません。情報を鵜呑みにしない方がよいサイトとして設定されています。"
     },
 
     {
-        id:5,
-        name:"マンガ 10冊セット",
-        description:"人気作品のコミックセットです。",
-        price:2500,
-        category:"本・音楽・ゲーム",
-        condition:"やや傷や汚れあり",
-        shipping:"送料込み",
-        seller:"book_store",
-        likes:9,
-        image:"https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80",
-        created:Date.now()-500000
-    },
+        keywords: ["日本", "一番", "高い", "山", "富士山"],
 
-    {
-        id:6,
-        name:"レディースバッグ",
-        description:"普段使いしやすいバッグです。",
-        price:5500,
-        category:"レディース",
-        condition:"目立った傷や汚れなし",
-        shipping:"送料込み",
-        seller:"mimi",
-        likes:21,
-        image:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80",
-        created:Date.now()-600000
-    },
+        url: "old-blog.example",
+        title: "富士山について調べてみた【2014年】",
+        description:
+            "昔調べた日本の山についての個人ブログ。富士山について写真とともに紹介しています。",
 
-    {
-        id:7,
-        name:"スマートウォッチ",
-        description:"数ヶ月使用しました。充電器付き。",
-        price:7800,
-        category:"家電・スマホ・カメラ",
-        condition:"やや傷や汚れあり",
-        shipping:"送料込み",
-        seller:"tech_user",
-        likes:31,
-        image:"https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80",
-        created:Date.now()-700000
-    },
+        type: "old",
 
-    {
-        id:8,
-        name:"フィギュア",
-        description:"コレクション整理のため出品します。",
-        price:6800,
-        category:"ゲーム・おもちゃ・グッズ",
-        condition:"新品、未使用",
-        shipping:"送料込み",
-        seller:"collection",
-        likes:42,
-        image:"https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?auto=format&fit=crop&w=800&q=80",
-        created:Date.now()-800000
-    },
+        content:
+            "富士山は日本で一番高い山として紹介されています。<br><br>" +
+            "記事は2014年に作成された個人ブログです。",
 
-    {
-        id:9,
-        name:"キーボード",
-        description:"ゲーミングキーボードです。動作問題ありません。",
-        price:6200,
-        category:"家電・スマホ・カメラ",
-        condition:"目立った傷や汚れなし",
-        shipping:"送料込み",
-        seller:"pc_user",
-        likes:16,
-        image:"https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80",
-        created:Date.now()-900000
-    },
-
-    {
-        id:10,
-        name:"スニーカー",
-        description:"数回着用しました。サイズ26cm。",
-        price:7300,
-        category:"メンズ",
-        condition:"やや傷や汚れあり",
-        shipping:"送料込み",
-        seller:"sneaker",
-        likes:25,
-        image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
-        created:Date.now()-1000000
+        warning:
+            "内容自体は参考になりますが、古い個人ブログです。"
     }
 
 ];
-
-
-/* =====================================================
-   PLAYER
-===================================================== */
-
-let player = {
-
-    name:"あなた",
-
-    balance:50000,
-
-    likes:[],
-
-    purchased:[],
-
-    selling:[]
-
-};
-
 
 /* =====================================================
    STATE
 ===================================================== */
 
-let currentCategory = "すべて";
-
-let currentProductId = null;
-
-let purchaseProductId = null;
-
-let notifications = [];
-
-let priceRequests = [];
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const productsElement =
-    document.getElementById("products");
-
-const emptyElement =
-    document.getElementById("empty");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const sortSelect =
-    document.getElementById("sortSelect");
-
-const resultCount =
-    document.getElementById("resultCount");
-
-
-/* =====================================================
-   RENDER PRODUCTS
-===================================================== */
-
-function renderProducts(){
-
-    const keyword =
-        searchInput.value.trim().toLowerCase();
-
-    let result =
-        products.filter(product => {
-
-            const matchCategory =
-                currentCategory === "すべて" ||
-                product.category === currentCategory;
-
-            const matchKeyword =
-                !keyword ||
-                product.name.toLowerCase().includes(keyword) ||
-                product.description.toLowerCase().includes(keyword);
-
-            const sold =
-                player.purchased.includes(product.id);
-
-            return matchCategory &&
-                   matchKeyword &&
-                   !sold;
-
-        });
-
-
-    const sort =
-        sortSelect.value;
-
-
-    if(sort === "new"){
-
-        result.sort((a,b)=>
-            b.created-a.created
-        );
-
-    }
-
-    else if(sort === "low"){
-
-        result.sort((a,b)=>
-            a.price-b.price
-        );
-
-    }
-
-    else if(sort === "high"){
-
-        result.sort((a,b)=>
-            b.price-a.price
-        );
-
-    }
-
-    else if(sort === "like"){
-
-        result.sort((a,b)=>
-            b.likes-a.likes
-        );
-
-    }
-
-
-    productsElement.innerHTML = "";
-
-
-    result.forEach(product => {
-
-        const liked =
-            player.likes.includes(product.id);
-
-        const element =
-            document.createElement("article");
-
-        element.className = "product";
-
-        element.onclick = () =>
-            openProduct(product.id);
-
-
-        element.innerHTML = `
-
-            <img
-                class="product-image"
-                src="${product.image}"
-                alt=""
-            >
-
-            <div class="product-body">
-
-                <div class="product-name">
-                    ${escapeHtml(product.name)}
-                </div>
-
-                <div class="product-price">
-                    ￥${formatPrice(product.price)}
-                </div>
-
-                <div class="product-meta">
-                    ${escapeHtml(product.condition)}
-                    ・${escapeHtml(product.shipping)}
-                </div>
-
-                <div class="product-like">
-
-                    <button
-                        class="like-button ${liked ? "liked" : ""}"
-                        onclick="event.stopPropagation();toggleLike(${product.id})"
-                    >
-                        ${liked ? "♥" : "♡"}
-                        ${product.likes}
-                    </button>
-
-                    <span>
-                        ${escapeHtml(product.seller)}
-                    </span>
-
-                </div>
-
-            </div>
-        `;
-
-        productsElement.appendChild(element);
-
-    });
-
-
-    resultCount.textContent =
-        `${result.length}件の商品`;
-
-
-    if(result.length === 0){
-
-        emptyElement.classList.add("show");
-
-    }else{
-
-        emptyElement.classList.remove("show");
-
-    }
-
-}
-
-
-/* =====================================================
-   PRODUCT DETAIL
-===================================================== */
-
-function openProduct(id){
-
-    const product =
-        products.find(p=>p.id===id);
-
-    if(!product) return;
-
-    currentProductId = id;
-
-
-    const liked =
-        player.likes.includes(id);
-
-    const alreadyPurchased =
-        player.purchased.includes(id);
-
-
-    document.getElementById(
-        "productDetail"
-    ).innerHTML = `
-
-        <div class="detail">
-
-            <div>
-
-                <img
-                    class="detail-image"
-                    src="${product.image}"
-                    alt=""
-                >
-
-            </div>
-
-            <div class="detail-info">
-
-                <h2>
-                    ${escapeHtml(product.name)}
-                </h2>
-
-                <div class="detail-price">
-                    ￥${formatPrice(product.price)}
-                </div>
-
-                <div class="detail-shipping">
-                    ${escapeHtml(product.shipping)}
-                </div>
-
-                <div class="detail-description">
-                    ${escapeHtml(product.description)}
-                </div>
-
-                <div class="seller">
-
-                    <div class="seller-avatar">
-                        ${escapeHtml(
-                            product.seller.charAt(0)
-                        )}
-                    </div>
-
-                    <div>
-                        <strong>
-                            ${escapeHtml(product.seller)}
-                        </strong>
-
-                        <div
-                            style="font-size:12px;color:#888;"
-                        >
-                            出品者
-                        </div>
-                    </div>
-
-                </div>
-
-                <div
-                    style="font-size:13px;color:#666;"
-                >
-                    商品の状態：
-                    ${escapeHtml(product.condition)}
-                </div>
-
-                <div
-                    style="font-size:13px;color:#666;margin-top:7px;"
-                >
-                    いいね！
-                    ${product.likes}
-                </div>
-
-                <div class="detail-actions">
-
-                    <button
-                        class="secondary"
-                        onclick="toggleLike(${product.id})"
-                    >
-                        ${liked ? "♥ いいね！済み" : "♡ いいね！"}
-                    </button>
-
-                    <button
-                        class="secondary"
-                        onclick="openPriceRequest(${product.id})"
-                        ${alreadyPurchased ? "disabled" : ""}
-                    >
-                        値下げ依頼
-                    </button>
-
-                    <button
-                        class="primary"
-                        onclick="openPurchase(${product.id})"
-                        ${alreadyPurchased ? "disabled" : ""}
-                    >
-                        ${alreadyPurchased
-                            ? "購入済み"
-                            : "購入する"}
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-    `;
-
-
-    document
-        .getElementById("productModal")
-        .classList.add("show");
-
-}
-
-
-/* =====================================================
-   LIKE
-===================================================== */
-
-function toggleLike(id){
-
-    const product =
-        products.find(p=>p.id===id);
-
-    if(!product) return;
-
-
-    const index =
-        player.likes.indexOf(id);
-
-
-    if(index === -1){
-
-        player.likes.push(id);
-
-        product.likes++;
-
-        showToast("いいね！しました");
-
-    }else{
-
-        player.likes.splice(index,1);
-
-        product.likes =
-            Math.max(0,product.likes-1);
-
-        showToast("いいね！を解除しました");
-
-    }
-
-
-    renderProducts();
-
-
-    if(currentProductId === id){
-
-        openProduct(id);
-
-    }
-
-}
-
-
-/* =====================================================
-   PRICE REQUEST
-===================================================== */
-
-function openPriceRequest(id){
-
-    const product =
-        products.find(p=>p.id===id);
-
-    if(!product) return;
-
-
-    if(product.price <= 300){
-
-        showToast(
-            "この商品は値下げ依頼できません"
-        );
-
-        return;
-
-    }
-
-
-    currentProductId = id;
-
-
-    document.getElementById(
-        "priceRequestProduct"
-    ).textContent =
-        product.name;
-
-
-    document.getElementById(
-        "requestCurrentPrice"
-    ).textContent =
-        `￥${formatPrice(product.price)}`;
-
-
-    document.getElementById(
-        "requestPrice"
-    ).value = "";
-
-
-    closeModal("productModal");
-
-    document
-        .getElementById("priceModal")
-        .classList.add("show");
-
-}
-
-
-function sendPriceRequest(){
-
-    const product =
-        products.find(p=>p.id===currentProductId);
-
-    if(!product) return;
-
-
-    const input =
-        document.getElementById("requestPrice");
-
-    const price =
-        Number(input.value);
-
-
-    if(!price || price < 300){
-
-        showToast(
-            "300円以上の価格を入力してください"
-        );
-
-        return;
-
-    }
-
-
-    if(price >= product.price){
-
-        showToast(
-            "現在価格より安い金額を入力してください"
-        );
-
-        return;
-
-    }
-
-
-    priceRequests.push({
-
-        id:Date.now(),
-
-        productId:product.id,
-
-        productName:product.name,
-
-        originalPrice:product.price,
-
-        requestedPrice:price,
-
-        status:"pending"
-
-    });
-
-
-    notifications.push({
-
-        type:"request",
-
-        title:"値下げ依頼を送信しました",
-
-        text:
-            `${product.name}に￥${formatPrice(price)}の値下げ依頼を送りました。`
-
-    });
-
-
-    closeModal("priceModal");
-
-    updateNotice();
-
-    showToast(
-        "値下げ依頼を送りました"
-    );
-
-}
-
-
-/* =====================================================
-   SIMULATED SELLER RESPONSE
-===================================================== */
-
-function acceptPriceRequest(requestId){
-
-    const request =
-        priceRequests.find(
-            r=>r.id===requestId
-        );
-
-    if(!request) return;
-
-
-    const product =
-        products.find(
-            p=>p.id===request.productId
-        );
-
-    if(!product) return;
-
-
-    product.price =
-        request.requestedPrice;
-
-
-    request.status =
-        "accepted";
-
-
-    notifications.push({
-
-        type:"accepted",
-
-        title:"値下げ依頼が承諾されました",
-
-        text:
-            `${product.name}が￥${formatPrice(product.price)}になりました。`
-
-    });
-
-
-    updateNotice();
-
-    showToast(
-        "値下げ依頼が承諾されました"
-    );
-
-
-    renderProducts();
-
-}
-
-
-function rejectPriceRequest(requestId){
-
-    const request =
-        priceRequests.find(
-            r=>r.id===requestId
-        );
-
-    if(!request) return;
-
-
-    request.status =
-        "rejected";
-
-
-    notifications.push({
-
-        type:"rejected",
-
-        title:"値下げ依頼が見送られました",
-
-        text:
-            `${request.productName}の値下げ依頼は見送られました。`
-
-    });
-
-
-    updateNotice();
-
-    showToast(
-        "値下げ依頼を見送りました"
-    );
-
-}
-
-
-/* =====================================================
-   PURCHASE
-===================================================== */
-
-function openPurchase(id){
-
-    const product =
-        products.find(p=>p.id===id);
-
-    if(!product) return;
-
-
-    if(player.purchased.includes(id)){
-
-        showToast("すでに購入済みです");
-
-        return;
-
-    }
-
-
-    if(player.balance < product.price){
-
-        showToast(
-            "所持金が足りません"
-        );
-
-        return;
-
-    }
-
-
-    purchaseProductId = id;
-
-
-    document.getElementById(
-        "purchaseSummary"
-    ).innerHTML = `
-
-        <div
-            style="display:flex;gap:14px;align-items:center;"
-        >
-
-            <img
-                src="${product.image}"
-                style="
-                    width:80px;
-                    height:80px;
-                    object-fit:cover;
-                    border-radius:5px;
-                "
-            >
-
-            <div>
-
-                <strong>
-                    ${escapeHtml(product.name)}
-                </strong>
-
-                <div
-                    style="color:#777;margin-top:5px;"
-                >
-                    ￥${formatPrice(product.price)}
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="purchase-row">
-            <span>商品価格</span>
-            <span>￥${formatPrice(product.price)}</span>
-        </div>
-
-        <div class="purchase-row">
-            <span>送料</span>
-            <span>込み</span>
-        </div>
-
-        <div class="purchase-row total">
-            <span>支払い金額</span>
-            <span>￥${formatPrice(product.price)}</span>
-        </div>
-
-        <div
-            style="
-                margin-top:15px;
-                color:#777;
-                font-size:12px;
-            "
-        >
-            購入後の残高：
-            ￥${formatPrice(
-                player.balance-product.price
-            )}
-        </div>
-    `;
-
-
-    document
-        .getElementById("purchaseModal")
-        .classList.add("show");
-
-}
-
-
-function completePurchase(){
-
-    const product =
-        products.find(
-            p=>p.id===purchaseProductId
-        );
-
-    if(!product) return;
-
-
-    if(player.balance < product.price){
-
-        showToast(
-            "所持金が足りません"
-        );
-
-        closeModal("purchaseModal");
-
-        return;
-
-    }
-
-
-    player.balance -=
-        product.price;
-
-
-    player.purchased.push(
-        product.id
-    );
-
-
-    const acceptedRequest =
-        priceRequests.find(
-            r =>
-                r.productId === product.id &&
-                r.status === "accepted"
-        );
-
-
-    if(acceptedRequest){
-
-        acceptedRequest.status =
-            "purchased";
-
-    }
-
-
-    notifications.push({
-
-        type:"purchase",
-
-        title:"購入しました",
-
-        text:
-            `${product.name}を購入しました。`
-
-    });
-
-
-    closeModal("purchaseModal");
-
-    closeModal("productModal");
-
-    renderProducts();
-
-    updateNotice();
-
-    showToast(
-        "購入が完了しました"
-    );
-
-}
-
-
-/* =====================================================
-   NOTIFICATIONS
-===================================================== */
-
-function updateNotice(){
-
-    const notice =
-        document.getElementById("notice");
-
-
-    if(notifications.length > 0){
-
-        const latest =
-            notifications[
-                notifications.length-1
-            ];
-
-
-        document.getElementById(
-            "noticeTitle"
-        ).textContent =
-            latest.title;
-
-
-        document.getElementById(
-            "noticeText"
-        ).textContent =
-            latest.text;
-
-
-        notice.classList.add("show");
-
-    }else{
-
-        notice.classList.remove("show");
-
-    }
-
-}
-
-
-function openNotifications(){
-
-    const box =
-        document.getElementById(
-            "notifications"
-        );
-
-
-    let html =
-        `<h2>お知らせ</h2>`;
-
-
-    if(notifications.length === 0){
-
-        html += `
-            <p style="color:#888;">
-                お知らせはありません。
-            </p>
-        `;
-
-    }else{
-
-        [...notifications]
-            .reverse()
-            .forEach(notification => {
-
-                html += `
-
-                    <div
-                        style="
-                            border-bottom:1px solid #eee;
-                            padding:15px 0;
-                        "
-                    >
-
-                        <strong>
-                            ${escapeHtml(
-                                notification.title
-                            )}
-                        </strong>
-
-                        <div
-                            style="
-                                color:#777;
-                                font-size:13px;
-                                margin-top:6px;
-                            "
-                        >
-                            ${escapeHtml(
-                                notification.text
-                            )}
-                        </div>
-
-                    </div>
-
-                `;
-
-            });
-
-    }
-
-
-    /*
-       ゲーム用：
-       自分が送った値下げ依頼を
-       売り手側の判断として確認できる。
-    */
-
-    const pending =
-        priceRequests.filter(
-            r=>r.status==="pending"
-        );
-
-
-    if(pending.length > 0){
-
-        html += `
-            <h3
-                style="
-                    margin-top:25px;
-                    border-top:1px solid #eee;
-                    padding-top:20px;
-                "
-            >
-                値下げ依頼
-            </h3>
-        `;
-
-
-        pending.forEach(request => {
-
-            html += `
-
-                <div
-                    style="
-                        border:1px solid #ddd;
-                        padding:15px;
-                        margin-top:10px;
-                        border-radius:6px;
-                    "
-                >
-
-                    <strong>
-                        ${escapeHtml(
-                            request.productName
-                        )}
-                    </strong>
-
-                    <div
-                        style="
-                            margin:8px 0;
-                            font-size:13px;
-                            color:#777;
-                        "
-                    >
-                        現在価格：
-                        ￥${formatPrice(
-                            request.originalPrice
-                        )}
-                        <br>
-                        希望価格：
-                        ￥${formatPrice(
-                            request.requestedPrice
-                        )}
-                    </div>
-
-                    <div
-                        style="
-                            display:flex;
-                            gap:8px;
-                        "
-                    >
-
-                        <button
-                            class="primary"
-                            style="flex:1;"
-                            onclick="
-                                acceptPriceRequest(${request.id});
-                                openNotifications();
-                            "
-                        >
-                            承諾する
-                        </button>
-
-                        <button
-                            class="secondary"
-                            style="flex:1;"
-                            onclick="
-                                rejectPriceRequest(${request.id});
-                                openNotifications();
-                            "
-                        >
-                            お断りする
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        });
-
-    }
-
-
-    document
-        .getElementById(
-            "notificationModal"
-        )
-        .classList.add("show");
-
-}
-
-
-/* =====================================================
-   MYPAGE
-===================================================== */
-
-function openMypage(){
-
-    showMySection("profile");
-
-    document
-        .getElementById("mypageModal")
-        .classList.add("show");
-
-}
-
-
-function showMySection(section){
-
-    const content =
-        document.getElementById(
-            "myContent"
-        );
-
-
-    if(section === "profile"){
-
-        content.innerHTML = `
-
-            <div class="my-profile">
-
-                <h2>マイページ</h2>
-
-                <div>
-                    ${escapeHtml(player.name)}
-                </div>
-
-                <div
-                    style="
-                        font-size:13px;
-                        color:#777;
-                        margin-top:15px;
-                    "
-                >
-                    残高
-                </div>
-
-                <div class="balance">
-                    ￥${formatPrice(player.balance)}
-                </div>
-
-            </div>
-
-            <h3>アカウント情報</h3>
-
-            <p style="color:#777;font-size:13px;">
-                購入数：
-                ${player.purchased.length}件
-            </p>
-
-            <p style="color:#777;font-size:13px;">
-                いいね！：
-                ${player.likes.length}件
-            </p>
-
-            <p style="color:#777;font-size:13px;">
-                出品数：
-                ${player.selling.length}件
-            </p>
-
-        `;
-
-    }
-
-
-    if(section === "history"){
-
-        const history =
-            player.purchased
-                .map(id =>
-                    products.find(p=>p.id===id)
-                )
-                .filter(Boolean);
-
-
-        content.innerHTML = `
-            <h2>購入した商品</h2>
-        `;
-
-
-        if(history.length === 0){
-
-            content.innerHTML += `
-                <p style="color:#888;">
-                    購入した商品はありません。
-                </p>
-            `;
-
-        }else{
-
-            history.forEach(product => {
-
-                content.innerHTML += `
-
-                    <div class="history-item">
-
-                        <img src="${product.image}">
-
-                        <div>
-
-                            <strong>
-                                ${escapeHtml(product.name)}
-                            </strong>
-
-                            <div
-                                style="
-                                    color:#777;
-                                    margin-top:5px;
-                                "
-                            >
-                                ￥${formatPrice(product.price)}
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            });
-
-        }
-
-    }
-
-
-    if(section === "likes"){
-
-        const liked =
-            player.likes
-                .map(id =>
-                    products.find(p=>p.id===id)
-                )
-                .filter(Boolean);
-
-
-        content.innerHTML = `
-            <h2>いいね！した商品</h2>
-        `;
-
-
-        if(liked.length === 0){
-
-            content.innerHTML += `
-                <p style="color:#888;">
-                    いいね！した商品はありません。
-                </p>
-            `;
-
-        }else{
-
-            liked.forEach(product => {
-
-                content.innerHTML += `
-
-                    <div class="history-item">
-
-                        <img src="${product.image}">
-
-                        <div>
-
-                            <strong>
-                                ${escapeHtml(product.name)}
-                            </strong>
-
-                            <div>
-                                ￥${formatPrice(product.price)}
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            });
-
-        }
-
-    }
-
-
-    if(section === "selling"){
-
-        content.innerHTML = `
-            <h2>出品した商品</h2>
-        `;
-
-
-        if(player.selling.length === 0){
-
-            content.innerHTML += `
-                <p style="color:#888;">
-                    出品した商品はありません。
-                </p>
-            `;
-
-        }else{
-
-            player.selling.forEach(id => {
-
-                const product =
-                    products.find(
-                        p=>p.id===id
-                    );
-
-                if(!product) return;
-
-
-                content.innerHTML += `
-
-                    <div class="history-item">
-
-                        <img src="${product.image}">
-
-                        <div>
-
-                            <strong>
-                                ${escapeHtml(product.name)}
-                            </strong>
-
-                            <div>
-                                ￥${formatPrice(product.price)}
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            });
-
-        }
-
-    }
-
-}
-
-
-/* =====================================================
-   SELL
-===================================================== */
-
-function openSell(){
-
-    document
-        .getElementById("sellModal")
-        .classList.add("show");
-
-}
-
-
-document
-    .getElementById("sellForm")
-    .addEventListener(
-        "submit",
-        function(event){
-
-            event.preventDefault();
-
-
-            const name =
-                document.getElementById(
-                    "sellName"
-                ).value.trim();
-
-
-            const description =
-                document.getElementById(
-                    "sellDescription"
-                ).value.trim();
-
-
-            const category =
-                document.getElementById(
-                    "sellCategory"
-                ).value;
-
-
-            const price =
-                Number(
-                    document.getElementById(
-                        "sellPrice"
-                    ).value
-                );
-
-
-            if(!name ||
-               !description ||
-               !price ||
-               price < 300){
-
-                showToast(
-                    "入力内容を確認してください"
-                );
-
-                return;
-
-            }
-
-
-            const product = {
-
-                id:
-                    Date.now(),
-
-                name,
-
-                description,
-
-                price,
-
-                category,
-
-                condition:
-                    "目立った傷や汚れなし",
-
-                shipping:
-                    "送料込み",
-
-                seller:
-                    player.name,
-
-                likes:0,
-
-                image:
-                    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
-
-                created:
-                    Date.now()
-
-            };
-
-
-            products.unshift(product);
-
-            player.selling.push(
-                product.id
-            );
-
-
-            this.reset();
-
-            closeModal("sellModal");
-
-            renderProducts();
-
-            showToast(
-                "商品を出品しました"
-            );
-
-        }
-    );
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-searchInput.addEventListener(
-    "input",
-    renderProducts
-);
-
-
-/* =====================================================
-   SORT
-===================================================== */
-
-sortSelect.addEventListener(
-    "change",
-    renderProducts
-);
-
-
-/* =====================================================
-   CATEGORY
-===================================================== */
-
-document
-    .querySelectorAll(".category-button")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            function(){
-
-                document
-                    .querySelectorAll(
-                        ".category-button"
-                    )
-                    .forEach(
-                        b =>
-                        b.classList.remove(
-                            "active"
-                        )
-                    );
-
-
-                this.classList.add("active");
-
-
-                currentCategory =
-                    this.dataset.category;
-
-
-                renderProducts();
-
-            }
-        );
-
-    });
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-function closeModal(id){
-
-    document
-        .getElementById(id)
-        .classList.remove("show");
-
-}
-
-
-function outsideClose(event,id){
-
-    if(event.target.id === id){
-
-        closeModal(id);
-
-    }
-
-}
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-let toastTimer;
-
-
-function showToast(message){
-
-    const toast =
-        document.getElementById("toast");
-
-
-    toast.textContent =
-        message;
-
-
-    toast.classList.add("show");
-
-
-    clearTimeout(toastTimer);
-
-
-    toastTimer =
-        setTimeout(
-            () =>
-            toast.classList.remove("show"),
-            2400
-        );
-
-}
-
-
-/* =====================================================
-   UTIL
-===================================================== */
-
-function formatPrice(number){
-
-    return Number(number)
-        .toLocaleString("ja-JP");
-
-}
-
-
-function escapeHtml(value){
-
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
-
+let gameStarted = false;
+let timeLeft = 90;
+let timerInterval = null;
+let currentScore = 0;
+let searchCount = 0;
+let openedSources = [];
+let answerSubmitted = false;
 
 /* =====================================================
    START
 ===================================================== */
 
-renderProducts();
+function startGame() {
+
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("gameScreen").style.display = "block";
+    document.getElementById("gameHeader").style.display = "block";
+
+    gameStarted = true;
+
+    document.getElementById("challengeText").textContent =
+        challenge.question;
+
+    timeLeft = 90;
+
+    updateTimer();
+
+    timerInterval = setInterval(() => {
+
+        timeLeft -= 0.1;
+
+        if (timeLeft <= 0) {
+
+            timeLeft = 0;
+
+            clearInterval(timerInterval);
+
+            if (!answerSubmitted) {
+                submitAnswer();
+            }
+
+        }
+
+        updateTimer();
+
+    }, 100);
+
+    document.getElementById("gameSearch").focus();
+
+}
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+function updateTimer() {
+
+    document.getElementById("timer").textContent =
+        timeLeft.toFixed(1);
+
+}
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function handleSearchKey(event) {
+
+    if (event.key === "Enter") {
+        performSearch();
+    }
+
+}
+
+function performSearch() {
+
+    const query =
+        document.getElementById("gameSearch").value
+        .trim()
+        .toLowerCase();
+
+    if (!query) return;
+
+    searchCount++;
+
+    const words = query
+        .split(/\s+/)
+        .filter(Boolean);
+
+    const results = searchDatabase
+        .map(item => {
+
+            let score = 0;
+
+            words.forEach(word => {
+
+                item.keywords.forEach(keyword => {
+
+                    if (keyword.includes(word) ||
+                        word.includes(keyword)) {
+
+                        score += 2;
+
+                    }
+
+                });
+
+                if (item.title.toLowerCase().includes(word)) {
+                    score += 3;
+                }
+
+                if (item.description.toLowerCase().includes(word)) {
+                    score += 1;
+                }
+
+            });
+
+            return {
+                ...item,
+                score
+            };
+
+        })
+        .filter(item => item.score > 0)
+        .sort((a, b) => b.score - a.score);
+
+    renderResults(results);
+
+}
+
+/* =====================================================
+   RENDER RESULTS
+===================================================== */
+
+function renderResults(results) {
+
+    const list = document.getElementById("resultList");
+
+    list.innerHTML = "";
+
+    document.getElementById("resultCount").textContent =
+        `検索結果 ${results.length} 件`;
+
+    if (results.length === 0) {
+
+        list.innerHTML = `
+            <div style="
+                color:#5f6368;
+                padding:30px 0;
+            ">
+                お探しの情報は見つかりませんでした。
+            </div>
+        `;
+
+        return;
+    }
+
+    results.forEach((item, index) => {
+
+        const div = document.createElement("div");
+
+        div.className = "result";
+
+        let badge = "";
+
+        if (item.type === "official") {
+
+            badge =
+                `<span class="badge badge-official">公式</span>`;
+
+        } else if (item.type === "ad") {
+
+            badge =
+                `<span class="badge badge-ad">広告</span>`;
+
+        } else if (item.type === "old") {
+
+            badge =
+                `<span class="badge badge-old">古い情報</span>`;
+
+        } else if (item.type === "fake") {
+
+            badge =
+                `<span class="badge badge-fake">要注意</span>`;
+
+        }
+
+        div.innerHTML = `
+
+            <div class="result-url">
+                ${item.url}
+            </div>
+
+            <h2
+                class="result-title"
+                onclick="openResult(${searchDatabase.indexOf(item)})"
+            >
+                ${item.title}
+            </h2>
+
+            <div class="result-description">
+                ${item.description}
+            </div>
+
+            <div class="result-meta">
+                ${badge}
+                <span class="result-source">
+                    ${item.type === "official"
+                        ? "公的機関"
+                        : "Webサイト"}
+                </span>
+            </div>
+
+        `;
+
+        list.appendChild(div);
+
+    });
+
+}
+
+/* =====================================================
+   OPEN SOURCE
+===================================================== */
+
+function openResult(index) {
+
+    const item = searchDatabase[index];
+
+    if (!openedSources.includes(index)) {
+        openedSources.push(index);
+    }
+
+    document.getElementById("detailUrl").textContent =
+        item.url;
+
+    document.getElementById("detailTitle").textContent =
+        item.title;
+
+    document.getElementById("detailContent").innerHTML =
+        item.content;
+
+    document.getElementById("sourceWarning").textContent =
+        item.warning;
+
+    document.getElementById("resultDetail").style.display =
+        "block";
+
+}
+
+/* =====================================================
+   CLOSE SOURCE
+===================================================== */
+
+function closeDetail() {
+
+    document.getElementById("resultDetail").style.display =
+        "none";
+
+}
+
+/* =====================================================
+   ANSWER
+===================================================== */
+
+function submitAnswer() {
+
+    if (answerSubmitted) return;
+
+    answerSubmitted = true;
+
+    clearInterval(timerInterval);
+
+    const answer =
+        document.getElementById("answerInput")
+        .value
+        .trim();
+
+    const normalized =
+        answer.replace(/,/g, "")
+              .replace(/m/g, "")
+              .replace(/メートル/g, "")
+              .replace(/\s/g, "");
+
+    const correct =
+        normalized === challenge.answer;
+
+    const elapsed =
+        90 - timeLeft;
+
+    let score = 0;
+
+    if (correct) {
+
+        score += 5000;
+
+        // 時間ボーナス
+        score += Math.max(
+            0,
+            Math.round((90 - elapsed) * 40)
+        );
+
+        // 情報源ボーナス
+        const hasOfficial =
+            openedSources.some(index =>
+                searchDatabase[index].type === "official"
+            );
+
+        if (hasOfficial) {
+            score += 3000;
+        }
+
+        // 無駄な検索を減点
+        score -= Math.max(
+            0,
+            (searchCount - 3) * 150
+        );
+
+        score = Math.max(0, score);
+
+    }
+
+    currentScore = score;
+
+    showResult(
+        answer,
+        correct,
+        elapsed
+    );
+
+}
+
+/* =====================================================
+   RESULT
+===================================================== */
+
+function showResult(answer, correct, elapsed) {
+
+    document.getElementById("gameScreen").style.display =
+        "none";
+
+    document.getElementById("resultDetail").style.display =
+        "none";
+
+    document.getElementById("resultScreen").style.display =
+        "block";
+
+    document.getElementById("finalScore").textContent =
+        currentScore.toLocaleString();
+
+    document.getElementById("finalAnswer").textContent =
+        answer || "未回答";
+
+    document.getElementById("correctAnswer").textContent =
+        challenge.answerDisplay;
+
+    document.getElementById("finalTime").textContent =
+        elapsed.toFixed(1) + "秒";
+
+    const hasOfficial =
+        openedSources.some(index =>
+            searchDatabase[index].type === "official"
+        );
+
+    document.getElementById("sourceScore").textContent =
+        hasOfficial
+            ? "信頼性の高い情報源を確認"
+            : "一次情報の確認なし";
+
+    let rank;
+
+    if (!correct) {
+
+        rank =
+            "答えを間違えました。検索結果の情報を見極めよう。";
+
+    } else if (currentScore >= 7500) {
+
+        rank =
+            "検索マスター級 🔎";
+
+    } else if (currentScore >= 5500) {
+
+        rank =
+            "かなり速い検索です。";
+
+    } else {
+
+        rank =
+            "正解。ただし、まだ検索を速くできます。";
+
+    }
+
+    document.getElementById("rankText").textContent =
+        rank;
+
+}
+
+/* =====================================================
+   RULES
+===================================================== */
+
+function showRules() {
+
+    alert(
+        "【SEARCH BATTLE】\n\n" +
+        "お題に合う答えをWEB検索で探します。\n\n" +
+        "・検索結果を調べる\n" +
+        "・複数の情報を比較する\n" +
+        "・広告や怪しい情報を見極める\n" +
+        "・できるだけ早く正解する\n\n" +
+        "正確さと速度の両方が重要です。"
+    );
+
+}
+
+/* =====================================================
+   RESTART
+===================================================== */
+
+function restartGame() {
+
+    clearInterval(timerInterval);
+
+    gameStarted = false;
+    timeLeft = 90;
+    currentScore = 0;
+    searchCount = 0;
+    openedSources = [];
+    answerSubmitted = false;
+
+    document.getElementById("answerInput").value = "";
+    document.getElementById("gameSearch").value = "";
+
+    document.getElementById("resultList").innerHTML = "";
+
+    document.getElementById("resultScreen").style.display =
+        "none";
+
+    document.getElementById("gameScreen").style.display =
+        "none";
+
+    document.getElementById("gameHeader").style.display =
+        "none";
+
+    document.getElementById("startScreen").style.display =
+        "flex";
+
+}
 
 </script>
 
