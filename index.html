@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SEARCH BATTLE</title>
 
 <style>
@@ -10,12 +11,15 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    min-height: 100%;
     font-family: Arial, "Noto Sans JP", sans-serif;
-    background: #fff;
     color: #202124;
+    background: #fff;
 }
 
 button,
@@ -27,139 +31,211 @@ button {
     cursor: pointer;
 }
 
-/* =========================
+/* =========================================================
    共通
-========================= */
+========================================================= */
 
 .hidden {
     display: none !important;
 }
 
-/* =========================
-   Google風 TOPBAR
-========================= */
 
-.topbar {
+/* =========================================================
+   START SCREEN
+========================================================= */
+
+#startScreen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 120px;
+    position: relative;
+}
+
+
+/* Google風 上部 */
+
+.start-topbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+
     height: 60px;
+
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    padding: 0 22px;
+
     gap: 20px;
+    padding: 0 22px;
+
     font-size: 13px;
 }
 
-.topbar a {
+.start-topbar a {
     color: #202124;
     text-decoration: none;
 }
 
-.topbar a:hover {
+.start-topbar a:hover {
     text-decoration: underline;
 }
 
-.apps {
+
+/* アプリ */
+
+.apps-button {
     width: 40px;
     height: 40px;
+
     border-radius: 50%;
+
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
-.apps:hover {
+.apps-button:hover {
     background: #f1f3f4;
 }
 
 .apps-grid {
     width: 18px;
     height: 18px;
+
     display: grid;
+
     grid-template-columns: repeat(3, 4px);
     grid-template-rows: repeat(3, 4px);
+
     gap: 2px;
 }
 
 .apps-grid span {
+    width: 4px;
+    height: 4px;
+
     background: #5f6368;
+
     border-radius: 50%;
 }
+
+
+/* ユーザーアイコン */
 
 .user-icon {
     width: 34px;
     height: 34px;
+
     border-radius: 50%;
+
     background: #4285f4;
     color: #fff;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-size: 15px;
 }
 
-/* =========================
-   START
-========================= */
 
-#startScreen {
-    min-height: calc(100vh - 60px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 115px;
-}
+/* ロゴ */
 
-.logo {
-    font-size: 74px;
+.main-logo {
+    font-size: 76px;
     font-weight: 500;
-    letter-spacing: -5px;
-    margin-bottom: 22px;
+
+    letter-spacing: -6px;
+
+    margin-bottom: 20px;
+
     user-select: none;
 }
 
-.logo span:nth-child(1) { color: #4285f4; }
-.logo span:nth-child(2) { color: #ea4335; }
-.logo span:nth-child(3) { color: #fbbc05; }
-.logo span:nth-child(4) { color: #4285f4; }
-.logo span:nth-child(5) { color: #34a853; }
-.logo span:nth-child(6) { color: #ea4335; }
-
-.game-title {
-    font-size: 26px;
-    font-weight: 500;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
+.main-logo span:nth-child(1) {
+    color: #4285f4;
 }
+
+.main-logo span:nth-child(2) {
+    color: #ea4335;
+}
+
+.main-logo span:nth-child(3) {
+    color: #fbbc05;
+}
+
+.main-logo span:nth-child(4) {
+    color: #4285f4;
+}
+
+.main-logo span:nth-child(5) {
+    color: #34a853;
+}
+
+.main-logo span:nth-child(6) {
+    color: #ea4335;
+}
+
+
+/* タイトル */
+
+.game-name {
+    font-size: 25px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 32px;
+
+    color: #3c4043;
+}
+
+
+/* 開始検索バー */
 
 .start-search {
     width: min(620px, 90vw);
     height: 50px;
+
     border: 1px solid #dfe1e5;
     border-radius: 28px;
+
     display: flex;
     align-items: center;
+
     padding: 0 18px;
-    box-shadow: 0 1px 6px rgba(32,33,36,.12);
-    margin-bottom: 25px;
+
+    box-shadow: 0 1px 6px rgba(32, 33, 36, .12);
+
+    margin-bottom: 24px;
 }
 
 .start-search-icon {
     width: 18px;
     height: 18px;
+
     border: 2px solid #9aa0a6;
+
     border-radius: 50%;
+
     position: relative;
+
     margin-right: 15px;
 }
 
 .start-search-icon::after {
     content: "";
+
+    position: absolute;
+
     width: 7px;
     height: 2px;
+
     background: #9aa0a6;
-    position: absolute;
+
     right: -5px;
     bottom: -2px;
+
     transform: rotate(45deg);
 }
 
@@ -168,6 +244,9 @@ button {
     font-size: 15px;
 }
 
+
+/* 開始ボタン */
+
 .start-buttons {
     display: flex;
     gap: 12px;
@@ -175,152 +254,241 @@ button {
 
 .start-buttons button {
     border: 1px solid #f8f9fa;
+
     background: #f8f9fa;
+
     color: #202124;
+
     padding: 11px 18px;
+
     border-radius: 4px;
+
     font-size: 14px;
 }
 
 .start-buttons button:hover {
     border-color: #dadce0;
-    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
 }
 
 .start-info {
     margin-top: 50px;
+
     color: #70757a;
+
     font-size: 13px;
 }
 
-/* =========================
-   GAME
-========================= */
+
+/* =========================================================
+   GAME SCREEN
+========================================================= */
 
 #gameScreen {
     min-height: 100vh;
+
     background: #fff;
 }
 
+
+/* ヘッダー */
+
 .game-header {
-    height: 72px;
+    height: 68px;
+
     border-bottom: 1px solid #dadce0;
+
     display: flex;
     align-items: center;
-    padding: 0 28px;
-    gap: 28px;
+
+    padding: 0 25px;
+
+    gap: 25px;
 }
+
+
+/* 小さいロゴ */
 
 .small-logo {
     font-size: 25px;
-    letter-spacing: -2px;
+
     font-weight: 500;
+
+    letter-spacing: -2px;
+
     white-space: nowrap;
 }
 
-.small-logo span:nth-child(1) { color: #4285f4; }
-.small-logo span:nth-child(2) { color: #ea4335; }
-.small-logo span:nth-child(3) { color: #fbbc05; }
-.small-logo span:nth-child(4) { color: #4285f4; }
-.small-logo span:nth-child(5) { color: #34a853; }
-.small-logo span:nth-child(6) { color: #ea4335; }
+.small-logo span:nth-child(1) {
+    color: #4285f4;
+}
+
+.small-logo span:nth-child(2) {
+    color: #ea4335;
+}
+
+.small-logo span:nth-child(3) {
+    color: #fbbc05;
+}
+
+.small-logo span:nth-child(4) {
+    color: #4285f4;
+}
+
+.small-logo span:nth-child(5) {
+    color: #34a853;
+}
+
+.small-logo span:nth-child(6) {
+    color: #ea4335;
+}
+
+
+/* ステータス */
 
 .game-status {
     margin-left: auto;
+
     display: flex;
-    gap: 24px;
     align-items: center;
+
+    gap: 25px;
+
     font-size: 14px;
 }
 
 .timer {
     font-weight: bold;
+
     color: #d93025;
-    min-width: 80px;
+
+    min-width: 90px;
+
+    text-align: right;
 }
 
 .score-display {
     color: #3c4043;
 }
 
-/* 問題 */
+
+/* =========================================================
+   QUESTION
+========================================================= */
 
 .question-box {
     width: min(900px, 92vw);
-    margin: 32px auto 20px;
-    padding: 22px 25px;
+
+    margin: 30px auto 22px;
+
+    padding: 21px 24px;
+
     background: #f8f9fa;
+
     border: 1px solid #dadce0;
+
     border-radius: 8px;
 }
 
 .question-label {
-    font-size: 12px;
     color: #5f6368;
+
+    font-size: 12px;
+
     margin-bottom: 8px;
 }
 
 .question-text {
     font-size: 22px;
+
     font-weight: 500;
 }
 
-/* 検索 */
+
+/* =========================================================
+   SEARCH
+========================================================= */
 
 .search-area {
     width: min(760px, 92vw);
-    margin: 0 auto 25px;
+
+    margin: 0 auto 26px;
 }
 
 .search-box {
     height: 48px;
+
     border: 1px solid #dfe1e5;
+
     border-radius: 24px;
+
     display: flex;
     align-items: center;
-    padding: 0 15px;
-    box-shadow: 0 1px 4px rgba(32,33,36,.15);
+
+    padding: 0 8px 0 15px;
+
+    box-shadow: 0 1px 4px rgba(32, 33, 36, .15);
 }
 
 .search-box:focus-within {
-    box-shadow: 0 1px 6px rgba(32,33,36,.25);
+    box-shadow: 0 1px 6px rgba(32, 33, 36, .25);
 }
 
 .search-icon {
     width: 17px;
     height: 17px;
+
     border: 2px solid #9aa0a6;
+
     border-radius: 50%;
+
     position: relative;
+
     margin-right: 13px;
+
     flex-shrink: 0;
 }
 
 .search-icon::after {
     content: "";
+
     position: absolute;
+
     width: 6px;
     height: 2px;
+
     background: #9aa0a6;
+
     right: -5px;
     bottom: -2px;
+
     transform: rotate(45deg);
 }
 
 .search-input {
-    border: none;
-    outline: none;
     flex: 1;
+
     height: 100%;
+
+    border: none;
+
+    outline: none;
+
     font-size: 16px;
 }
 
 .search-button {
     border: none;
+
     background: #4285f4;
-    color: white;
+
+    color: #fff;
+
     border-radius: 4px;
+
     padding: 9px 16px;
+
     font-size: 14px;
 }
 
@@ -328,24 +496,30 @@ button {
     background: #3367d6;
 }
 
-/* =========================
-   検索結果
-========================= */
+
+/* =========================================================
+   SEARCH RESULTS
+========================================================= */
 
 .results-area {
     width: min(760px, 92vw);
+
     margin: 0 auto;
-    padding-bottom: 160px;
+
+    padding-bottom: 150px;
 }
 
 .result-count {
     color: #70757a;
+
     font-size: 13px;
+
     margin-bottom: 22px;
 }
 
 .result {
     margin-bottom: 28px;
+
     cursor: pointer;
 }
 
@@ -355,67 +529,97 @@ button {
 
 .result-url {
     color: #188038;
+
     font-size: 13px;
+
     margin-bottom: 4px;
 }
 
-.ad-label {
+.sponsor {
     display: inline-block;
+
     color: #5f6368;
+
     border: 1px solid #dadce0;
+
     border-radius: 3px;
+
     padding: 1px 5px;
+
     margin-right: 5px;
+
     font-size: 11px;
 }
 
 .result-title {
     color: #1a0dab;
+
     font-size: 20px;
-    margin-bottom: 5px;
+
     line-height: 1.35;
+
+    margin-bottom: 5px;
 }
 
 .result-description {
     color: #4d5156;
+
     font-size: 14px;
+
     line-height: 1.6;
 }
 
-/* =========================
-   回答パネル
-========================= */
+
+/* =========================================================
+   ANSWER PANEL
+========================================================= */
 
 .answer-panel {
     position: fixed;
-    right: 22px;
+
+    right: 20px;
     bottom: 20px;
+
     width: 340px;
+
     background: #fff;
+
     border: 1px solid #dadce0;
+
     border-radius: 10px;
-    padding: 17px;
-    box-shadow: 0 4px 18px rgba(0,0,0,.16);
-    z-index: 50;
+
+    padding: 16px;
+
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .16);
+
+    z-index: 20;
 }
 
 .answer-title {
     font-size: 14px;
+
     font-weight: bold;
+
     margin-bottom: 10px;
 }
 
 .answer-row {
     display: flex;
+
     gap: 8px;
 }
 
 .answer-input {
     flex: 1;
+
     height: 40px;
+
     border: 1px solid #dadce0;
+
     border-radius: 4px;
+
     padding: 0 10px;
+
     outline: none;
 }
 
@@ -425,11 +629,17 @@ button {
 
 .submit-answer {
     height: 40px;
+
     border: none;
+
     background: #4285f4;
+
     color: white;
+
     border-radius: 4px;
+
     padding: 0 15px;
+
     font-weight: bold;
 }
 
@@ -437,39 +647,60 @@ button {
     background: #3367d6;
 }
 
-/* =========================
+
+/* =========================================================
    SITE VIEWER
-========================= */
+========================================================= */
 
 #siteScreen {
     position: fixed;
+
     inset: 0;
-    background: #fff;
+
     z-index: 100;
-    overflow: auto;
+
+    background: #fff;
+
+    overflow-y: auto;
 }
+
+
+/* ブラウザバー */
 
 .browser-bar {
     height: 58px;
+
     background: #f1f3f4;
+
     border-bottom: 1px solid #dadce0;
+
     display: flex;
     align-items: center;
-    padding: 0 18px;
-    gap: 12px;
+
+    gap: 10px;
+
+    padding: 0 15px;
+
     position: sticky;
+
     top: 0;
-    z-index: 10;
+
+    z-index: 100;
 }
 
 .browser-back {
     width: 38px;
     height: 38px;
+
     border: none;
+
     background: transparent;
+
     border-radius: 50%;
-    font-size: 23px;
+
     color: #5f6368;
+
+    font-size: 23px;
 }
 
 .browser-back:hover {
@@ -478,401 +709,127 @@ button {
 
 .browser-address {
     flex: 1;
-    max-width: 800px;
+
+    max-width: 900px;
+
     height: 38px;
+
     background: #fff;
+
     border: 1px solid #dadce0;
+
     border-radius: 20px;
+
     display: flex;
     align-items: center;
-    padding: 0 16px;
+
+    padding: 0 15px;
+
     color: #5f6368;
+
     font-size: 14px;
 }
 
 .browser-lock {
-    margin-right: 9px;
-    font-size: 13px;
+    margin-right: 8px;
 }
 
 .browser-close {
     margin-left: auto;
-    border: none;
-    background: #fff;
+
     border: 1px solid #dadce0;
-    padding: 9px 14px;
-    border-radius: 5px;
+
+    background: #fff;
+
     color: #3c4043;
+
+    padding: 9px 14px;
+
+    border-radius: 5px;
 }
 
 .browser-close:hover {
     background: #f8f9fa;
 }
 
-/* サイト本体 */
 
-.site-page {
-    min-height: calc(100vh - 58px);
-}
-
-/* 公式サイト */
-
-.official-site {
-    background: #fff;
-}
-
-.official-header {
-    background: #1665a7;
-    color: #fff;
-    padding: 20px calc((100% - 1050px) / 2);
-}
-
-.official-header-inner {
-    max-width: 1050px;
-    margin: auto;
-}
-
-.official-name {
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.official-sub {
-    font-size: 12px;
-    opacity: .9;
-    margin-top: 5px;
-}
-
-.official-nav {
-    background: #0d4f86;
-    color: white;
-    padding: 12px calc((100% - 1050px) / 2);
-}
-
-.official-nav-inner {
-    max-width: 1050px;
-    margin: auto;
-    display: flex;
-    gap: 30px;
-    font-size: 14px;
-}
-
-.official-content {
-    max-width: 1050px;
-    margin: 0 auto;
-    padding: 35px 20px 80px;
-}
-
-.breadcrumb {
-    color: #666;
-    font-size: 13px;
-    margin-bottom: 25px;
-}
-
-.official-content h1 {
-    font-size: 29px;
-    border-left: 6px solid #1665a7;
-    padding-left: 15px;
-    margin-bottom: 25px;
-}
-
-.official-content p {
-    line-height: 2;
-    color: #333;
-}
-
-.info-box {
-    margin-top: 25px;
-    border: 1px solid #ccc;
-    background: #f5f8fb;
-    padding: 25px;
-}
-
-.big-number {
-    font-size: 38px;
-    font-weight: bold;
-    color: #155a8d;
-}
-
-/* 普通サイト */
-
-.normal-site {
-    background: #fff;
-}
-
-.normal-header {
-    border-bottom: 1px solid #eee;
-    padding: 22px 25px;
-}
-
-.normal-header-inner {
-    max-width: 900px;
-    margin: auto;
-}
-
-.normal-logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.normal-nav {
-    margin-top: 15px;
-    color: #666;
-    font-size: 13px;
-}
-
-.normal-content {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 45px 25px;
-}
-
-.article-meta {
-    color: #888;
-    font-size: 12px;
-    margin-bottom: 14px;
-}
-
-.normal-content h1 {
-    font-size: 32px;
-    line-height: 1.45;
-    margin: 0 0 25px;
-}
-
-.normal-content p {
-    line-height: 2;
-    color: #444;
-    font-size: 15px;
-}
-
-.quote-box {
-    margin: 25px 0;
-    padding: 20px;
-    background: #f7f7f7;
-    border-left: 4px solid #999;
-}
-
-/* 広告サイト */
-
-.ad-site {
-    background: #fafafa;
-}
-
-.ad-header {
-    background: #fff;
-    border-bottom: 1px solid #ddd;
-    padding: 18px 25px;
-}
-
-.ad-header-inner {
-    max-width: 1000px;
-    margin: auto;
-}
-
-.ad-logo {
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.ad-nav {
-    margin-top: 12px;
-    font-size: 13px;
-    color: #777;
-}
-
-.ad-content {
-    max-width: 1000px;
-    margin: auto;
-    padding: 30px 20px 80px;
-}
-
-.ad-hero {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 30px;
-}
-
-.ad-hero h1 {
-    font-size: 31px;
-    line-height: 1.45;
-    margin-top: 0;
-}
-
-.ad-copy {
-    color: #555;
-    line-height: 1.9;
-}
-
-.ad-product {
-    margin-top: 25px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    background: #fff;
-}
-
-.ad-button {
-    display: inline-block;
-    margin-top: 15px;
-    background: #f39c12;
-    color: white;
-    padding: 11px 20px;
-    border-radius: 4px;
-    font-weight: bold;
-}
-
-/* デマサイト */
-
-.fake-site {
-    background: #fff;
-}
-
-.fake-header {
-    background: #111;
-    color: white;
-    padding: 18px 25px;
-}
-
-.fake-header-inner {
-    max-width: 950px;
-    margin: auto;
-}
-
-.fake-logo {
-    font-weight: bold;
-    font-size: 22px;
-}
-
-.fake-warning {
-    background: #d93025;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    font-size: 13px;
-}
-
-.fake-content {
-    max-width: 950px;
-    margin: auto;
-    padding: 35px 20px 80px;
-}
-
-.fake-content h1 {
-    font-size: 38px;
-    line-height: 1.35;
-    margin-bottom: 15px;
-}
-
-.fake-meta {
-    color: #777;
-    font-size: 12px;
-    margin-bottom: 25px;
-}
-
-.fake-content p {
-    line-height: 2;
-    font-size: 16px;
-}
-
-.fake-highlight {
-    margin: 25px 0;
-    padding: 22px;
-    background: #fff3f3;
-    border: 1px solid #f1b5b5;
-    font-weight: bold;
-}
-
-/* 古いサイト */
-
-.old-site {
-    background: #e7e0c8;
-    min-height: 100%;
-    font-family: "MS Gothic", monospace;
-}
-
-.old-wrapper {
-    width: min(820px, 95vw);
-    margin: 20px auto;
-    background: #fff;
-    border: 4px ridge #aaa;
-    min-height: 700px;
-}
-
-.old-top {
-    background: #000080;
-    color: white;
-    padding: 12px;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.old-body {
-    padding: 20px;
-}
-
-.old-body h1 {
-    font-size: 25px;
-    color: #000080;
-}
-
-.old-body p {
-    line-height: 1.8;
-}
-
-.old-link {
-    color: blue;
-    text-decoration: underline;
-}
-
-.old-box {
-    border: 2px inset #aaa;
-    padding: 15px;
-    background: #eee;
-    margin-top: 20px;
-}
-
-/* =========================
-   RESULT
-========================= */
+/* =========================================================
+   RESULT SCREEN
+========================================================= */
 
 #resultScreen {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
     background: #f8f9fa;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     padding: 30px;
 }
 
 .result-card {
-    width: min(620px, 95vw);
-    background: white;
+    width: min(650px, 95vw);
+
+    background: #fff;
+
     border: 1px solid #dadce0;
+
     border-radius: 12px;
+
     padding: 35px;
-    box-shadow: 0 3px 15px rgba(0,0,0,.08);
+
+    box-shadow: 0 3px 15px rgba(0, 0, 0, .08);
+
     text-align: center;
 }
 
 .result-logo {
     font-size: 28px;
-    font-weight: 500;
+
     letter-spacing: -2px;
-    margin-bottom: 20px;
+
+    margin-bottom: 10px;
+}
+
+.result-state {
+    font-size: 28px;
+
+    font-weight: bold;
+
+    margin: 15px 0;
+}
+
+.result-state.correct {
+    color: #188038;
+}
+
+.result-state.wrong {
+    color: #d93025;
 }
 
 .final-score {
     font-size: 58px;
+
     font-weight: bold;
+
     color: #4285f4;
+
     margin: 10px 0 25px;
 }
 
 .result-line {
     border-top: 1px solid #eee;
+
     padding: 14px 0;
+
     display: flex;
+
     justify-content: space-between;
+
     text-align: left;
+
     font-size: 14px;
 }
 
@@ -880,13 +837,35 @@ button {
     color: #202124;
 }
 
+.result-explanation {
+    margin-top: 22px;
+
+    padding: 17px;
+
+    background: #f8f9fa;
+
+    border-radius: 7px;
+
+    text-align: left;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
 .restart-button {
     margin-top: 25px;
+
     background: #4285f4;
+
     border: none;
-    color: white;
-    padding: 12px 22px;
+
+    color: #fff;
+
+    padding: 12px 23px;
+
     border-radius: 5px;
+
     font-weight: bold;
 }
 
@@ -894,18 +873,101 @@ button {
     background: #3367d6;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+
+/* =========================================================
+   HOW TO
+========================================================= */
+
+.howto-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, .35);
+
+    z-index: 300;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.howto-box {
+    width: min(520px, 95vw);
+
+    background: #fff;
+
+    border-radius: 10px;
+
+    padding: 30px;
+
+    box-shadow: 0 8px 35px rgba(0, 0, 0, .25);
+}
+
+.howto-box h2 {
+    margin-top: 0;
+}
+
+.howto-box ol {
+    padding-left: 22px;
+
+    line-height: 2;
+}
+
+.howto-close {
+    width: 100%;
+
+    margin-top: 15px;
+
+    border: none;
+
+    background: #4285f4;
+
+    color: #fff;
+
+    padding: 11px;
+
+    border-radius: 5px;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading {
+    padding: 45px 0;
+
+    text-align: center;
+
+    color: #70757a;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 700px) {
 
-    .logo {
+    #startScreen {
+        padding-top: 100px;
+    }
+
+    .main-logo {
         font-size: 58px;
+
+        letter-spacing: -5px;
     }
 
     .game-header {
         padding: 0 15px;
+
         gap: 10px;
     }
 
@@ -915,6 +977,8 @@ button {
 
     .game-status {
         gap: 10px;
+
+        font-size: 12px;
     }
 
     .question-box {
@@ -928,7 +992,9 @@ button {
     .answer-panel {
         left: 12px;
         right: 12px;
+
         width: auto;
+
         bottom: 12px;
     }
 
@@ -936,100 +1002,130 @@ button {
         display: none;
     }
 
-    .official-header,
-    .official-nav {
-        padding-left: 20px;
-        padding-right: 20px;
+    .result-state {
+        font-size: 23px;
     }
 
-    .official-content h1,
-    .normal-content h1,
-    .ad-hero h1,
-    .fake-content h1 {
-        font-size: 25px;
+    .final-score {
+        font-size: 48px;
     }
 }
 </style>
 </head>
 
+
 <body>
 
-<!-- =========================
+
+<!-- =====================================================
      START SCREEN
-========================= -->
+===================================================== -->
 
-<div id="startScreen">
+<section id="startScreen">
 
-    <div class="topbar" style="position:absolute;top:0;right:0;">
+    <div class="start-topbar">
+
         <a href="javascript:void(0)">Gmail</a>
+
         <a href="javascript:void(0)">画像</a>
 
-        <div class="apps">
+        <div class="apps-button">
+
             <div class="apps-grid">
-                <span></span><span></span><span></span>
-                <span></span><span></span><span></span>
-                <span></span><span></span><span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
+
         </div>
 
-        <div class="user-icon">S</div>
+        <div class="user-icon">
+            S
+        </div>
+
     </div>
 
-    <div class="logo">
+
+    <div class="main-logo">
+
         <span>S</span>
         <span>E</span>
         <span>A</span>
         <span>R</span>
         <span>C</span>
         <span>H</span>
+
     </div>
 
-    <div class="game-title">
+
+    <div class="game-name">
         SEARCH BATTLE
     </div>
 
+
     <div class="start-search">
+
         <div class="start-search-icon"></div>
+
         <div class="start-search-text">
             Webを検索して、答えを見つけよう
         </div>
+
     </div>
 
+
     <div class="start-buttons">
+
         <button onclick="startGame()">
             検索ゲームを開始
         </button>
 
-        <button onclick="showHowTo()">
+        <button onclick="openHowTo()">
             遊び方
         </button>
+
     </div>
+
 
     <div class="start-info">
         検索力・情報判断力・速度を競うWEBゲーム
     </div>
 
-</div>
+</section>
 
 
-<!-- =========================
+
+<!-- =====================================================
      GAME SCREEN
-========================= -->
+===================================================== -->
 
-<div id="gameScreen" class="hidden">
+<section id="gameScreen" class="hidden">
 
-    <div class="game-header">
+
+    <header class="game-header">
 
         <div class="small-logo">
+
             <span>S</span>
             <span>E</span>
             <span>A</span>
             <span>R</span>
             <span>C</span>
             <span>H</span>
+
         </div>
 
+
         <div class="game-status">
+
             <div class="timer">
                 残り <span id="timer">90</span> 秒
             </div>
@@ -1037,9 +1133,10 @@ button {
             <div class="score-display">
                 SCORE: <span id="score">0</span>
             </div>
+
         </div>
 
-    </div>
+    </header>
 
 
     <div class="question-box">
@@ -1048,8 +1145,11 @@ button {
             SEARCH BATTLE / QUESTION
         </div>
 
-        <div class="question-text" id="questionText">
-            日本で一番高い山の標高を調べろ
+        <div
+            id="questionText"
+            class="question-text"
+        >
+            問題を読み込んでいます...
         </div>
 
     </div>
@@ -1067,7 +1167,6 @@ button {
                 type="text"
                 placeholder="検索"
                 autocomplete="off"
-                onkeydown="if(event.key === 'Enter') searchWeb()"
             >
 
             <button
@@ -1082,16 +1181,20 @@ button {
     </div>
 
 
-    <div id="resultsArea" class="results-area">
+    <div
+        id="resultsArea"
+        class="results-area"
+    >
 
-        <div class="result-count">
-            検索結果はここに表示されます
+        <div class="loading">
+            検索してください
         </div>
 
     </div>
 
 
-    <!-- 回答パネル -->
+    <!-- 回答 -->
+
     <div class="answer-panel">
 
         <div class="answer-title">
@@ -1104,9 +1207,8 @@ button {
                 id="answerInput"
                 class="answer-input"
                 type="text"
-                placeholder="例：3776"
+                placeholder="答えを入力"
                 autocomplete="off"
-                onkeydown="if(event.key === 'Enter') submitAnswer()"
             >
 
             <button
@@ -1120,14 +1222,18 @@ button {
 
     </div>
 
-</div>
+</section>
 
 
-<!-- =========================
+
+<!-- =====================================================
      SITE SCREEN
-========================= -->
+===================================================== -->
 
-<div id="siteScreen" class="hidden">
+<section
+    id="siteScreen"
+    class="hidden"
+>
 
     <div class="browser-bar">
 
@@ -1138,6 +1244,7 @@ button {
         >
             ←
         </button>
+
 
         <div class="browser-address">
 
@@ -1151,6 +1258,7 @@ button {
 
         </div>
 
+
         <button
             class="browser-close"
             onclick="closeSite()"
@@ -1160,16 +1268,21 @@ button {
 
     </div>
 
-    <div id="sitePage" class="site-page"></div>
 
-</div>
+    <div id="siteContent"></div>
+
+</section>
 
 
-<!-- =========================
+
+<!-- =====================================================
      RESULT SCREEN
-========================= -->
+===================================================== -->
 
-<div id="resultScreen" class="hidden">
+<section
+    id="resultScreen"
+    class="hidden"
+>
 
     <div class="result-card">
 
@@ -1177,33 +1290,93 @@ button {
             SEARCH BATTLE
         </div>
 
-        <div>
-            GAME RESULT
+
+        <div
+            id="resultState"
+            class="result-state"
+        >
+            答え合わせ
         </div>
 
-        <div class="final-score" id="finalScore">
+
+        <div
+            id="finalScore"
+            class="final-score"
+        >
             0
         </div>
 
-        <div class="result-line">
-            <span>あなたの回答</span>
-            <strong id="finalAnswer">---</strong>
-        </div>
 
         <div class="result-line">
-            <span>正解</span>
-            <strong id="correctAnswer">---</strong>
+
+            <span>
+                あなたの回答
+            </span>
+
+            <strong id="finalAnswer">
+                ---
+            </strong>
+
         </div>
 
-        <div class="result-line">
-            <span>残り時間</span>
-            <strong id="finalTime">0秒</strong>
-        </div>
 
         <div class="result-line">
-            <span>開いたサイト数</span>
-            <strong id="openedSites">0</strong>
+
+            <span>
+                正解
+            </span>
+
+            <strong id="correctAnswer">
+                ---
+            </strong>
+
         </div>
+
+
+        <div class="result-line">
+
+            <span>
+                残り時間
+            </span>
+
+            <strong id="finalTime">
+                0秒
+            </strong>
+
+        </div>
+
+
+        <div class="result-line">
+
+            <span>
+                検索回数
+            </span>
+
+            <strong id="finalSearchCount">
+                0回
+            </strong>
+
+        </div>
+
+
+        <div class="result-line">
+
+            <span>
+                開いたサイト
+            </span>
+
+            <strong id="finalOpenedSites">
+                0件
+            </strong>
+
+        </div>
+
+
+        <div
+            id="resultExplanation"
+            class="result-explanation"
+        ></div>
+
 
         <button
             class="restart-button"
@@ -1214,478 +1387,243 @@ button {
 
     </div>
 
+</section>
+
+
+
+<!-- =====================================================
+     HOW TO
+===================================================== -->
+
+<div
+    id="howtoOverlay"
+    class="howto-overlay hidden"
+>
+
+    <div class="howto-box">
+
+        <h2>
+            SEARCH BATTLE
+        </h2>
+
+        <ol>
+
+            <li>
+                お題を確認する
+            </li>
+
+            <li>
+                検索して情報を探す
+            </li>
+
+            <li>
+                検索結果からサイトを開く
+            </li>
+
+            <li>
+                サイトの情報を読み比べる
+            </li>
+
+            <li>
+                答えを入力する
+            </li>
+
+            <li>
+                正確さと速度でスコアを競う
+            </li>
+
+        </ol>
+
+        <button
+            class="howto-close"
+            onclick="closeHowTo()"
+        >
+            閉じる
+        </button>
+
+    </div>
+
 </div>
+
+
+
+<!-- =====================================================
+     QUESTIONS
+     
+     questions.js が存在する場合に読み込む
+===================================================== -->
+
+<script src="js/questions.js"></script>
 
 
 <script>
 
-/* =====================================================
-   GAME DATA
-===================================================== */
-
-const gameData = {
-
-    question: "日本で一番高い山の標高を調べろ",
-
-    answer: "3776",
-
-    sites: [
-
-        {
-            url: "www.gsi.go.jp",
-            title: "富士山 | 国土地理院",
-            description:
-                "日本の最高峰である富士山について、標高などの基本情報を確認できます。",
-
-            type: "official",
-
-            page: `
-                <div class="official-site">
-
-                    <div class="official-header">
-                        <div class="official-header-inner">
-
-                            <div class="official-name">
-                                国土地理院
-                            </div>
-
-                            <div class="official-sub">
-                                Geospatial Information Authority of Japan
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="official-nav">
-                        <div class="official-nav-inner">
-                            <span>ホーム</span>
-                            <span>地図・空中写真</span>
-                            <span>地理・地図</span>
-                            <span>防災</span>
-                            <span>資料・サービス</span>
-                        </div>
-                    </div>
-
-                    <div class="official-content">
-
-                        <div class="breadcrumb">
-                            ホーム ＞ 地理・地図 ＞ 日本の山
-                        </div>
-
-                        <h1>
-                            富士山
-                        </h1>
-
-                        <p>
-                            富士山は静岡県と山梨県にまたがる日本を代表する山です。
-                            日本の最高峰として知られています。
-                        </p>
-
-                        <p>
-                            国土地理院が公開している地理情報によると、
-                            富士山の標高は次のとおりです。
-                        </p>
-
-                        <div class="info-box">
-
-                            <div>
-                                富士山 標高
-                            </div>
-
-                            <div class="big-number">
-                                3,776 m
-                            </div>
-
-                            <p>
-                                剣ヶ峰
-                            </p>
-
-                        </div>
-
-                        <p>
-                            標高については、国土地理院が公開する最新の地理情報を確認してください。
-                        </p>
-
-                    </div>
-
-                </div>
-            `
-        },
-
-
-        {
-            url: "www.japan-guide.example",
-            title: "富士山の高さは？日本一高い山を紹介",
-            description:
-                "富士山の高さや位置、登山について紹介している観光情報サイトです。",
-
-            type: "normal",
-
-            page: `
-                <div class="normal-site">
-
-                    <div class="normal-header">
-
-                        <div class="normal-header-inner">
-
-                            <div class="normal-logo">
-                                JAPAN TRAVEL GUIDE
-                            </div>
-
-                            <div class="normal-nav">
-                                観光地　｜　旅行情報　｜　山・自然　｜　アクセス
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="normal-content">
-
-                        <div class="article-meta">
-                            日本の観光情報 / 富士山
-                        </div>
-
-                        <h1>
-                            富士山の高さは？日本一高い山を紹介
-                        </h1>
-
-                        <p>
-                            富士山は日本を代表する山で、国内外から多くの観光客が訪れます。
-                        </p>
-
-                        <p>
-                            標高は一般的に
-                            <strong>3,776メートル</strong>
-                            とされています。
-                        </p>
-
-                        <div class="quote-box">
-                            富士山の最高地点は剣ヶ峰。
-                            標高3,776mです。
-                        </div>
-
-                        <p>
-                            山頂付近からは周囲の広い範囲を見渡すことができます。
-                            登山シーズンには多くの登山者が訪れます。
-                        </p>
-
-                        <p>
-                            旅行や登山を計画する場合は、現地の最新情報も確認しましょう。
-                        </p>
-
-                    </div>
-
-                </div>
-            `
-        },
-
-
-        {
-            url: "www.osusume-mountain.example",
-            title: "富士山の高さを徹底解説！おすすめ登山グッズも紹介",
-            description:
-                "富士山の基本情報から登山用品まで幅広く紹介。初心者におすすめの商品を厳選しました。",
-
-            type: "ad",
-
-            page: `
-                <div class="ad-site">
-
-                    <div class="ad-header">
-
-                        <div class="ad-header-inner">
-
-                            <div class="ad-logo">
-                                Mountain Life
-                            </div>
-
-                            <div class="ad-nav">
-                                山情報　登山用品　ランキング　おすすめ商品
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="ad-content">
-
-                        <div class="ad-hero">
-
-                            <h1>
-                                富士山の高さを徹底解説！
-                                初心者向け登山用品も紹介
-                            </h1>
-
-                            <p class="ad-copy">
-                                富士山に登るなら、まず基本情報を知っておきましょう。
-                                日本最高峰として知られる富士山の標高は
-                                <strong>3,776m</strong>です。
-                            </p>
-
-                            <div class="ad-product">
-
-                                <strong>
-                                    【おすすめ】初心者向け登山セット
-                                </strong>
-
-                                <p>
-                                    富士山登山を始めるならこちら！
-                                    編集部が選んだ人気商品です。
-                                </p>
-
-                                <div class="ad-button">
-                                    商品をチェック
-                                </div>
-
-                            </div>
-
-                            <div class="ad-product">
-
-                                <strong>
-                                    人気ランキング No.1
-                                </strong>
-
-                                <p>
-                                    登山初心者から人気のアイテムを紹介しています。
-                                </p>
-
-                                <div class="ad-button">
-                                    詳しく見る
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            `
-        },
-
-
-        {
-            url: "www.truth-news.example",
-            title: "【衝撃】富士山の本当の高さが判明？政府が隠していた数字とは",
-            description:
-                "これまで知られていなかった富士山の真実を独自調査。一般に知られている数字には重大な秘密が？",
-
-            type: "fake",
-
-            page: `
-                <div class="fake-site">
-
-                    <div class="fake-header">
-
-                        <div class="fake-header-inner">
-
-                            <div class="fake-logo">
-                                TRUTH NEWS
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="fake-warning">
-                        緊急特集　独自調査
-                    </div>
-
-                    <div class="fake-content">
-
-                        <div class="fake-meta">
-                            2026年9月18日 / 特別取材班
-                        </div>
-
-                        <h1>
-                            【衝撃】富士山の「本当の高さ」が判明？
-                            政府が隠していた数字とは
-                        </h1>
-
-                        <p>
-                            日本で最も高い山として知られる富士山。
-                            しかし、一般に知られている数字について、
-                            私たちは独自に調査を行いました。
-                        </p>
-
-                        <div class="fake-highlight">
-                            「3,776m」という数字だけを見て判断してはいけない。
-                        </div>
-
-                        <p>
-                            ネット上にはさまざまな情報が存在しています。
-                            一部の記事では、測定方法によって数字が変わる可能性が
-                            あるとも指摘されています。
-                        </p>
-
-                        <p>
-                            ただし、本記事では具体的な測量資料を確認しているわけではありません。
-                        </p>
-
-                        <p>
-                            情報を確認するときには、一次資料や公的機関が公開している
-                            データを確認することが重要です。
-                        </p>
-
-                    </div>
-
-                </div>
-            `
-        },
-
-
-        {
-            url: "old-blog.example",
-            title: "富士山について調べてみた！高さは3775m？",
-            description:
-                "個人ブログ。富士山の高さについて2009年に書かれた記事です。",
-
-            type: "old",
-
-            page: `
-                <div class="old-site">
-
-                    <div class="old-wrapper">
-
-                        <div class="old-top">
-                            ★ 山と旅行のホームページ ★
-                        </div>
-
-                        <div class="old-body">
-
-                            <p>
-                                <span class="old-link">
-                                    HOME
-                                </span>
-                                ＞
-                                富士山
-                            </p>
-
-                            <h1>
-                                富士山について調べてみた！
-                            </h1>
-
-                            <p>
-                                更新日：2009/04/12
-                            </p>
-
-                            <hr>
-
-                            <p>
-                                こんにちは！！！
-                            </p>
-
-                            <p>
-                                今回は日本で一番高い山、
-                                富士山について調べてみました。
-                            </p>
-
-                            <p>
-                                富士山の高さは
-                                <strong>3,775m</strong>
-                                と書かれている資料もありました。
-                            </p>
-
-                            <div class="old-box">
-
-                                <strong>
-                                    富士山メモ
-                                </strong>
-
-                                <p>
-                                    高さ：約3775m
-                                </p>
-
-                                <p>
-                                    日本一高い山
-                                </p>
-
-                            </div>
-
-                            <p>
-                                ※この記事は2009年に作成されたものです。
-                            </p>
-
-                            <p>
-                                <span class="old-link">
-                                    前のページへ
-                                </span>
-                                |
-                                <span class="old-link">
-                                    HOME
-                                </span>
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            `
-        }
-
-    ]
-
-};
-
-
-/* =====================================================
+/* =========================================================
    GAME STATE
-===================================================== */
+========================================================= */
+
+let currentQuestion = null;
 
 let timeLeft = 90;
+
 let timerInterval = null;
 
-let currentScore = 0;
-let searchCount = 0;
-let openedSites = new Set();
-
 let gameStarted = false;
+
 let gameFinished = false;
 
+let searchCount = 0;
 
-/* =====================================================
+let openedSites = new Set();
+
+let currentSites = [];
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const startScreen =
+    document.getElementById("startScreen");
+
+const gameScreen =
+    document.getElementById("gameScreen");
+
+const siteScreen =
+    document.getElementById("siteScreen");
+
+const resultScreen =
+    document.getElementById("resultScreen");
+
+const questionText =
+    document.getElementById("questionText");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const answerInput =
+    document.getElementById("answerInput");
+
+const resultsArea =
+    document.getElementById("resultsArea");
+
+const timerElement =
+    document.getElementById("timer");
+
+const scoreElement =
+    document.getElementById("score");
+
+
+/* =========================================================
    START GAME
-===================================================== */
+========================================================= */
 
 function startGame() {
 
-    document.getElementById("startScreen")
-        .classList.add("hidden");
+    /*
+        questions.js が読み込まれていない場合
+    */
 
-    document.getElementById("gameScreen")
-        .classList.remove("hidden");
+    if (
+        typeof questions === "undefined" ||
+        !Array.isArray(questions) ||
+        questions.length === 0
+    ) {
 
-    document.getElementById("resultScreen")
-        .classList.add("hidden");
+        alert(
+            "問題データが読み込めません。\n\n" +
+            "js/questions.js が存在するか確認してください。"
+        );
 
-    document.getElementById("siteScreen")
-        .classList.add("hidden");
+        return;
+    }
 
-    document.getElementById("questionText").textContent =
-        gameData.question;
 
-    gameStarted = true;
-    gameFinished = false;
+    /*
+        問題をランダム選択
+    */
+
+    currentQuestion =
+        questions[
+            Math.floor(
+                Math.random() * questions.length
+            )
+        ];
+
+
+    /*
+        初期化
+    */
 
     timeLeft = 90;
-    currentScore = 0;
+
     searchCount = 0;
+
     openedSites.clear();
 
-    document.getElementById("timer").textContent = timeLeft;
-    document.getElementById("score").textContent = currentScore;
+    currentSites = [];
 
-    document.getElementById("searchInput").focus();
+    gameStarted = true;
+
+    gameFinished = false;
+
+
+    /*
+        表示
+    */
+
+    questionText.textContent =
+        currentQuestion.question;
+
+    timerElement.textContent =
+        timeLeft;
+
+    scoreElement.textContent =
+        "0";
+
+
+    resultsArea.innerHTML = `
+        <div class="loading">
+            検索してください
+        </div>
+    `;
+
+
+    searchInput.value = "";
+
+    answerInput.value = "";
+
+
+    /*
+        画面
+    */
+
+    startScreen.classList.add("hidden");
+
+    resultScreen.classList.add("hidden");
+
+    siteScreen.classList.add("hidden");
+
+    gameScreen.classList.remove("hidden");
+
+
+    /*
+        タイマー
+    */
 
     startTimer();
+
+
+    setTimeout(() => {
+        searchInput.focus();
+    }, 100);
+
 }
 
 
-/* =====================================================
+/* =========================================================
    TIMER
-===================================================== */
+========================================================= */
 
 function startTimer() {
 
@@ -1693,9 +1631,13 @@ function startTimer() {
 
     timerInterval = setInterval(() => {
 
-        if (!gameStarted || gameFinished) {
+        if (
+            !gameStarted ||
+            gameFinished
+        ) {
             return;
         }
+
 
         timeLeft--;
 
@@ -1703,8 +1645,10 @@ function startTimer() {
             timeLeft = 0;
         }
 
-        document.getElementById("timer").textContent =
+
+        timerElement.textContent =
             timeLeft;
+
 
         if (timeLeft <= 0) {
 
@@ -1715,99 +1659,177 @@ function startTimer() {
         }
 
     }, 1000);
+
 }
 
 
-/* =====================================================
+/* =========================================================
    SEARCH
-===================================================== */
+========================================================= */
 
 function searchWeb() {
 
-    if (!gameStarted || gameFinished) {
+    if (
+        !gameStarted ||
+        gameFinished ||
+        !currentQuestion
+    ) {
         return;
     }
 
-    const input =
-        document.getElementById("searchInput").value
-            .trim()
-            .toLowerCase();
 
-    if (!input) {
+    const query =
+        searchInput.value.trim();
+
+
+    if (!query) {
         return;
     }
+
 
     searchCount++;
 
-    const resultsArea =
-        document.getElementById("resultsArea");
-
-    let results = [...gameData.sites];
 
     /*
-        簡易検索。
-        入力内容に応じて関連しそうな結果を上位へ。
+        問題IDからサイトを取得
+    */
+
+    loadSitesForQuestion();
+
+
+    /*
+        検索結果を作る
+    */
+
+    let results =
+        [...currentSites];
+
+
+    /*
+        簡易検索スコア
     */
 
     results.sort((a, b) => {
 
-        const aText =
-            (a.title + " " + a.description)
-                .toLowerCase();
-
-        const bText =
-            (b.title + " " + b.description)
-                .toLowerCase();
-
         const aScore =
-            calculateSearchMatch(aText, input);
+            calculateMatchScore(
+                a,
+                query
+            );
 
         const bScore =
-            calculateSearchMatch(bText, input);
+            calculateMatchScore(
+                b,
+                query
+            );
 
-        return bScore - aScore;
+
+        /*
+            完全な検索エンジンではなく、
+            ゲームとして自然な範囲で
+            ランダム性も残す。
+        */
+
+        if (aScore !== bScore) {
+            return bScore - aScore;
+        }
+
+        return Math.random() - 0.5;
 
     });
 
-    resultsArea.innerHTML = `
-        <div class="result-count">
-            約 ${results.length} 件の検索結果
-        </div>
-    `;
 
-    results.forEach((site, index) => {
+    /*
+        さらに同点・低関連結果を
+        少しシャッフル
+    */
+
+    results =
+        shuffleResults(results);
+
+
+    /*
+        表示
+    */
+
+    resultsArea.innerHTML = "";
+
+
+    const count =
+        document.createElement("div");
+
+    count.className =
+        "result-count";
+
+    count.textContent =
+        `検索結果 ${results.length} 件`;
+
+    resultsArea.appendChild(count);
+
+
+    results.forEach(site => {
 
         const result =
             document.createElement("div");
 
-        result.className = "result";
+        result.className =
+            "result";
 
-        let adHTML = "";
 
-        if (site.type === "ad") {
-            adHTML = `<span class="ad-label">スポンサー</span>`;
+        /*
+            広告だけはスポンサー表示。
+            デマ・古い情報などは
+            ゲーム中に明示しない。
+        */
+
+        let sponsorHTML = "";
+
+        if (site.type === "advertisement") {
+
+            sponsorHTML =
+                `<span class="sponsor">スポンサー</span>`;
+
         }
 
+
         result.innerHTML = `
+
             <div class="result-url">
-                ${adHTML}
-                ${escapeHTML(site.url)}
+
+                ${sponsorHTML}
+
+                ${escapeHTML(
+                    site.url || "example.com"
+                )}
+
             </div>
+
 
             <div class="result-title">
-                ${escapeHTML(site.title)}
+
+                ${escapeHTML(
+                    site.title || "ページ"
+                )}
+
             </div>
+
 
             <div class="result-description">
-                ${escapeHTML(site.description)}
+
+                ${escapeHTML(
+                    site.description || ""
+                )}
+
             </div>
+
         `;
 
-        result.addEventListener("click", () => {
-            openSite(
-                gameData.sites.indexOf(site)
-            );
-        });
+
+        result.addEventListener(
+            "click",
+            () => openSite(site)
+        );
+
 
         resultsArea.appendChild(result);
 
@@ -1816,264 +1838,676 @@ function searchWeb() {
 }
 
 
-/* =====================================================
-   SEARCH MATCH
-===================================================== */
+/* =========================================================
+   LOAD SITES
+========================================================= */
 
-function calculateSearchMatch(text, query) {
+function loadSitesForQuestion() {
+
+    /*
+        同じ検索中に毎回作り直さない。
+    */
+
+    if (currentSites.length > 0) {
+        return;
+    }
+
+
+    /*
+        questions.js 側では
+        currentQuestion.sites を
+        持たせる方式にする。
+
+        例：
+
+        {
+            id: "fuji",
+            question: "...",
+            answer: "3776",
+            sites: [
+                {
+                    file: "...",
+                    title: "...",
+                    url: "...",
+                    description: "...",
+                    type: "official"
+                }
+            ]
+        }
+    */
+
+    if (
+        Array.isArray(currentQuestion.sites)
+    ) {
+
+        currentSites =
+            [...currentQuestion.sites];
+
+        return;
+
+    }
+
+
+    /*
+        まだサイトデータがない場合。
+        後で questions.js の構造を
+        確定したらここを使う。
+    */
+
+    currentSites = [];
+
+    resultsArea.innerHTML = `
+        <div class="loading">
+            この問題にはまだWebサイトが登録されていません。
+        </div>
+    `;
+
+}
+
+
+/* =========================================================
+   SEARCH MATCH
+========================================================= */
+
+function calculateMatchScore(
+    site,
+    query
+) {
+
+    const text = (
+
+        (site.title || "") +
+        " " +
+        (site.description || "") +
+        " " +
+        (site.keywords || "")
+
+    ).toLowerCase();
+
 
     const words =
-        query.split(/\s+/).filter(Boolean);
+        query
+            .toLowerCase()
+            .split(/\s+/)
+            .filter(Boolean);
+
 
     let score = 0;
+
 
     words.forEach(word => {
 
         if (text.includes(word)) {
+
             score += 10;
+
         }
 
     });
 
+
     return score;
+
 }
 
 
-/* =====================================================
+/* =========================================================
+   SHUFFLE
+========================================================= */
+
+function shuffleResults(array) {
+
+    const result =
+        [...array];
+
+
+    for (
+        let i = result.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+
+        [
+            result[i],
+            result[j]
+        ] = [
+            result[j],
+            result[i]
+        ];
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
    OPEN SITE
-===================================================== */
+========================================================= */
 
-function openSite(index) {
+async function openSite(site) {
 
-    if (!gameStarted || gameFinished) {
+    if (
+        !gameStarted ||
+        gameFinished
+    ) {
         return;
     }
 
-    const site =
-        gameData.sites[index];
 
     if (!site) {
         return;
     }
 
-    openedSites.add(index);
-
-    document.getElementById("siteUrl").textContent =
-        "https://" + site.url;
-
-    document.getElementById("sitePage").innerHTML =
-        site.page;
-
-    document.getElementById("siteScreen")
-        .classList.remove("hidden");
 
     /*
-        サイトを開いた時点で、
-        ページの先頭から読めるようにする。
+        サイトを記録
     */
 
-    document.getElementById("siteScreen")
-        .scrollTop = 0;
+    openedSites.add(
+        site.id || site.file || site.url
+    );
+
+
+    /*
+        URL表示
+    */
+
+    document.getElementById("siteUrl")
+        .textContent =
+            "https://" +
+            (site.url || "example.com");
+
+
+    /*
+        ローディング
+    */
+
+    document.getElementById("siteContent")
+        .innerHTML = `
+            <div class="loading">
+                ページを読み込んでいます...
+            </div>
+        `;
+
+
+    siteScreen.classList.remove("hidden");
+
+
+    /*
+        HTMLファイルを取得
+    */
+
+    if (!site.file) {
+
+        document.getElementById("siteContent")
+            .innerHTML = `
+                <div class="loading">
+                    このサイトのHTMLファイルが
+                    登録されていません。
+                </div>
+            `;
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(site.file);
+
+
+        if (!response.ok) {
+            throw new Error(
+                "HTTP " + response.status
+            );
+        }
+
+
+        const html =
+            await response.text();
+
+
+        /*
+            HTMLをそのまま表示
+        */
+
+        document.getElementById("siteContent")
+            .innerHTML =
+                html;
+
+
+        /*
+            サイト画面の一番上へ
+        */
+
+        siteScreen.scrollTop = 0;
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        document.getElementById("siteContent")
+            .innerHTML = `
+
+                <div class="loading">
+
+                    <h2>
+                        ページを読み込めませんでした
+                    </h2>
+
+                    <p>
+                        ${escapeHTML(
+                            site.file
+                        )}
+                    </p>
+
+                </div>
+
+            `;
+
+    }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    CLOSE SITE
-===================================================== */
+========================================================= */
 
 function closeSite() {
 
-    document.getElementById("siteScreen")
-        .classList.add("hidden");
+    siteScreen.classList.add("hidden");
 
 }
 
 
-/* =====================================================
-   ANSWER
-===================================================== */
+/* =========================================================
+   SUBMIT ANSWER
+========================================================= */
 
 function submitAnswer() {
 
-    if (!gameStarted || gameFinished) {
+    if (
+        !gameStarted ||
+        gameFinished ||
+        !currentQuestion
+    ) {
         return;
     }
+
 
     gameFinished = true;
 
     clearInterval(timerInterval);
 
-    const answer =
-        document.getElementById("answerInput")
-            .value
-            .trim();
 
-    const normalizedAnswer =
-        normalizeAnswer(answer);
+    const userAnswer =
+        answerInput.value.trim();
+
+
+    const normalizedUser =
+        normalizeAnswer(
+            userAnswer
+        );
+
 
     const normalizedCorrect =
-        normalizeAnswer(gameData.answer);
+        normalizeAnswer(
+            currentQuestion.answer
+        );
+
 
     const isCorrect =
-        normalizedAnswer === normalizedCorrect;
+        normalizedUser ===
+        normalizedCorrect;
+
+
+    /*
+        スコア
+    */
 
     let finalScore = 0;
+
 
     if (isCorrect) {
 
         /*
-            基本点
+            正解基本点
         */
+
         finalScore += 5000;
+
 
         /*
             時間ボーナス
         */
-        finalScore += timeLeft * 100;
+
+        finalScore +=
+            timeLeft * 100;
+
 
         /*
-            情報源を見ることで加点
+            公式サイトを開いていた場合
         */
+
         const officialOpened =
-            [...openedSites].some(
-                index =>
-                    gameData.sites[index].type === "official"
-            );
+            currentSites.some(site => {
+
+                const key =
+                    site.id ||
+                    site.file ||
+                    site.url;
+
+                return (
+                    openedSites.has(key) &&
+                    site.type === "official"
+                );
+
+            });
+
 
         if (officialOpened) {
+
             finalScore += 3000;
+
         }
 
+
         /*
-            検索しすぎると少し減点
+            検索回数ペナルティ
         */
+
         if (searchCount > 3) {
+
             finalScore -=
                 (searchCount - 3) * 250;
+
         }
+
 
         /*
-            サイトを一切見ずに答えた場合は減点
+            サイトを見ずに
+            答えた場合
         */
+
         if (openedSites.size === 0) {
+
             finalScore -= 2000;
+
         }
 
-    } else {
-
-        finalScore = 0;
-
     }
+
 
     if (finalScore < 0) {
         finalScore = 0;
     }
 
-    currentScore = finalScore;
+
+    scoreElement.textContent =
+        finalScore.toLocaleString();
+
 
     showResult(
-        answer,
-        isCorrect
+        userAnswer,
+        isCorrect,
+        finalScore
     );
 
 }
 
 
-/* =====================================================
-   NORMALIZE
-===================================================== */
+/* =========================================================
+   NORMALIZE ANSWER
+========================================================= */
 
 function normalizeAnswer(value) {
 
-    return value
+    return String(value)
+
         .replace(/,/g, "")
-        .replace(/ｍ/g, "m")
+
+        .replace(/，/g, "")
+
         .replace(/\s/g, "")
+
+        .replace(/　/g, "")
+
         .toLowerCase();
 
 }
 
 
-/* =====================================================
-   RESULT
-===================================================== */
+/* =========================================================
+   SHOW RESULT
+========================================================= */
 
-function showResult(answer, isCorrect) {
+function showResult(
+    userAnswer,
+    isCorrect,
+    finalScore
+) {
 
-    document.getElementById("gameScreen")
-        .classList.add("hidden");
+    gameScreen.classList.add("hidden");
 
-    document.getElementById("siteScreen")
-        .classList.add("hidden");
+    siteScreen.classList.add("hidden");
 
-    document.getElementById("resultScreen")
-        .classList.remove("hidden");
+    resultScreen.classList.remove("hidden");
 
-    document.getElementById("finalScore")
-        .textContent =
-            currentScore.toLocaleString();
 
-    document.getElementById("finalAnswer")
-        .textContent =
-            answer || "未回答";
+    /*
+        正解 / 不正解
+    */
 
-    document.getElementById("correctAnswer")
-        .textContent =
-            gameData.answer + " m";
+    const state =
+        document.getElementById(
+            "resultState"
+        );
 
-    document.getElementById("finalTime")
-        .textContent =
-            timeLeft + "秒";
 
-    document.getElementById("openedSites")
-        .textContent =
-            openedSites.size;
+    if (isCorrect) {
+
+        state.textContent =
+            "正解！";
+
+        state.className =
+            "result-state correct";
+
+    } else {
+
+        state.textContent =
+            "不正解";
+
+        state.className =
+            "result-state wrong";
+
+    }
+
+
+    /*
+        スコア
+    */
+
+    document.getElementById(
+        "finalScore"
+    ).textContent =
+        finalScore.toLocaleString();
+
+
+    /*
+        回答
+    */
+
+    document.getElementById(
+        "finalAnswer"
+    ).textContent =
+        userAnswer || "未回答";
+
+
+    /*
+        正解
+    */
+
+    document.getElementById(
+        "correctAnswer"
+    ).textContent =
+        currentQuestion.answer;
+
+
+    /*
+        時間
+    */
+
+    document.getElementById(
+        "finalTime"
+    ).textContent =
+        timeLeft + "秒";
+
+
+    /*
+        検索回数
+    */
+
+    document.getElementById(
+        "finalSearchCount"
+    ).textContent =
+        searchCount + "回";
+
+
+    /*
+        開いたサイト
+    */
+
+    document.getElementById(
+        "finalOpenedSites"
+    ).textContent =
+        openedSites.size + "件";
+
+
+    /*
+        答え合わせ文章
+    */
+
+    const explanation =
+        document.getElementById(
+            "resultExplanation"
+        );
+
+
+    if (isCorrect) {
+
+        explanation.innerHTML = `
+            <strong>答え合わせ</strong><br>
+            あなたの回答は正解です。<br>
+            制限時間内に情報を探し出すことができました。
+        `;
+
+    } else {
+
+        explanation.innerHTML = `
+            <strong>答え合わせ</strong><br>
+            正解は
+            <strong>
+                ${escapeHTML(
+                    String(
+                        currentQuestion.answer
+                    )
+                )}
+            </strong>
+            です。<br>
+            今回は正しい情報にたどり着けませんでした。
+        `;
+
+    }
 
 }
 
 
-/* =====================================================
-   HOW TO PLAY
-===================================================== */
+/* =========================================================
+   HOW TO
+========================================================= */
 
-function showHowTo() {
+function openHowTo() {
 
-    alert(
-        "SEARCH BATTLE\n\n" +
-        "① お題を確認\n\n" +
-        "② 検索して情報を探す\n\n" +
-        "③ 検索結果からサイトを開く\n\n" +
-        "④ サイトの情報を読み比べる\n\n" +
-        "⑤ 答えを入力\n\n" +
-        "正確さだけでなく、速度も重要です。"
-    );
+    document.getElementById(
+        "howtoOverlay"
+    ).classList.remove("hidden");
 
 }
 
 
-/* =====================================================
+function closeHowTo() {
+
+    document.getElementById(
+        "howtoOverlay"
+    ).classList.add("hidden");
+
+}
+
+
+/* =========================================================
    ESCAPE HTML
-===================================================== */
+========================================================= */
 
 function escapeHTML(value) {
 
-    return value
+    return String(value)
+
         .replace(/&/g, "&amp;")
+
         .replace(/</g, "&lt;")
+
         .replace(/>/g, "&gt;")
+
         .replace(/"/g, "&quot;")
+
         .replace(/'/g, "&#039;");
 
 }
 
 
-/* =====================================================
-   INITIAL
-===================================================== */
+/* =========================================================
+   ENTER KEY
+========================================================= */
 
-document.getElementById("questionText").textContent =
-    gameData.question;
+searchInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+
+            searchWeb();
+
+        }
+
+    }
+);
+
+
+answerInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+
+            submitAnswer();
+
+        }
+
+    }
+);
 
 </script>
 
