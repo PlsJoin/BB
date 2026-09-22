@@ -16,10 +16,10 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
-    min-height: 100%;
+    height: 100%;
     font-family: Arial, "Noto Sans JP", sans-serif;
-    color: #202124;
     background: #fff;
+    color: #202124;
 }
 
 button,
@@ -27,1240 +27,721 @@ input {
     font-family: inherit;
 }
 
-button {
-    cursor: pointer;
-}
-
-/* =========================================================
-   共通
-========================================================= */
-
-.hidden {
-    display: none !important;
-}
-
-
-/* =========================================================
-   START SCREEN
-========================================================= */
+/* =========================
+   START
+========================= */
 
 #startScreen {
+    width: 100%;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 120px;
-    position: relative;
-}
-
-
-/* Google風 上部 */
-
-.start-topbar {
-    position: absolute;
-    top: 0;
-    right: 0;
-
-    height: 60px;
-
-    display: flex;
-    align-items: center;
-
-    gap: 20px;
-    padding: 0 22px;
-
-    font-size: 13px;
-}
-
-.start-topbar a {
-    color: #202124;
-    text-decoration: none;
-}
-
-.start-topbar a:hover {
-    text-decoration: underline;
-}
-
-
-/* アプリ */
-
-.apps-button {
-    width: 40px;
-    height: 40px;
-
-    border-radius: 50%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.apps-button:hover {
-    background: #f1f3f4;
-}
-
-.apps-grid {
-    width: 18px;
-    height: 18px;
-
-    display: grid;
-
-    grid-template-columns: repeat(3, 4px);
-    grid-template-rows: repeat(3, 4px);
-
-    gap: 2px;
-}
-
-.apps-grid span {
-    width: 4px;
-    height: 4px;
-
-    background: #5f6368;
-
-    border-radius: 50%;
-}
-
-
-/* ユーザーアイコン */
-
-.user-icon {
-    width: 34px;
-    height: 34px;
-
-    border-radius: 50%;
-
-    background: #4285f4;
-    color: #fff;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 15px;
-}
-
-
-/* ロゴ */
-
-.main-logo {
-    font-size: 76px;
-    font-weight: 500;
-
-    letter-spacing: -6px;
-
-    margin-bottom: 20px;
-
-    user-select: none;
-}
-
-.main-logo span:nth-child(1) {
-    color: #4285f4;
-}
-
-.main-logo span:nth-child(2) {
-    color: #ea4335;
-}
-
-.main-logo span:nth-child(3) {
-    color: #fbbc05;
-}
-
-.main-logo span:nth-child(4) {
-    color: #4285f4;
-}
-
-.main-logo span:nth-child(5) {
-    color: #34a853;
-}
-
-.main-logo span:nth-child(6) {
-    color: #ea4335;
-}
-
-
-/* タイトル */
-
-.game-name {
-    font-size: 25px;
-
-    letter-spacing: 3px;
-
-    margin-bottom: 32px;
-
-    color: #3c4043;
-}
-
-
-/* 開始検索バー */
-
-.start-search {
-    width: min(620px, 90vw);
-    height: 50px;
-
-    border: 1px solid #dfe1e5;
-    border-radius: 28px;
-
-    display: flex;
-    align-items: center;
-
-    padding: 0 18px;
-
-    box-shadow: 0 1px 6px rgba(32, 33, 36, .12);
-
-    margin-bottom: 24px;
-}
-
-.start-search-icon {
-    width: 18px;
-    height: 18px;
-
-    border: 2px solid #9aa0a6;
-
-    border-radius: 50%;
-
-    position: relative;
-
-    margin-right: 15px;
-}
-
-.start-search-icon::after {
-    content: "";
-
-    position: absolute;
-
-    width: 7px;
-    height: 2px;
-
-    background: #9aa0a6;
-
-    right: -5px;
-    bottom: -2px;
-
-    transform: rotate(45deg);
-}
-
-.start-search-text {
-    color: #5f6368;
-    font-size: 15px;
-}
-
-
-/* 開始ボタン */
-
-.start-buttons {
-    display: flex;
-    gap: 12px;
-}
-
-.start-buttons button {
-    border: 1px solid #f8f9fa;
-
-    background: #f8f9fa;
-
-    color: #202124;
-
-    padding: 11px 18px;
-
-    border-radius: 4px;
-
-    font-size: 14px;
-}
-
-.start-buttons button:hover {
-    border-color: #dadce0;
-
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
-}
-
-.start-info {
-    margin-top: 50px;
-
-    color: #70757a;
-
-    font-size: 13px;
-}
-
-
-/* =========================================================
-   GAME SCREEN
-========================================================= */
-
-#gameScreen {
-    min-height: 100vh;
-
     background: #fff;
 }
 
+.startBox {
+    width: min(700px, 90%);
+    text-align: center;
+}
 
-/* ヘッダー */
+.logo {
+    font-size: 62px;
+    font-weight: 700;
+    letter-spacing: -4px;
+    margin-bottom: 10px;
+}
 
-.game-header {
-    height: 68px;
+.logo span:nth-child(1) { color: #4285f4; }
+.logo span:nth-child(2) { color: #ea4335; }
+.logo span:nth-child(3) { color: #fbbc05; }
+.logo span:nth-child(4) { color: #4285f4; }
+.logo span:nth-child(5) { color: #34a853; }
+.logo span:nth-child(6) { color: #ea4335; }
 
-    border-bottom: 1px solid #dadce0;
+.startSubtitle {
+    font-size: 15px;
+    color: #5f6368;
+    margin-bottom: 32px;
+}
 
+.startSearch {
+    width: 100%;
+    height: 54px;
+    border: 1px solid #dfe1e5;
+    border-radius: 27px;
     display: flex;
     align-items: center;
-
-    padding: 0 25px;
-
-    gap: 25px;
+    padding: 0 22px;
+    box-shadow: 0 1px 6px rgba(32,33,36,.12);
+    margin-bottom: 25px;
 }
 
-
-/* 小さいロゴ */
-
-.small-logo {
-    font-size: 25px;
-
-    font-weight: 500;
-
-    letter-spacing: -2px;
-
-    white-space: nowrap;
+.startSearch span {
+    color: #777;
+    font-size: 15px;
+    text-align: left;
 }
 
-.small-logo span:nth-child(1) {
-    color: #4285f4;
-}
-
-.small-logo span:nth-child(2) {
-    color: #ea4335;
-}
-
-.small-logo span:nth-child(3) {
-    color: #fbbc05;
-}
-
-.small-logo span:nth-child(4) {
-    color: #4285f4;
-}
-
-.small-logo span:nth-child(5) {
-    color: #34a853;
-}
-
-.small-logo span:nth-child(6) {
-    color: #ea4335;
-}
-
-
-/* ステータス */
-
-.game-status {
-    margin-left: auto;
-
+.startButtons {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
 
-    gap: 25px;
-
+.startButton {
+    border: 1px solid #f8f9fa;
+    background: #f8f9fa;
+    color: #202124;
+    padding: 11px 22px;
+    border-radius: 4px;
+    cursor: pointer;
     font-size: 14px;
+}
+
+.startButton:hover {
+    border-color: #dadce0;
+}
+
+/* =========================
+   GAME
+========================= */
+
+#gameScreen {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.topBar {
+    height: 70px;
+    border-bottom: 1px solid #dadce0;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 25px;
+    background: #fff;
+}
+
+.smallLogo {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -2px;
+}
+
+.smallLogo span:nth-child(1) { color: #4285f4; }
+.smallLogo span:nth-child(2) { color: #ea4335; }
+.smallLogo span:nth-child(3) { color: #fbbc05; }
+.smallLogo span:nth-child(4) { color: #4285f4; }
+.smallLogo span:nth-child(5) { color: #34a853; }
+.smallLogo span:nth-child(6) { color: #ea4335; }
+
+.searchArea {
+    flex: 1;
+    max-width: 700px;
+}
+
+.searchForm {
+    width: 100%;
+    height: 44px;
+    border: 1px solid #dfe1e5;
+    border-radius: 23px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.searchForm:focus-within {
+    box-shadow: 0 1px 6px rgba(32,33,36,.18);
+}
+
+.searchForm input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 0 18px;
+    font-size: 16px;
+}
+
+.searchForm button {
+    width: 58px;
+    height: 100%;
+    border: none;
+    background: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.statusArea {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    white-space: nowrap;
 }
 
 .timer {
     font-weight: bold;
-
-    color: #d93025;
-
-    min-width: 90px;
-
-    text-align: right;
+    font-size: 20px;
 }
 
-.score-display {
-    color: #3c4043;
-}
-
-
-/* =========================================================
-   QUESTION
-========================================================= */
-
-.question-box {
-    width: min(900px, 92vw);
-
-    margin: 30px auto 22px;
-
-    padding: 21px 24px;
-
-    background: #f8f9fa;
-
-    border: 1px solid #dadce0;
-
-    border-radius: 8px;
-}
-
-.question-label {
+.score {
     color: #5f6368;
-
-    font-size: 12px;
-
-    margin-bottom: 8px;
-}
-
-.question-text {
-    font-size: 22px;
-
-    font-weight: 500;
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-.search-area {
-    width: min(760px, 92vw);
-
-    margin: 0 auto 26px;
-}
-
-.search-box {
-    height: 48px;
-
-    border: 1px solid #dfe1e5;
-
-    border-radius: 24px;
-
-    display: flex;
-    align-items: center;
-
-    padding: 0 8px 0 15px;
-
-    box-shadow: 0 1px 4px rgba(32, 33, 36, .15);
-}
-
-.search-box:focus-within {
-    box-shadow: 0 1px 6px rgba(32, 33, 36, .25);
-}
-
-.search-icon {
-    width: 17px;
-    height: 17px;
-
-    border: 2px solid #9aa0a6;
-
-    border-radius: 50%;
-
-    position: relative;
-
-    margin-right: 13px;
-
-    flex-shrink: 0;
-}
-
-.search-icon::after {
-    content: "";
-
-    position: absolute;
-
-    width: 6px;
-    height: 2px;
-
-    background: #9aa0a6;
-
-    right: -5px;
-    bottom: -2px;
-
-    transform: rotate(45deg);
-}
-
-.search-input {
-    flex: 1;
-
-    height: 100%;
-
-    border: none;
-
-    outline: none;
-
-    font-size: 16px;
-}
-
-.search-button {
-    border: none;
-
-    background: #4285f4;
-
-    color: #fff;
-
-    border-radius: 4px;
-
-    padding: 9px 16px;
-
     font-size: 14px;
 }
 
-.search-button:hover {
-    background: #3367d6;
+/* =========================
+   MAIN
+========================= */
+
+.gameMain {
+    height: calc(100vh - 70px);
+    display: flex;
+    overflow: hidden;
 }
 
-
-/* =========================================================
-   SEARCH RESULTS
-========================================================= */
-
-.results-area {
-    width: min(760px, 92vw);
-
-    margin: 0 auto;
-
-    padding-bottom: 150px;
+.searchPanel {
+    width: 58%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 28px 35px 100px;
+    border-right: 1px solid #dadce0;
 }
 
-.result-count {
-    color: #70757a;
+.questionBox {
+    background: #f8f9fa;
+    border: 1px solid #dadce0;
+    padding: 18px 20px;
+    margin-bottom: 25px;
+}
 
+.questionLabel {
+    font-size: 12px;
+    color: #5f6368;
+    margin-bottom: 6px;
+}
+
+.questionText {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* results */
+
+.resultsInfo {
     font-size: 13px;
-
-    margin-bottom: 22px;
+    color: #5f6368;
+    margin-bottom: 20px;
 }
 
-.result {
-    margin-bottom: 28px;
-
+.resultItem {
+    padding: 17px 5px 20px;
+    border-bottom: 1px solid #eee;
     cursor: pointer;
 }
 
-.result:hover .result-title {
-    text-decoration: underline;
+.resultItem:hover {
+    background: #fafafa;
 }
 
-.result-url {
-    color: #188038;
-
-    font-size: 13px;
-
-    margin-bottom: 4px;
-}
-
-.sponsor {
-    display: inline-block;
-
-    color: #5f6368;
-
-    border: 1px solid #dadce0;
-
-    border-radius: 3px;
-
-    padding: 1px 5px;
-
-    margin-right: 5px;
-
-    font-size: 11px;
-}
-
-.result-title {
+.resultTitle {
     color: #1a0dab;
-
-    font-size: 20px;
-
-    line-height: 1.35;
-
+    font-size: 18px;
     margin-bottom: 5px;
 }
 
-.result-description {
+.resultUrl {
+    color: #188038;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.resultDescription {
     color: #4d5156;
-
     font-size: 14px;
-
-    line-height: 1.6;
+    line-height: 1.55;
 }
 
-
-/* =========================================================
-   ANSWER PANEL
-========================================================= */
-
-.answer-panel {
-    position: fixed;
-
-    right: 20px;
-    bottom: 20px;
-
-    width: 340px;
-
-    background: #fff;
-
-    border: 1px solid #dadce0;
-
-    border-radius: 10px;
-
-    padding: 16px;
-
-    box-shadow: 0 4px 18px rgba(0, 0, 0, .16);
-
-    z-index: 20;
+.badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 7px;
+    border-radius: 3px;
+    margin-left: 7px;
+    color: #5f6368;
+    background: #f1f3f4;
 }
 
-.answer-title {
-    font-size: 14px;
+/* =========================
+   ANSWER
+========================= */
 
+.answerPanel {
+    width: 42%;
+    height: 100%;
+    background: #f8f9fa;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.answerTitle {
+    font-size: 18px;
     font-weight: bold;
-
     margin-bottom: 10px;
 }
 
-.answer-row {
-    display: flex;
-
-    gap: 8px;
+.answerDescription {
+    color: #5f6368;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 18px;
 }
 
-.answer-input {
-    flex: 1;
-
-    height: 40px;
-
+.answerInput {
+    width: 100%;
+    height: 50px;
     border: 1px solid #dadce0;
-
     border-radius: 4px;
-
-    padding: 0 10px;
-
+    padding: 0 14px;
+    font-size: 16px;
     outline: none;
+    background: white;
 }
 
-.answer-input:focus {
+.answerInput:focus {
     border-color: #4285f4;
 }
 
-.submit-answer {
-    height: 40px;
-
+.submitButton {
+    width: 100%;
+    height: 48px;
+    margin-top: 12px;
     border: none;
-
-    background: #4285f4;
-
+    background: #1a73e8;
     color: white;
-
     border-radius: 4px;
-
-    padding: 0 15px;
-
+    font-size: 15px;
     font-weight: bold;
+    cursor: pointer;
 }
 
-.submit-answer:hover {
-    background: #3367d6;
+.submitButton:hover {
+    background: #1769d1;
 }
 
-
-/* =========================================================
-   SITE VIEWER
-========================================================= */
-
-#siteScreen {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 100;
-
-    background: #fff;
-
-    overflow-y: auto;
-}
-
-
-/* ブラウザバー */
-
-.browser-bar {
-    height: 58px;
-
-    background: #f1f3f4;
-
-    border-bottom: 1px solid #dadce0;
-
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-
-    padding: 0 15px;
-
-    position: sticky;
-
-    top: 0;
-
-    z-index: 100;
-}
-
-.browser-back {
-    width: 38px;
-    height: 38px;
-
-    border: none;
-
-    background: transparent;
-
-    border-radius: 50%;
-
+.openedInfo {
+    margin-top: auto;
+    border-top: 1px solid #dadce0;
+    padding-top: 18px;
+    font-size: 13px;
     color: #5f6368;
-
-    font-size: 23px;
 }
 
-.browser-back:hover {
-    background: #e0e0e0;
-}
-
-.browser-address {
-    flex: 1;
-
-    max-width: 900px;
-
-    height: 38px;
-
-    background: #fff;
-
-    border: 1px solid #dadce0;
-
-    border-radius: 20px;
-
-    display: flex;
-    align-items: center;
-
-    padding: 0 15px;
-
-    color: #5f6368;
-
-    font-size: 14px;
-}
-
-.browser-lock {
-    margin-right: 8px;
-}
-
-.browser-close {
-    margin-left: auto;
-
-    border: 1px solid #dadce0;
-
-    background: #fff;
-
-    color: #3c4043;
-
-    padding: 9px 14px;
-
-    border-radius: 5px;
-}
-
-.browser-close:hover {
-    background: #f8f9fa;
-}
-
-
-/* =========================================================
-   RESULT SCREEN
-========================================================= */
-
-#resultScreen {
-    min-height: 100vh;
-
-    background: #f8f9fa;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 30px;
-}
-
-.result-card {
-    width: min(650px, 95vw);
-
-    background: #fff;
-
-    border: 1px solid #dadce0;
-
-    border-radius: 12px;
-
-    padding: 35px;
-
-    box-shadow: 0 3px 15px rgba(0, 0, 0, .08);
-
-    text-align: center;
-}
-
-.result-logo {
-    font-size: 28px;
-
-    letter-spacing: -2px;
-
-    margin-bottom: 10px;
-}
-
-.result-state {
-    font-size: 28px;
-
-    font-weight: bold;
-
-    margin: 15px 0;
-}
-
-.result-state.correct {
-    color: #188038;
-}
-
-.result-state.wrong {
-    color: #d93025;
-}
-
-.final-score {
-    font-size: 58px;
-
-    font-weight: bold;
-
-    color: #4285f4;
-
-    margin: 10px 0 25px;
-}
-
-.result-line {
-    border-top: 1px solid #eee;
-
-    padding: 14px 0;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    text-align: left;
-
-    font-size: 14px;
-}
-
-.result-line strong {
+.openedInfo strong {
     color: #202124;
 }
 
-.result-explanation {
-    margin-top: 22px;
+/* =========================
+   SITE VIEWER
+========================= */
 
-    padding: 17px;
-
-    background: #f8f9fa;
-
-    border-radius: 7px;
-
-    text-align: left;
-
-    font-size: 14px;
-
-    line-height: 1.7;
+#siteViewer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: white;
 }
 
-.restart-button {
-    margin-top: 25px;
+.browserBar {
+    height: 58px;
+    background: #f1f3f4;
+    border-bottom: 1px solid #dadce0;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    gap: 12px;
+}
 
-    background: #4285f4;
-
+.browserBack {
+    width: 36px;
+    height: 36px;
     border: none;
+    background: transparent;
+    font-size: 23px;
+    cursor: pointer;
+}
 
-    color: #fff;
+.fakeAddress {
+    flex: 1;
+    max-width: 900px;
+    height: 38px;
+    background: white;
+    border: 1px solid #dadce0;
+    border-radius: 19px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    color: #5f6368;
+    font-size: 13px;
+}
 
-    padding: 12px 23px;
+.closeSite {
+    margin-left: auto;
+    border: 1px solid #dadce0;
+    background: white;
+    border-radius: 4px;
+    padding: 9px 15px;
+    cursor: pointer;
+}
 
-    border-radius: 5px;
+#siteFrame {
+    width: 100%;
+    height: calc(100% - 58px);
+    border: none;
+    background: white;
+}
 
+/* =========================
+   RESULT
+========================= */
+
+#resultScreen {
+    display: none;
+    min-height: 100vh;
+    background: #fff;
+    padding: 70px 20px;
+}
+
+.resultBox {
+    width: min(700px, 100%);
+    margin: auto;
+    text-align: center;
+}
+
+.resultStatus {
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.resultScore {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 20px 0 35px;
+}
+
+.resultGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.resultStat {
+    border: 1px solid #dadce0;
+    padding: 17px;
+    text-align: left;
+    background: #fff;
+}
+
+.resultStatLabel {
+    font-size: 12px;
+    color: #5f6368;
+    margin-bottom: 5px;
+}
+
+.resultStatValue {
+    font-size: 16px;
     font-weight: bold;
 }
 
-.restart-button:hover {
-    background: #3367d6;
+.explanation {
+    text-align: left;
+    background: #f8f9fa;
+    border: 1px solid #dadce0;
+    padding: 18px;
+    line-height: 1.7;
+    margin-bottom: 25px;
 }
 
+.restartButton {
+    border: none;
+    background: #1a73e8;
+    color: white;
+    padding: 13px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}
 
-/* =========================================================
+/* =========================
    HOW TO
-========================================================= */
+========================= */
 
-.howto-overlay {
+#howto {
+    display: none;
     position: fixed;
-
     inset: 0;
-
-    background: rgba(0, 0, 0, .35);
-
-    z-index: 300;
-
-    display: flex;
-
+    z-index: 2000;
+    background: rgba(0,0,0,.35);
     align-items: center;
     justify-content: center;
-
-    padding: 20px;
 }
 
-.howto-box {
-    width: min(520px, 95vw);
-
-    background: #fff;
-
-    border-radius: 10px;
-
+.howtoBox {
+    width: min(560px, 90%);
+    background: white;
     padding: 30px;
-
-    box-shadow: 0 8px 35px rgba(0, 0, 0, .25);
+    border-radius: 8px;
 }
 
-.howto-box h2 {
+.howtoBox h2 {
     margin-top: 0;
 }
 
-.howto-box ol {
-    padding-left: 22px;
-
-    line-height: 2;
+.howtoBox li {
+    margin-bottom: 12px;
+    line-height: 1.6;
 }
 
-.howto-close {
-    width: 100%;
-
+.howtoClose {
     margin-top: 15px;
-
-    border: none;
-
-    background: #4285f4;
-
-    color: #fff;
-
-    padding: 11px;
-
-    border-radius: 5px;
+    padding: 10px 18px;
+    border: 1px solid #dadce0;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loading {
-    padding: 45px 0;
-
-    text-align: center;
-
-    color: #70757a;
-
-    font-size: 14px;
-}
-
-
-/* =========================================================
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
 
-    #startScreen {
-        padding-top: 100px;
-    }
-
-    .main-logo {
-        font-size: 58px;
-
-        letter-spacing: -5px;
-    }
-
-    .game-header {
-        padding: 0 15px;
-
+    .topBar {
+        padding: 0 12px;
         gap: 10px;
     }
 
-    .small-logo {
-        font-size: 20px;
-    }
-
-    .game-status {
-        gap: 10px;
-
-        font-size: 12px;
-    }
-
-    .question-box {
-        margin-top: 20px;
-    }
-
-    .question-text {
-        font-size: 18px;
-    }
-
-    .answer-panel {
-        left: 12px;
-        right: 12px;
-
-        width: auto;
-
-        bottom: 12px;
-    }
-
-    .browser-close {
+    .smallLogo {
         display: none;
     }
 
-    .result-state {
-        font-size: 23px;
+    .gameMain {
+        flex-direction: column;
     }
 
-    .final-score {
-        font-size: 48px;
+    .searchPanel,
+    .answerPanel {
+        width: 100%;
+    }
+
+    .searchPanel {
+        height: 58%;
+        padding: 20px;
+    }
+
+    .answerPanel {
+        height: 42%;
+        padding: 20px;
+    }
+
+    .openedInfo {
+        display: none;
+    }
+
+    .resultGrid {
+        grid-template-columns: 1fr;
     }
 }
 </style>
 </head>
 
-
 <body>
 
+<!-- =========================
+     START
+========================= -->
 
-<!-- =====================================================
-     START SCREEN
-===================================================== -->
+<div id="startScreen">
 
-<section id="startScreen">
+    <div class="startBox">
 
-    <div class="start-topbar">
-
-        <a href="javascript:void(0)">Gmail</a>
-
-        <a href="javascript:void(0)">画像</a>
-
-        <div class="apps-button">
-
-            <div class="apps-grid">
-                <span></span>
-                <span></span>
-                <span></span>
-
-                <span></span>
-                <span></span>
-                <span></span>
-
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
+        <div class="logo">
+            <span>S</span><span>E</span><span>A</span><span>R</span><span>C</span><span>H</span>
         </div>
 
-        <div class="user-icon">
-            S
+        <div class="startSubtitle">
+            SEARCH BATTLE
         </div>
 
-    </div>
-
-
-    <div class="main-logo">
-
-        <span>S</span>
-        <span>E</span>
-        <span>A</span>
-        <span>R</span>
-        <span>C</span>
-        <span>H</span>
-
-    </div>
-
-
-    <div class="game-name">
-        SEARCH BATTLE
-    </div>
-
-
-    <div class="start-search">
-
-        <div class="start-search-icon"></div>
-
-        <div class="start-search-text">
-            Webを検索して、答えを見つけよう
+        <div class="startSearch">
+            <span>Webを検索して答えを見つけろ</span>
         </div>
 
-    </div>
-
-
-    <div class="start-buttons">
-
-        <button onclick="startGame()">
-            検索ゲームを開始
-        </button>
-
-        <button onclick="openHowTo()">
-            遊び方
-        </button>
-
-    </div>
-
-
-    <div class="start-info">
-        検索力・情報判断力・速度を競うWEBゲーム
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     GAME SCREEN
-===================================================== -->
-
-<section id="gameScreen" class="hidden">
-
-
-    <header class="game-header">
-
-        <div class="small-logo">
-
-            <span>S</span>
-            <span>E</span>
-            <span>A</span>
-            <span>R</span>
-            <span>C</span>
-            <span>H</span>
-
-        </div>
-
-
-        <div class="game-status">
-
-            <div class="timer">
-                残り <span id="timer">90</span> 秒
-            </div>
-
-            <div class="score-display">
-                SCORE: <span id="score">0</span>
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <div class="question-box">
-
-        <div class="question-label">
-            SEARCH BATTLE / QUESTION
-        </div>
-
-        <div
-            id="questionText"
-            class="question-text"
-        >
-            問題を読み込んでいます...
-        </div>
-
-    </div>
-
-
-    <div class="search-area">
-
-        <div class="search-box">
-
-            <div class="search-icon"></div>
-
-            <input
-                id="searchInput"
-                class="search-input"
-                type="text"
-                placeholder="検索"
-                autocomplete="off"
-            >
-
-            <button
-                class="search-button"
-                onclick="searchWeb()"
-            >
-                検索
+        <div class="startButtons">
+            <button class="startButton" onclick="startGame()">
+                ゲーム開始
             </button>
 
+            <button class="startButton" onclick="openHowto()">
+                遊び方
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     GAME
+========================= -->
+
+<div id="gameScreen">
+
+    <div class="topBar">
+
+        <div class="smallLogo">
+            <span>S</span><span>E</span><span>A</span><span>R</span><span>C</span><span>H</span>
+        </div>
+
+        <div class="searchArea">
+
+            <form class="searchForm" onsubmit="performSearch(event)">
+
+                <input
+                    id="searchInput"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="検索..."
+                >
+
+                <button type="submit">
+                    🔍
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="statusArea">
+
+            <div class="timer" id="timer">
+                90
+            </div>
+
+            <div class="score">
+                SCORE <span id="score">0</span>
+            </div>
+
         </div>
 
     </div>
 
 
-    <div
-        id="resultsArea"
-        class="results-area"
-    >
+    <div class="gameMain">
 
-        <div class="loading">
-            検索してください
+        <div class="searchPanel">
+
+            <div class="questionBox">
+
+                <div class="questionLabel">
+                    QUESTION
+                </div>
+
+                <div
+                    class="questionText"
+                    id="questionText"
+                ></div>
+
+            </div>
+
+            <div
+                class="resultsInfo"
+                id="resultsInfo"
+            >
+                検索してください
+            </div>
+
+            <div id="searchResults"></div>
+
         </div>
 
-    </div>
 
+        <div class="answerPanel">
 
-    <!-- 回答 -->
+            <div class="answerTitle">
+                答えを入力
+            </div>
 
-    <div class="answer-panel">
-
-        <div class="answer-title">
-            答えを入力
-        </div>
-
-        <div class="answer-row">
+            <div class="answerDescription">
+                Webサイトを調べて、最も信頼できる情報から答えを入力してください。
+            </div>
 
             <input
                 id="answerInput"
-                class="answer-input"
+                class="answerInput"
                 type="text"
                 placeholder="答えを入力"
-                autocomplete="off"
             >
 
             <button
-                class="submit-answer"
+                class="submitButton"
                 onclick="submitAnswer()"
             >
-                回答
+                回答する
             </button>
+
+            <div class="openedInfo">
+
+                検索回数：
+                <strong id="searchCount">0</strong>
+                回
+
+                <br>
+
+                閲覧したサイト：
+                <strong id="openedCount">0</strong>
+                件
+
+            </div>
 
         </div>
 
     </div>
 
-</section>
+</div>
 
 
+<!-- =========================
+     SITE VIEWER
+========================= -->
 
-<!-- =====================================================
-     SITE SCREEN
-===================================================== -->
+<div id="siteViewer">
 
-<section
-    id="siteScreen"
-    class="hidden"
->
-
-    <div class="browser-bar">
+    <div class="browserBar">
 
         <button
-            class="browser-back"
+            class="browserBack"
             onclick="closeSite()"
-            title="検索結果へ戻る"
         >
             ←
         </button>
 
-
-        <div class="browser-address">
-
-            <span class="browser-lock">
-                🔒
-            </span>
-
-            <span id="siteUrl">
-                https://example.com
-            </span>
-
+        <div
+            class="fakeAddress"
+            id="siteAddress"
+        >
         </div>
 
-
         <button
-            class="browser-close"
+            class="closeSite"
             onclick="closeSite()"
         >
             検索結果へ戻る
@@ -1268,175 +749,184 @@ button {
 
     </div>
 
+    <iframe
+        id="siteFrame"
+        src="about:blank"
+    ></iframe>
 
-    <div id="siteContent"></div>
-
-</section>
+</div>
 
 
+<!-- =========================
+     RESULT
+========================= -->
 
-<!-- =====================================================
-     RESULT SCREEN
-===================================================== -->
+<div id="resultScreen">
 
-<section
-    id="resultScreen"
-    class="hidden"
->
-
-    <div class="result-card">
-
-        <div class="result-logo">
-            SEARCH BATTLE
-        </div>
-
+    <div class="resultBox">
 
         <div
-            id="resultState"
-            class="result-state"
-        >
-            答え合わせ
-        </div>
-
+            class="resultStatus"
+            id="resultStatus"
+        ></div>
 
         <div
-            id="finalScore"
-            class="final-score"
+            class="resultScore"
+            id="resultScore"
         >
             0
         </div>
 
+        <div class="resultGrid">
 
-        <div class="result-line">
+            <div class="resultStat">
+                <div class="resultStatLabel">
+                    あなたの答え
+                </div>
 
-            <span>
-                あなたの回答
-            </span>
+                <div
+                    class="resultStatValue"
+                    id="userAnswerResult"
+                >
+                </div>
+            </div>
 
-            <strong id="finalAnswer">
-                ---
-            </strong>
+            <div class="resultStat">
+                <div class="resultStatLabel">
+                    正解
+                </div>
+
+                <div
+                    class="resultStatValue"
+                    id="correctAnswerResult"
+                >
+                </div>
+            </div>
+
+            <div class="resultStat">
+                <div class="resultStatLabel">
+                    残り時間
+                </div>
+
+                <div
+                    class="resultStatValue"
+                    id="timeResult"
+                >
+                </div>
+            </div>
+
+            <div class="resultStat">
+                <div class="resultStatLabel">
+                    検索回数
+                </div>
+
+                <div
+                    class="resultStatValue"
+                    id="searchResult"
+                >
+                </div>
+            </div>
+
+            <div class="resultStat">
+                <div class="resultStatLabel">
+                    閲覧サイト数
+                </div>
+
+                <div
+                    class="resultStatValue"
+                    id="sitesResult"
+                >
+                </div>
+            </div>
+
+            <div class="resultStat">
+                <div class="resultStatLabel">
+                    問題
+                </div>
+
+                <div
+                    class="resultStatValue"
+                    id="questionResult"
+                >
+                </div>
+            </div>
 
         </div>
 
+        <div class="explanation">
 
-        <div class="result-line">
+            <strong>答え合わせ</strong>
 
-            <span>
-                正解
-            </span>
+            <br><br>
 
-            <strong id="correctAnswer">
-                ---
-            </strong>
+            この問題では、普通鉄道の駅間距離について調べる必要があります。
 
-        </div>
+            <br><br>
 
+            中佐世保駅と佐世保中央駅の間は
+            <strong>0.2km（200m）</strong>
+            とされています。
 
-        <div class="result-line">
+            <br><br>
 
-            <span>
-                残り時間
-            </span>
-
-            <strong id="finalTime">
-                0秒
-            </strong>
+            検索結果には現在の情報だけでなく、古い記事や誤った情報が混ざる可能性があります。
+            そのため、情報の内容だけでなく、情報源や掲載時期も確認することが重要です。
 
         </div>
-
-
-        <div class="result-line">
-
-            <span>
-                検索回数
-            </span>
-
-            <strong id="finalSearchCount">
-                0回
-            </strong>
-
-        </div>
-
-
-        <div class="result-line">
-
-            <span>
-                開いたサイト
-            </span>
-
-            <strong id="finalOpenedSites">
-                0件
-            </strong>
-
-        </div>
-
-
-        <div
-            id="resultExplanation"
-            class="result-explanation"
-        ></div>
-
 
         <button
-            class="restart-button"
+            class="restartButton"
             onclick="location.reload()"
         >
-            もう一度プレイ
+            もう一度遊ぶ
         </button>
 
     </div>
 
-</section>
+</div>
 
 
-
-<!-- =====================================================
+<!-- =========================
      HOW TO
-===================================================== -->
+========================= -->
 
-<div
-    id="howtoOverlay"
-    class="howto-overlay hidden"
->
+<div id="howto">
 
-    <div class="howto-box">
+    <div class="howtoBox">
 
-        <h2>
-            SEARCH BATTLE
-        </h2>
+        <h2>遊び方</h2>
 
         <ol>
 
             <li>
-                お題を確認する
+                お題を確認します。
             </li>
 
             <li>
-                検索して情報を探す
+                検索ボックスからWeb検索を行います。
             </li>
 
             <li>
-                検索結果からサイトを開く
+                検索結果からサイトを開いて情報を調べます。
             </li>
 
             <li>
-                サイトの情報を読み比べる
+                複数のサイトを比較して、信頼できる情報を探します。
             </li>
 
             <li>
-                答えを入力する
+                答えを入力して回答します。
             </li>
 
             <li>
-                正確さと速度でスコアを競う
+                正確さと速さを競います。
             </li>
 
         </ol>
 
         <button
-            class="howto-close"
-            onclick="closeHowTo()"
+            class="howtoClose"
+            onclick="closeHowto()"
         >
             閉じる
         </button>
@@ -1446,21 +936,62 @@ button {
 </div>
 
 
-
-<!-- =====================================================
-     QUESTIONS
-     
-     questions.js が存在する場合に読み込む
-===================================================== -->
-
 <script src="js/questions.js"></script>
-
 
 <script>
 
-/* =========================================================
-   GAME STATE
-========================================================= */
+/* =========================
+   GAME DATA
+========================= */
+
+const SITE_DEFINITIONS = [
+
+    {
+        file: "official.html",
+        title: "鉄道駅間距離について｜鉄道情報",
+        url: "www.railway-data.example",
+        description: "鉄道路線や駅に関する情報を掲載しています。駅間距離についての資料を確認できます。",
+        type: "official"
+    },
+
+    {
+        file: "normal.html",
+        title: "意外と知らない日本の鉄道駅間距離",
+        url: "www.train-guide.example",
+        description: "日本の鉄道に関する雑学や駅の情報を紹介。短い駅間距離について詳しく解説しています。",
+        type: "normal"
+    },
+
+    {
+        file: "advertisement.html",
+        title: "鉄道マニア必見！日本の駅ランキングBEST20",
+        url: "www.train-ranking.example",
+        description: "日本全国の鉄道情報をランキング形式で紹介。おすすめ鉄道グッズも掲載しています。",
+        type: "advertisement"
+    },
+
+    {
+        file: "misleading.html",
+        title: "日本一駅が近い場所はここ！驚きの鉄道雑学",
+        url: "www.super-train-news.example",
+        description: "日本一短い駅間距離を独自調査。驚きの鉄道事情を紹介します。",
+        type: "misleading"
+    },
+
+    {
+        file: "old.html",
+        title: "鉄道駅間距離ランキング【2018年版】",
+        url: "old-railway-blog.example",
+        description: "以前の鉄道データをもとにした駅間距離ランキングです。",
+        type: "old"
+    }
+
+];
+
+
+/* =========================
+   VARIABLES
+========================= */
 
 let currentQuestion = null;
 
@@ -1468,80 +999,28 @@ let timeLeft = 90;
 
 let timerInterval = null;
 
-let gameStarted = false;
-
-let gameFinished = false;
-
 let searchCount = 0;
 
-let openedSites = new Set();
+let openedSites = [];
 
-let currentSites = [];
-
-
-/* =========================================================
-   DOM
-========================================================= */
-
-const startScreen =
-    document.getElementById("startScreen");
-
-const gameScreen =
-    document.getElementById("gameScreen");
-
-const siteScreen =
-    document.getElementById("siteScreen");
-
-const resultScreen =
-    document.getElementById("resultScreen");
-
-const questionText =
-    document.getElementById("questionText");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const answerInput =
-    document.getElementById("answerInput");
-
-const resultsArea =
-    document.getElementById("resultsArea");
-
-const timerElement =
-    document.getElementById("timer");
-
-const scoreElement =
-    document.getElementById("score");
+let currentScore = 0;
 
 
-/* =========================================================
-   START GAME
-========================================================= */
+/* =========================
+   START
+========================= */
 
 function startGame() {
 
-    /*
-        questions.js が読み込まれていない場合
-    */
-
     if (
         typeof questions === "undefined" ||
-        !Array.isArray(questions) ||
-        questions.length === 0
+        !questions.length
     ) {
 
-        alert(
-            "問題データが読み込めません。\n\n" +
-            "js/questions.js が存在するか確認してください。"
-        );
+        alert("問題データがありません。");
 
         return;
     }
-
-
-    /*
-        問題をランダム選択
-    */
 
     currentQuestion =
         questions[
@@ -1550,111 +1029,42 @@ function startGame() {
             )
         ];
 
-
-    /*
-        初期化
-    */
-
-    timeLeft = 90;
-
-    searchCount = 0;
-
-    openedSites.clear();
-
-    currentSites = [];
-
-    gameStarted = true;
-
-    gameFinished = false;
-
-
-    /*
-        表示
-    */
-
-    questionText.textContent =
+    document.getElementById("questionText").textContent =
         currentQuestion.question;
 
-    timerElement.textContent =
-        timeLeft;
+    document.getElementById("startScreen").style.display =
+        "none";
 
-    scoreElement.textContent =
-        "0";
-
-
-    resultsArea.innerHTML = `
-        <div class="loading">
-            検索してください
-        </div>
-    `;
-
-
-    searchInput.value = "";
-
-    answerInput.value = "";
-
-
-    /*
-        画面
-    */
-
-    startScreen.classList.add("hidden");
-
-    resultScreen.classList.add("hidden");
-
-    siteScreen.classList.add("hidden");
-
-    gameScreen.classList.remove("hidden");
-
-
-    /*
-        タイマー
-    */
+    document.getElementById("gameScreen").style.display =
+        "block";
 
     startTimer();
 
-
-    setTimeout(() => {
-        searchInput.focus();
-    }, 100);
-
+    document.getElementById("searchInput").focus();
 }
 
 
-/* =========================================================
+/* =========================
    TIMER
-========================================================= */
+========================= */
 
 function startTimer() {
 
-    clearInterval(timerInterval);
+    timeLeft = 90;
+
+    updateTimer();
 
     timerInterval = setInterval(() => {
 
-        if (
-            !gameStarted ||
-            gameFinished
-        ) {
-            return;
-        }
-
-
         timeLeft--;
 
-        if (timeLeft < 0) {
-            timeLeft = 0;
-        }
-
-
-        timerElement.textContent =
-            timeLeft;
-
+        updateTimer();
 
         if (timeLeft <= 0) {
 
             clearInterval(timerInterval);
 
-            submitAnswer();
+            submitAnswer(true);
 
         }
 
@@ -1663,851 +1073,497 @@ function startTimer() {
 }
 
 
-/* =========================================================
+function updateTimer() {
+
+    document.getElementById("timer").textContent =
+        timeLeft;
+}
+
+
+/* =========================
    SEARCH
-========================================================= */
+========================= */
 
-function searchWeb() {
+function performSearch(event) {
 
-    if (
-        !gameStarted ||
-        gameFinished ||
-        !currentQuestion
-    ) {
+    event.preventDefault();
+
+    const input =
+        document.getElementById("searchInput");
+
+    const keyword =
+        input.value.trim();
+
+    if (!keyword) {
         return;
     }
-
-
-    const query =
-        searchInput.value.trim();
-
-
-    if (!query) {
-        return;
-    }
-
 
     searchCount++;
 
+    document.getElementById("searchCount").textContent =
+        searchCount;
+
+    showSearchResults(keyword);
+
+}
+
+
+/* =========================
+   SHOW SEARCH RESULTS
+========================= */
+
+function showSearchResults(keyword) {
+
+    const results =
+        document.getElementById("searchResults");
+
+    results.innerHTML = "";
+
+    const info =
+        document.getElementById("resultsInfo");
+
+    info.textContent =
+        `"${keyword}" の検索結果`;
+
+    let sites =
+        [...SITE_DEFINITIONS];
 
     /*
-        問題IDからサイトを取得
+       検索語によって多少順番を変える。
+       実際のGoogleではなくゲーム内検索なので、
+       意図的に情報の混ざった検索結果を作る。
     */
 
-    loadSitesForQuestion();
+    if (
+        keyword.includes("駅") ||
+        keyword.includes("距離") ||
+        keyword.includes("鉄道")
+    ) {
+
+        sites.sort(() => Math.random() - 0.5);
+
+    } else {
+
+        sites.sort(() => Math.random() - 0.5);
+
+    }
 
 
-    /*
-        検索結果を作る
-    */
+    sites.forEach((site, index) => {
 
-    let results =
-        [...currentSites];
-
-
-    /*
-        簡易検索スコア
-    */
-
-    results.sort((a, b) => {
-
-        const aScore =
-            calculateMatchScore(
-                a,
-                query
-            );
-
-        const bScore =
-            calculateMatchScore(
-                b,
-                query
-            );
-
-
-        /*
-            完全な検索エンジンではなく、
-            ゲームとして自然な範囲で
-            ランダム性も残す。
-        */
-
-        if (aScore !== bScore) {
-            return bScore - aScore;
-        }
-
-        return Math.random() - 0.5;
-
-    });
-
-
-    /*
-        さらに同点・低関連結果を
-        少しシャッフル
-    */
-
-    results =
-        shuffleResults(results);
-
-
-    /*
-        表示
-    */
-
-    resultsArea.innerHTML = "";
-
-
-    const count =
-        document.createElement("div");
-
-    count.className =
-        "result-count";
-
-    count.textContent =
-        `検索結果 ${results.length} 件`;
-
-    resultsArea.appendChild(count);
-
-
-    results.forEach(site => {
-
-        const result =
+        const item =
             document.createElement("div");
 
-        result.className =
-            "result";
+        item.className =
+            "resultItem";
 
+        let badge = "";
 
-        /*
-            広告だけはスポンサー表示。
-            デマ・古い情報などは
-            ゲーム中に明示しない。
-        */
-
-        let sponsorHTML = "";
-
-        if (site.type === "advertisement") {
-
-            sponsorHTML =
-                `<span class="sponsor">スポンサー</span>`;
-
+        if (site.type === "official") {
+            badge = `<span class="badge">情報源</span>`;
         }
 
+        if (site.type === "old") {
+            badge = `<span class="badge">古い情報</span>`;
+        }
 
-        result.innerHTML = `
+        if (site.type === "advertisement") {
+            badge = `<span class="badge">広告</span>`;
+        }
 
-            <div class="result-url">
+        item.innerHTML = `
 
-                ${sponsorHTML}
-
-                ${escapeHTML(
-                    site.url || "example.com"
-                )}
-
+            <div class="resultTitle">
+                ${escapeHTML(site.title)}
+                ${badge}
             </div>
 
-
-            <div class="result-title">
-
-                ${escapeHTML(
-                    site.title || "ページ"
-                )}
-
+            <div class="resultUrl">
+                ${escapeHTML(site.url)}
             </div>
 
-
-            <div class="result-description">
-
-                ${escapeHTML(
-                    site.description || ""
-                )}
-
+            <div class="resultDescription">
+                ${escapeHTML(site.description)}
             </div>
 
         `;
 
+        item.onclick = () => {
 
-        result.addEventListener(
-            "click",
-            () => openSite(site)
-        );
+            openSite(site);
 
+        };
 
-        resultsArea.appendChild(result);
+        results.appendChild(item);
 
     });
 
 }
 
 
-/* =========================================================
-   LOAD SITES
-========================================================= */
+/* =========================
+   OPEN SITE
+========================= */
 
-function loadSitesForQuestion() {
+function openSite(site) {
 
-    /*
-        同じ検索中に毎回作り直さない。
-    */
+    const basePath =
+        `questions/${currentQuestion.id}/`;
 
-    if (currentSites.length > 0) {
-        return;
-    }
+    const fullPath =
+        basePath + site.file;
+
+    document.getElementById("siteAddress").textContent =
+        site.url;
+
+    const frame =
+        document.getElementById("siteFrame");
+
+    frame.src =
+        fullPath;
+
+    document.getElementById("siteViewer").style.display =
+        "block";
 
 
-    /*
-        questions.js 側では
-        currentQuestion.sites を
-        持たせる方式にする。
+    if (!openedSites.includes(site.file)) {
 
-        例：
+        openedSites.push(site.file);
 
-        {
-            id: "fuji",
-            question: "...",
-            answer: "3776",
-            sites: [
-                {
-                    file: "...",
-                    title: "...",
-                    url: "...",
-                    description: "...",
-                    type: "official"
-                }
-            ]
-        }
-    */
-
-    if (
-        Array.isArray(currentQuestion.sites)
-    ) {
-
-        currentSites =
-            [...currentQuestion.sites];
-
-        return;
+        document.getElementById("openedCount").textContent =
+            openedSites.length;
 
     }
-
-
-    /*
-        まだサイトデータがない場合。
-        後で questions.js の構造を
-        確定したらここを使う。
-    */
-
-    currentSites = [];
-
-    resultsArea.innerHTML = `
-        <div class="loading">
-            この問題にはまだWebサイトが登録されていません。
-        </div>
-    `;
 
 }
 
 
-/* =========================================================
-   SEARCH MATCH
-========================================================= */
+/* =========================
+   CLOSE SITE
+========================= */
 
-function calculateMatchScore(
-    site,
-    query
-) {
+function closeSite() {
 
-    const text = (
+    document.getElementById("siteViewer").style.display =
+        "none";
 
-        (site.title || "") +
-        " " +
-        (site.description || "") +
-        " " +
-        (site.keywords || "")
+    document.getElementById("siteFrame").src =
+        "about:blank";
 
-    ).toLowerCase();
+}
 
 
-    const words =
-        query
-            .toLowerCase()
-            .split(/\s+/)
-            .filter(Boolean);
+/* =========================
+   ANSWER
+========================= */
+
+function submitAnswer(timeUp = false) {
+
+    if (!currentQuestion) {
+        return;
+    }
+
+    clearInterval(timerInterval);
+
+    const input =
+        document.getElementById("answerInput");
+
+    const userAnswer =
+        input.value.trim();
+
+    const correctAnswer =
+        currentQuestion.answer;
+
+
+    const correct =
+        checkAnswer(
+            userAnswer,
+            correctAnswer
+        );
 
 
     let score = 0;
 
+    if (correct) {
 
-    words.forEach(word => {
+        score = 5000;
 
-        if (text.includes(word)) {
-
-            score += 10;
-
-        }
-
-    });
-
-
-    return score;
-
-}
-
-
-/* =========================================================
-   SHUFFLE
-========================================================= */
-
-function shuffleResults(array) {
-
-    const result =
-        [...array];
-
-
-    for (
-        let i = result.length - 1;
-        i > 0;
-        i--
-    ) {
-
-        const j =
-            Math.floor(
-                Math.random() * (i + 1)
-            );
-
-
-        [
-            result[i],
-            result[j]
-        ] = [
-            result[j],
-            result[i]
-        ];
-
-    }
-
-
-    return result;
-
-}
-
-
-/* =========================================================
-   OPEN SITE
-========================================================= */
-
-async function openSite(site) {
-
-    if (
-        !gameStarted ||
-        gameFinished
-    ) {
-        return;
-    }
-
-
-    if (!site) {
-        return;
-    }
-
-
-    /*
-        サイトを記録
-    */
-
-    openedSites.add(
-        site.id || site.file || site.url
-    );
-
-
-    /*
-        URL表示
-    */
-
-    document.getElementById("siteUrl")
-        .textContent =
-            "https://" +
-            (site.url || "example.com");
-
-
-    /*
-        ローディング
-    */
-
-    document.getElementById("siteContent")
-        .innerHTML = `
-            <div class="loading">
-                ページを読み込んでいます...
-            </div>
-        `;
-
-
-    siteScreen.classList.remove("hidden");
-
-
-    /*
-        HTMLファイルを取得
-    */
-
-    if (!site.file) {
-
-        document.getElementById("siteContent")
-            .innerHTML = `
-                <div class="loading">
-                    このサイトのHTMLファイルが
-                    登録されていません。
-                </div>
-            `;
-
-        return;
-    }
-
-
-    try {
-
-        const response =
-            await fetch(site.file);
-
-
-        if (!response.ok) {
-            throw new Error(
-                "HTTP " + response.status
-            );
-        }
-
-
-        const html =
-            await response.text();
-
+        score += timeLeft * 100;
 
         /*
-            HTMLをそのまま表示
-        */
-
-        document.getElementById("siteContent")
-            .innerHTML =
-                html;
-
-
-        /*
-            サイト画面の一番上へ
-        */
-
-        siteScreen.scrollTop = 0;
-
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        document.getElementById("siteContent")
-            .innerHTML = `
-
-                <div class="loading">
-
-                    <h2>
-                        ページを読み込めませんでした
-                    </h2>
-
-                    <p>
-                        ${escapeHTML(
-                            site.file
-                        )}
-                    </p>
-
-                </div>
-
-            `;
-
-    }
-
-}
-
-
-/* =========================================================
-   CLOSE SITE
-========================================================= */
-
-function closeSite() {
-
-    siteScreen.classList.add("hidden");
-
-}
-
-
-/* =========================================================
-   SUBMIT ANSWER
-========================================================= */
-
-function submitAnswer() {
-
-    if (
-        !gameStarted ||
-        gameFinished ||
-        !currentQuestion
-    ) {
-        return;
-    }
-
-
-    gameFinished = true;
-
-    clearInterval(timerInterval);
-
-
-    const userAnswer =
-        answerInput.value.trim();
-
-
-    const normalizedUser =
-        normalizeAnswer(
-            userAnswer
-        );
-
-
-    const normalizedCorrect =
-        normalizeAnswer(
-            currentQuestion.answer
-        );
-
-
-    const isCorrect =
-        normalizedUser ===
-        normalizedCorrect;
-
-
-    /*
-        スコア
-    */
-
-    let finalScore = 0;
-
-
-    if (isCorrect) {
-
-        /*
-            正解基本点
-        */
-
-        finalScore += 5000;
-
-
-        /*
-            時間ボーナス
-        */
-
-        finalScore +=
-            timeLeft * 100;
-
-
-        /*
-            公式サイトを開いていた場合
-        */
-
-        const officialOpened =
-            currentSites.some(site => {
-
-                const key =
-                    site.id ||
-                    site.file ||
-                    site.url;
-
-                return (
-                    openedSites.has(key) &&
-                    site.type === "official"
-                );
-
-            });
-
-
-        if (officialOpened) {
-
-            finalScore += 3000;
-
-        }
-
-
-        /*
-            検索回数ペナルティ
+           検索しすぎると少し減点
         */
 
         if (searchCount > 3) {
 
-            finalScore -=
+            score -=
                 (searchCount - 3) * 250;
 
         }
 
-
         /*
-            サイトを見ずに
-            答えた場合
+           サイトを一つも見ていない場合は
+           調査ゲームとして成立しないので大幅減点
         */
 
-        if (openedSites.size === 0) {
+        if (openedSites.length === 0) {
 
-            finalScore -= 2000;
+            score -= 2000;
 
+        }
+
+        /*
+           公式系サイトを開いていればボーナス
+        */
+
+        if (
+            openedSites.includes("official.html")
+        ) {
+
+            score += 3000;
+
+        }
+
+        if (score < 0) {
+            score = 0;
         }
 
     }
 
 
-    if (finalScore < 0) {
-        finalScore = 0;
-    }
-
-
-    scoreElement.textContent =
-        finalScore.toLocaleString();
-
+    currentScore = score;
 
     showResult(
+        correct,
         userAnswer,
-        isCorrect,
-        finalScore
+        correctAnswer,
+        timeUp
     );
 
 }
 
 
-/* =========================================================
-   NORMALIZE ANSWER
-========================================================= */
+/* =========================
+   ANSWER CHECK
+========================= */
 
-function normalizeAnswer(value) {
+function checkAnswer(userAnswer, correctAnswer) {
 
-    return String(value)
+    let user =
+        normalizeAnswer(userAnswer);
 
-        .replace(/,/g, "")
-
-        .replace(/，/g, "")
-
-        .replace(/\s/g, "")
-
-        .replace(/　/g, "")
-
-        .toLowerCase();
-
-}
+    let correct =
+        normalizeAnswer(correctAnswer);
 
 
-/* =========================================================
-   SHOW RESULT
-========================================================= */
-
-function showResult(
-    userAnswer,
-    isCorrect,
-    finalScore
-) {
-
-    gameScreen.classList.add("hidden");
-
-    siteScreen.classList.add("hidden");
-
-    resultScreen.classList.remove("hidden");
-
-
-    /*
-        正解 / 不正解
-    */
-
-    const state =
-        document.getElementById(
-            "resultState"
-        );
-
-
-    if (isCorrect) {
-
-        state.textContent =
-            "正解！";
-
-        state.className =
-            "result-state correct";
-
-    } else {
-
-        state.textContent =
-            "不正解";
-
-        state.className =
-            "result-state wrong";
-
+    if (user === correct) {
+        return true;
     }
 
 
     /*
-        スコア
+       0.2km
+       0.2 km
+       0.2
+       200m
+       200 m
+       を同じ答えとして扱う
     */
 
-    document.getElementById(
-        "finalScore"
-    ).textContent =
-        finalScore.toLocaleString();
+    const userNumber =
+        extractDistance(userAnswer);
+
+    const correctNumber =
+        extractDistance(correctAnswer);
 
 
-    /*
-        回答
-    */
+    if (
+        userNumber !== null &&
+        correctNumber !== null
+    ) {
 
-    document.getElementById(
-        "finalAnswer"
-    ).textContent =
+        return Math.abs(
+            userNumber - correctNumber
+        ) < 0.0001;
+
+    }
+
+
+    return false;
+
+}
+
+
+/* =========================
+   NORMALIZE
+========================= */
+
+function normalizeAnswer(text) {
+
+    return String(text)
+        .toLowerCase()
+        .replace(/\s/g, "")
+        .replace(/　/g, "")
+        .replace(/キロメートル/g, "km")
+        .replace(/キロ/g, "km")
+        .replace(/公里/g, "km");
+
+}
+
+
+/* =========================
+   DISTANCE
+========================= */
+
+function extractDistance(text) {
+
+    let value =
+        normalizeAnswer(text);
+
+
+    let match =
+        value.match(/^([0-9]+(?:\.[0-9]+)?)km$/);
+
+    if (match) {
+
+        return Number(match[1]);
+
+    }
+
+
+    match =
+        value.match(/^([0-9]+(?:\.[0-9]+)?)m$/);
+
+    if (match) {
+
+        return Number(match[1]) / 1000;
+
+    }
+
+
+    match =
+        value.match(/^([0-9]+(?:\.[0-9]+)?)$/);
+
+    if (match) {
+
+        const number =
+            Number(match[1]);
+
+        /*
+           200 → 200m
+           0.2 → 0.2km
+        */
+
+        if (number >= 10) {
+
+            return number / 1000;
+
+        }
+
+        return number;
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+function showResult(
+    correct,
+    userAnswer,
+    correctAnswer,
+    timeUp
+) {
+
+    document.getElementById("gameScreen").style.display =
+        "none";
+
+    document.getElementById("siteViewer").style.display =
+        "none";
+
+    document.getElementById("resultScreen").style.display =
+        "block";
+
+
+    document.getElementById("resultStatus").textContent =
+        correct
+            ? "正解！"
+            : timeUp
+                ? "時間切れ"
+                : "不正解";
+
+
+    document.getElementById("resultScore").textContent =
+        currentScore.toLocaleString();
+
+
+    document.getElementById("userAnswerResult").textContent =
         userAnswer || "未回答";
 
 
-    /*
-        正解
-    */
-
-    document.getElementById(
-        "correctAnswer"
-    ).textContent =
-        currentQuestion.answer;
+    document.getElementById("correctAnswerResult").textContent =
+        correctAnswer;
 
 
-    /*
-        時間
-    */
-
-    document.getElementById(
-        "finalTime"
-    ).textContent =
-        timeLeft + "秒";
+    document.getElementById("timeResult").textContent =
+        `${timeLeft}秒`;
 
 
-    /*
-        検索回数
-    */
-
-    document.getElementById(
-        "finalSearchCount"
-    ).textContent =
-        searchCount + "回";
+    document.getElementById("searchResult").textContent =
+        `${searchCount}回`;
 
 
-    /*
-        開いたサイト
-    */
-
-    document.getElementById(
-        "finalOpenedSites"
-    ).textContent =
-        openedSites.size + "件";
+    document.getElementById("sitesResult").textContent =
+        `${openedSites.length}件`;
 
 
-    /*
-        答え合わせ文章
-    */
-
-    const explanation =
-        document.getElementById(
-            "resultExplanation"
-        );
-
-
-    if (isCorrect) {
-
-        explanation.innerHTML = `
-            <strong>答え合わせ</strong><br>
-            あなたの回答は正解です。<br>
-            制限時間内に情報を探し出すことができました。
-        `;
-
-    } else {
-
-        explanation.innerHTML = `
-            <strong>答え合わせ</strong><br>
-            正解は
-            <strong>
-                ${escapeHTML(
-                    String(
-                        currentQuestion.answer
-                    )
-                )}
-            </strong>
-            です。<br>
-            今回は正しい情報にたどり着けませんでした。
-        `;
-
-    }
+    document.getElementById("questionResult").textContent =
+        currentQuestion.question;
 
 }
 
 
-/* =========================================================
+/* =========================
    HOW TO
-========================================================= */
+========================= */
 
-function openHowTo() {
+function openHowto() {
 
-    document.getElementById(
-        "howtoOverlay"
-    ).classList.remove("hidden");
-
-}
-
-
-function closeHowTo() {
-
-    document.getElementById(
-        "howtoOverlay"
-    ).classList.add("hidden");
+    document.getElementById("howto").style.display =
+        "flex";
 
 }
 
 
-/* =========================================================
+function closeHowto() {
+
+    document.getElementById("howto").style.display =
+        "none";
+
+}
+
+
+/* =========================
    ESCAPE HTML
-========================================================= */
+========================= */
 
-function escapeHTML(value) {
+function escapeHTML(text) {
 
-    return String(value)
+    const div =
+        document.createElement("div");
 
-        .replace(/&/g, "&amp;")
+    div.textContent =
+        text;
 
-        .replace(/</g, "&lt;")
-
-        .replace(/>/g, "&gt;")
-
-        .replace(/"/g, "&quot;")
-
-        .replace(/'/g, "&#039;");
+    return div.innerHTML;
 
 }
-
-
-/* =========================================================
-   ENTER KEY
-========================================================= */
-
-searchInput.addEventListener(
-    "keydown",
-    event => {
-
-        if (event.key === "Enter") {
-
-            searchWeb();
-
-        }
-
-    }
-);
-
-
-answerInput.addEventListener(
-    "keydown",
-    event => {
-
-        if (event.key === "Enter") {
-
-            submitAnswer();
-
-        }
-
-    }
-);
 
 </script>
 
