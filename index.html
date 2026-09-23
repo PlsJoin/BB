@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Search Battle</title>
+<title>Google</title>
+
+<script src="js/questions.js"></script>
 
 <style>
 * {
@@ -15,12 +17,12 @@ html,
 body {
     margin: 0;
     padding: 0;
-    width: 100%;
     min-height: 100%;
     font-family:
         Arial,
         "Noto Sans JP",
-        "Helvetica Neue",
+        "Hiragino Kaku Gothic ProN",
+        Meiryo,
         sans-serif;
     color: #202124;
     background: #fff;
@@ -28,606 +30,864 @@ body {
 
 button,
 input {
-    font-family: inherit;
+    font: inherit;
 }
-
-button {
-    cursor: pointer;
-}
-
 
 /* =========================================================
-   START
+   Google Top
 ========================================================= */
 
-#startScreen {
+#homeScreen {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background: #fff;
 }
 
-.startInner {
-    width: min(720px, calc(100% - 40px));
-    text-align: center;
+.home-top {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 24px;
+    gap: 24px;
+    font-size: 14px;
 }
 
-.searchLogo {
-    font-size: 72px;
-    font-weight: 500;
-    letter-spacing: -6px;
+.home-top a {
+    color: #202124;
+    text-decoration: none;
+}
+
+.home-top a:hover {
+    text-decoration: underline;
+}
+
+.apps-button {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+
+.apps-button:hover {
+    background: #f1f3f4;
+}
+
+.apps-grid {
+    width: 18px;
+    height: 18px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 4px);
+    grid-template-rows: repeat(3, 4px);
+    gap: 3px;
+}
+
+.apps-grid span {
+    width: 4px;
+    height: 4px;
+    background: #5f6368;
+    border-radius: 50%;
+}
+
+.profile-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #a94316;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.home-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 130px;
+}
+
+.google-logo {
+    font-size: 68px;
+    letter-spacing: -5px;
     line-height: 1;
-    margin-bottom: 28px;
+    font-weight: 500;
+    margin-bottom: 48px;
     user-select: none;
 }
 
-.searchLogo span:nth-child(1) {
+.google-logo .g-blue {
     color: #4285f4;
 }
 
-.searchLogo span:nth-child(2) {
+.google-logo .g-red {
     color: #ea4335;
 }
 
-.searchLogo span:nth-child(3) {
+.google-logo .g-yellow {
     color: #fbbc05;
 }
 
-.searchLogo span:nth-child(4) {
-    color: #4285f4;
-}
-
-.searchLogo span:nth-child(5) {
+.google-logo .g-green {
     color: #34a853;
 }
 
-.searchLogo span:nth-child(6) {
-    color: #ea4335;
+.home-search-wrap {
+    width: min(560px, calc(100vw - 40px));
 }
 
-.startTitle {
-    font-size: 22px;
-    font-weight: 500;
-    margin-bottom: 9px;
-}
-
-.startDescription {
-    color: #5f6368;
-    font-size: 14px;
-    line-height: 1.7;
-    margin-bottom: 30px;
-}
-
-.startSearchFake {
+.home-search {
+    height: 50px;
     width: 100%;
-    height: 48px;
     border: 1px solid #dfe1e5;
-    border-radius: 24px;
+    border-radius: 26px;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.15);
     display: flex;
     align-items: center;
-    padding: 0 17px;
-    color: #9aa0a6;
-    text-align: left;
-    box-shadow: 0 1px 4px rgba(32, 33, 36, .08);
-    margin-bottom: 25px;
+    padding: 0 16px;
+    background: #fff;
+    transition: box-shadow .15s ease;
 }
 
-.startSearchIcon {
-    color: #9aa0a6;
-    font-size: 17px;
-    margin-right: 13px;
+.home-search:hover,
+.home-search:focus-within {
+    box-shadow:
+        0 1px 6px rgba(32, 33, 36, 0.18),
+        0 1px 2px rgba(32, 33, 36, 0.08);
 }
 
-.startButtons {
+.search-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.search-icon::before {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border: 2px solid #5f6368;
+    border-radius: 50%;
+    left: 1px;
+    top: 1px;
+}
+
+.search-icon::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 2px;
+    background: #5f6368;
+    transform: rotate(45deg);
+    left: 11px;
+    top: 12px;
+    border-radius: 2px;
+}
+
+.home-search input {
+    flex: 1;
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+    color: #202124;
+    min-width: 0;
+}
+
+.home-search input::placeholder {
+    color: #5f6368;
+}
+
+.voice-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 12px;
+    position: relative;
+}
+
+.voice-icon::before {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 13px;
+    border: 2px solid #202124;
+    border-radius: 6px;
+    left: 5px;
+    top: 0;
+}
+
+.voice-icon::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 9px;
+    border-bottom: 2px solid #202124;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    left: 2px;
+    top: 8px;
+}
+
+.lens-icon {
+    width: 21px;
+    height: 21px;
+    margin-left: 16px;
+    position: relative;
+}
+
+.lens-icon::before {
+    content: "";
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    border: 2px solid #5f6368;
+    border-radius: 3px;
+    left: 1px;
+    top: 1px;
+}
+
+.lens-icon::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border: 2px solid #4285f4;
+    border-radius: 50%;
+    right: 0;
+    bottom: 0;
+}
+
+.home-buttons {
+    margin-top: 30px;
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    gap: 12px;
 }
 
-.startButton {
+.home-button {
     border: 1px solid #f8f9fa;
     background: #f8f9fa;
-    color: #202124;
+    color: #3c4043;
     padding: 10px 18px;
     border-radius: 4px;
+    cursor: pointer;
     font-size: 14px;
 }
 
-.startButton:hover {
+.home-button:hover {
     border-color: #dadce0;
-    box-shadow: 0 1px 1px rgba(0,0,0,.08);
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
 }
 
+.home-note {
+    margin-top: 30px;
+    color: #5f6368;
+    font-size: 13px;
+}
 
 /* =========================================================
-   GAME
+   Search Page
 ========================================================= */
 
-#gameScreen {
+#searchScreen {
     display: none;
     min-height: 100vh;
     background: #fff;
 }
 
+.search-header {
+    border-bottom: 1px solid #dadce0;
+}
 
-/* =========================================================
-   GOOGLE-LIKE HEADER
-========================================================= */
-
-.searchHeader {
-    min-height: 86px;
-    border-bottom: 1px solid #f1f3f4;
+.search-top {
+    height: 78px;
     display: flex;
     align-items: center;
-    padding: 0 28px;
-    gap: 28px;
+    padding: 0 28px 0 30px;
+    gap: 34px;
 }
 
-.headerLogo {
+.small-google-logo {
     width: 92px;
     flex-shrink: 0;
-}
-
-.headerLogoText {
-    font-size: 27px;
+    font-size: 29px;
+    letter-spacing: -2px;
     font-weight: 500;
-    letter-spacing: -3px;
-    line-height: 1;
+    cursor: pointer;
 }
 
-.headerLogoText span:nth-child(1) {
+.small-google-logo span:nth-child(1) {
     color: #4285f4;
 }
 
-.headerLogoText span:nth-child(2) {
+.small-google-logo span:nth-child(2) {
     color: #ea4335;
 }
 
-.headerLogoText span:nth-child(3) {
+.small-google-logo span:nth-child(3) {
     color: #fbbc05;
 }
 
-.headerLogoText span:nth-child(4) {
+.small-google-logo span:nth-child(4) {
     color: #4285f4;
 }
 
-.headerLogoText span:nth-child(5) {
+.small-google-logo span:nth-child(5) {
     color: #34a853;
 }
 
-.headerLogoText span:nth-child(6) {
+.small-google-logo span:nth-child(6) {
     color: #ea4335;
 }
 
-
-/* search box */
-
-.headerSearch {
-    width: min(680px, 65vw);
+.search-mainbar {
+    width: min(560px, 60vw);
     height: 46px;
     border: 1px solid #dfe1e5;
     border-radius: 24px;
     display: flex;
     align-items: center;
-    overflow: hidden;
-    box-shadow: 0 1px 4px rgba(32, 33, 36, .12);
-    transition: box-shadow .15s;
+    padding: 0 14px;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, .10);
+    background: #fff;
 }
 
-.headerSearch:focus-within {
+.search-mainbar:focus-within {
     box-shadow:
-        0 1px 6px rgba(32, 33, 36, .18);
+        0 1px 6px rgba(32, 33, 36, .15),
+        0 1px 2px rgba(32, 33, 36, .08);
 }
 
-.headerSearchIcon {
-    width: 46px;
-    text-align: center;
-    color: #70757a;
-    font-size: 17px;
-}
-
-#searchInput {
+.search-mainbar input {
     flex: 1;
-    height: 100%;
     border: 0;
     outline: 0;
-    padding: 0 4px;
     font-size: 16px;
+    min-width: 0;
     color: #202124;
-    background: transparent;
 }
 
-.headerClear {
-    width: 42px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #70757a;
-    font-size: 20px;
+.clear-search {
     border: 0;
     background: transparent;
-    display: none;
+    color: #5f6368;
+    font-size: 22px;
+    cursor: pointer;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
 }
 
-.headerDivider {
+.clear-search:hover {
+    background: #f1f3f4;
+}
+
+.search-divider {
     width: 1px;
-    height: 27px;
+    height: 26px;
     background: #dadce0;
+    margin: 0 7px;
 }
 
-.headerSearchButton {
-    width: 52px;
-    height: 100%;
+.search-mini-icon {
+    width: 24px;
+    height: 32px;
     border: 0;
-    background: #fff;
-    color: #4285f4;
-    font-size: 18px;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
 }
 
-.headerSearchButton:hover {
-    background: #f8f9fa;
+.search-mini-icon.mic::before {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 13px;
+    border: 2px solid #202124;
+    border-radius: 5px;
+    left: 7px;
+    top: 5px;
 }
 
+.search-mini-icon.mic::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 8px;
+    border-bottom: 2px solid #202124;
+    left: 4px;
+    top: 15px;
+}
 
-/* game info */
+.search-mini-icon.lens::before {
+    content: "";
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    border: 2px solid #5f6368;
+    border-radius: 3px;
+    left: 4px;
+    top: 7px;
+}
 
-.headerGameInfo {
+.search-mini-icon.lens::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border: 2px solid #4285f4;
+    border-radius: 50%;
+    right: 2px;
+    bottom: 5px;
+}
+
+.search-submit {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    position: relative;
+}
+
+.search-submit::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px solid #4285f4;
+    border-radius: 50%;
+    left: 7px;
+    top: 6px;
+}
+
+.search-submit::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 2px;
+    background: #4285f4;
+    transform: rotate(45deg);
+    left: 17px;
+    top: 18px;
+}
+
+.search-actions {
     margin-left: auto;
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 10px;
+}
+
+.share-button,
+.apps-small {
+    border: 0;
+    background: transparent;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.share-button:hover,
+.apps-small:hover {
+    background: #f1f3f4;
+}
+
+.share-symbol {
+    font-size: 19px;
+    color: #5f6368;
+}
+
+.apps-small .apps-grid {
+    transform: scale(.85);
+}
+
+/* =========================================================
+   Search tabs
+========================================================= */
+
+.search-tabs {
+    margin-left: 151px;
+    height: 42px;
+    display: flex;
+    align-items: flex-end;
+    gap: 26px;
+    color: #5f6368;
+    font-size: 13px;
+}
+
+.search-tab {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
     white-space: nowrap;
 }
 
-.headerGameItem {
-    font-size: 12px;
-    color: #70757a;
-}
-
-.headerGameItem strong {
+.search-tab.active {
     color: #202124;
-    font-size: 15px;
 }
 
-.timerDanger {
-    color: #d93025 !important;
+.search-tab.active::after {
+    content: "";
+    position: absolute;
+    height: 3px;
+    background: #1a73e8;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
-
 
 /* =========================================================
-   CONTENT LAYOUT
+   Main Layout
 ========================================================= */
 
-.gameContent {
-    display: flex;
-    width: 100%;
-    min-height: calc(100vh - 86px);
+.search-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 780px) 290px;
+    gap: 44px;
+    margin-left: 151px;
+    padding-top: 20px;
 }
 
-.searchResultsArea {
-    width: calc(100% - 350px);
+.results-area {
     min-width: 0;
-}
-
-.resultsInner {
-    width: min(720px, calc(100% - 70px));
-    margin-left: 90px;
-    padding-top: 24px;
     padding-bottom: 100px;
 }
 
-
-/* =========================================================
-   QUESTION
-========================================================= */
-
-.questionBar {
-    border-bottom: 1px solid #f1f3f4;
-    padding-bottom: 20px;
-    margin-bottom: 17px;
-}
-
-.questionLabel {
-    font-size: 11px;
+.result-count {
     color: #70757a;
-    text-transform: uppercase;
-    letter-spacing: .7px;
-    margin-bottom: 7px;
+    font-size: 13px;
+    margin-bottom: 26px;
 }
 
-.questionText {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #202124;
+.result-item {
+    margin-bottom: 30px;
+    cursor: default;
 }
 
-
-/* =========================================================
-   SEARCH TABS
-========================================================= */
-
-.searchTabs {
-    height: 43px;
-    display: flex;
-    align-items: flex-end;
-    gap: 25px;
-    border-bottom: 1px solid #dadce0;
-    margin-bottom: 18px;
-}
-
-.searchTab {
-    height: 43px;
+.result-source {
     display: flex;
     align-items: center;
+    gap: 9px;
+    min-height: 28px;
+}
+
+.source-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #f1f3f4;
+    border: 1px solid #dadce0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5f6368;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.source-info {
+    min-width: 0;
+}
+
+.source-name {
+    font-size: 13px;
+    color: #202124;
+    line-height: 17px;
+}
+
+.source-url {
+    font-size: 11px;
+    color: #5f6368;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 620px;
+}
+
+.result-menu {
+    margin-left: 3px;
+    color: #5f6368;
+    font-size: 17px;
+}
+
+.result-title {
+    display: inline-block;
+    margin-top: 5px;
+    color: #1a0dab;
+    font-size: 20px;
+    line-height: 27px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.result-title:hover {
+    text-decoration: underline;
+}
+
+.result-date {
     color: #5f6368;
     font-size: 13px;
-    border-bottom: 3px solid transparent;
+    margin-top: 3px;
 }
 
-.searchTab.active {
-    color: #1a73e8;
-    border-bottom-color: #1a73e8;
+.result-snippet {
+    margin-top: 3px;
+    color: #4d5156;
+    font-size: 13px;
+    line-height: 21px;
+    max-width: 700px;
 }
 
+.highlight {
+    font-weight: 700;
+    color: #3c4043;
+}
 
 /* =========================================================
-   SEARCH INFO
+   Related Questions
 ========================================================= */
 
-.resultsInfo {
-    font-size: 12px;
-    color: #70757a;
-    margin-bottom: 22px;
+.related-box {
+    margin: 12px 0 32px;
 }
 
-
-/* =========================================================
-   SEARCH RESULT
-========================================================= */
-
-.resultItem {
-    margin-bottom: 29px;
-    cursor: pointer;
-    padding: 0;
+.related-title {
+    font-size: 18px;
+    color: #202124;
+    margin-bottom: 12px;
 }
 
-.resultSource {
+.related-question {
+    height: 42px;
+    border-top: 1px solid #dadce0;
     display: flex;
     align-items: center;
-    min-height: 21px;
-    margin-bottom: 4px;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #202124;
+    cursor: pointer;
 }
 
-.sourceIcon {
-    width: 22px;
-    height: 22px;
+.related-question:last-child {
+    border-bottom: 1px solid #dadce0;
+}
+
+.related-arrow {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: #f1f3f4;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 8px;
     color: #5f6368;
-    font-size: 11px;
-    flex-shrink: 0;
+    font-size: 16px;
 }
-
-.sourceText {
-    min-width: 0;
-}
-
-.sourceName {
-    font-size: 12px;
-    color: #3c4043;
-    line-height: 1.3;
-}
-
-.sourceUrl {
-    font-size: 11px;
-    color: #5f6368;
-    line-height: 1.3;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 500px;
-}
-
-.resultTitle {
-    color: #1a0dab;
-    font-size: 19px;
-    line-height: 1.35;
-    margin-bottom: 4px;
-}
-
-.resultItem:hover .resultTitle {
-    text-decoration: underline;
-}
-
-.resultDate {
-    font-size: 12px;
-    color: #70757a;
-    margin-bottom: 4px;
-}
-
-.resultSnippet {
-    font-size: 13px;
-    line-height: 1.65;
-    color: #4d5156;
-}
-
-.resultSnippet strong {
-    color: #202124;
-}
-
-.resultMeta {
-    margin-top: 5px;
-    font-size: 11px;
-    color: #70757a;
-}
-
 
 /* =========================================================
-   RIGHT GAME PANEL
+   Game Panel
 ========================================================= */
 
-.gameSide {
-    width: 350px;
-    flex-shrink: 0;
-    border-left: 1px solid #f1f3f4;
-    padding: 28px 25px;
-    background: #fff;
+.game-panel {
+    border-left: 1px solid #dadce0;
+    padding: 0 26px 40px 26px;
+    min-height: 700px;
 }
 
-.sideSticky {
-    position: sticky;
-    top: 28px;
+.game-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #dadce0;
 }
 
-.sideSection {
-    margin-bottom: 27px;
+.timer {
+    font-size: 14px;
+    color: #3c4043;
 }
 
-.sideLabel {
+.timer strong {
+    font-size: 25px;
+    color: #202124;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+.timer.danger strong {
+    color: #d93025;
+}
+
+.score {
+    color: #5f6368;
+    font-size: 12px;
+}
+
+.score strong {
+    color: #202124;
+    font-size: 17px;
+    margin-left: 5px;
+}
+
+.game-section {
+    padding: 24px 0;
+    border-bottom: 1px solid #dadce0;
+}
+
+.game-label {
+    color: #5f6368;
     font-size: 11px;
-    color: #70757a;
-    text-transform: uppercase;
-    letter-spacing: .6px;
-    margin-bottom: 8px;
+    letter-spacing: .4px;
+    margin-bottom: 11px;
 }
 
-.sideQuestion {
-    font-size: 15px;
-    line-height: 1.7;
+.game-question {
+    font-size: 16px;
+    line-height: 25px;
     color: #202124;
 }
 
-.answerInput {
+.answer-input {
     width: 100%;
     height: 45px;
     border: 1px solid #dadce0;
-    border-radius: 4px;
-    padding: 0 12px;
-    font-size: 15px;
+    border-radius: 5px;
+    padding: 0 13px;
     outline: none;
-}
-
-.answerInput:focus {
-    border-color: #4285f4;
-    box-shadow: 0 0 0 1px #4285f4;
-}
-
-.answerButton {
-    width: 100%;
-    height: 43px;
-    border: 0;
-    border-radius: 4px;
-    background: #1a73e8;
-    color: #fff;
-    margin-top: 9px;
     font-size: 14px;
+    color: #202124;
 }
 
-.answerButton:hover {
-    background: #1769d1;
+.answer-input:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 1px #1a73e8;
 }
 
-.sideStats {
-    border-top: 1px solid #dadce0;
-    padding-top: 19px;
+.answer-button {
+    width: 100%;
+    height: 42px;
+    margin-top: 10px;
+    border: 0;
+    border-radius: 3px;
+    background: #1a73e8;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
 }
 
-.statRow {
+.answer-button:hover {
+    background: #1769d0;
+}
+
+.stats {
+    display: grid;
+    gap: 13px;
+}
+
+.stat-row {
     display: flex;
     justify-content: space-between;
-    padding: 7px 0;
     font-size: 13px;
 }
 
-.statName {
-    color: #70757a;
+.stat-name {
+    color: #3c4043;
 }
 
-.statValue {
+.stat-value {
     color: #202124;
-    font-weight: 500;
 }
 
-.openedSites {
-    border-top: 1px solid #dadce0;
-    padding-top: 18px;
-    margin-top: 20px;
+.history-title {
+    font-size: 13px;
+    color: #202124;
+    margin-bottom: 16px;
 }
 
-.openedSiteRow {
-    font-size: 12px;
-    color: #5f6368;
-    margin-bottom: 7px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.openedSiteRow::before {
-    content: "•";
-    margin-right: 7px;
+.history-empty {
     color: #9aa0a6;
-}
-
-
-/* =========================================================
-   EMPTY SEARCH
-========================================================= */
-
-.emptySearch {
-    padding: 55px 0;
-    color: #70757a;
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
+    padding: 12px 0;
 }
 
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.history-item {
+    padding: 9px 0;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.history-item-title {
+    color: #1a0dab;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.history-item-url {
+    color: #5f6368;
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+.history-item-type {
+    color: #70757a;
+    font-size: 10px;
+    margin-top: 2px;
+}
 
 /* =========================================================
-   SITE VIEWER
+   Website Viewer
 ========================================================= */
 
 #siteViewer {
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 5000;
     background: #fff;
+    z-index: 1000;
 }
 
-.browserTop {
+.viewer-header {
     height: 54px;
     background: #f8f9fa;
     border-bottom: 1px solid #dadce0;
     display: flex;
     align-items: center;
-    padding: 0 13px;
-    gap: 8px;
+    gap: 10px;
+    padding: 0 14px;
 }
 
-.browserButton {
-    width: 34px;
-    height: 34px;
+.viewer-back {
     border: 0;
-    border-radius: 50%;
     background: transparent;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 21px;
     color: #5f6368;
-    font-size: 19px;
 }
 
-.browserButton:hover {
+.viewer-back:hover {
     background: #e8eaed;
 }
 
-.browserAddress {
+.viewer-address {
     flex: 1;
     height: 36px;
-    max-width: 900px;
     background: #fff;
     border: 1px solid #dadce0;
     border-radius: 18px;
@@ -635,27 +895,34 @@ button {
     align-items: center;
     padding: 0 15px;
     color: #5f6368;
-    font-size: 12px;
+    font-size: 13px;
+    min-width: 0;
 }
 
-.browserLock {
-    color: #188038;
+.viewer-lock {
     margin-right: 8px;
-}
-
-.browserClose {
-    margin-left: auto;
-    height: 34px;
-    border: 1px solid #dadce0;
-    border-radius: 4px;
-    background: #fff;
-    padding: 0 14px;
-    color: #3c4043;
     font-size: 12px;
 }
 
-.browserClose:hover {
-    background: #f1f3f4;
+.viewer-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.viewer-close {
+    border: 0;
+    background: transparent;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #5f6368;
+    font-size: 20px;
+}
+
+.viewer-close:hover {
+    background: #e8eaed;
 }
 
 #siteFrame {
@@ -665,9 +932,8 @@ button {
     display: block;
 }
 
-
 /* =========================================================
-   RESULT SCREEN
+   Result Screen
 ========================================================= */
 
 #resultScreen {
@@ -676,268 +942,272 @@ button {
     background: #fff;
 }
 
-.resultHeader {
-    height: 70px;
-    border-bottom: 1px solid #dadce0;
-    display: flex;
-    align-items: center;
-    padding: 0 28px;
+.result-screen-inner {
+    width: min(700px, calc(100vw - 40px));
+    margin: 100px auto;
 }
 
-.resultHeaderTitle {
-    font-size: 16px;
+.result-heading {
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 36px;
+}
+
+.result-status {
+    font-size: 20px;
+    margin-bottom: 28px;
+}
+
+.result-status.correct {
+    color: #188038;
+}
+
+.result-status.wrong {
+    color: #d93025;
+}
+
+.final-score {
+    font-size: 54px;
+    color: #202124;
+    margin-bottom: 40px;
+}
+
+.final-score small {
+    font-size: 15px;
     color: #5f6368;
 }
 
-.finalResult {
-    width: min(680px, calc(100% - 40px));
-    margin: 70px auto;
+.final-info {
+    border-top: 1px solid #dadce0;
 }
 
-.finalStatus {
-    font-size: 30px;
-    margin-bottom: 10px;
-}
-
-.finalScore {
-    font-size: 56px;
-    font-weight: 500;
-    margin-bottom: 38px;
-}
-
-.finalGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-.finalStat {
-    border: 1px solid #dadce0;
-    padding: 17px;
-}
-
-.finalStatLabel {
-    font-size: 11px;
-    color: #70757a;
-    margin-bottom: 6px;
-}
-
-.finalStatValue {
-    font-size: 15px;
-    color: #202124;
-    line-height: 1.5;
-}
-
-.finalExplanation {
-    background: #f8f9fa;
-    border: 1px solid #dadce0;
-    padding: 20px;
+.final-row {
+    min-height: 50px;
+    border-bottom: 1px solid #dadce0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 14px;
-    line-height: 1.8;
-    margin-bottom: 25px;
 }
 
-.restartButton {
+.final-row span:first-child {
+    color: #5f6368;
+}
+
+.final-row span:last-child {
+    color: #202124;
+}
+
+.result-explanation {
+    margin-top: 30px;
+    padding: 18px;
+    background: #f8f9fa;
+    font-size: 14px;
+    line-height: 23px;
+    color: #3c4043;
+}
+
+.restart-button {
+    margin-top: 30px;
+    height: 42px;
+    padding: 0 22px;
+    background: #1a73e8;
     border: 0;
     border-radius: 4px;
-    background: #1a73e8;
-    color: white;
-    padding: 12px 22px;
-    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
 }
 
+.restart-button:hover {
+    background: #1769d0;
+}
 
 /* =========================================================
-   HOW TO
+   How to
 ========================================================= */
 
-#howto {
+#howtoModal {
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 7000;
-    background: rgba(0, 0, 0, .28);
+    background: rgba(0,0,0,.32);
+    z-index: 2000;
     align-items: center;
     justify-content: center;
 }
 
-.howtoBox {
-    width: min(540px, calc(100% - 35px));
+.howto-box {
+    width: min(520px, calc(100vw - 40px));
     background: #fff;
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 8px 30px rgba(0,0,0,.18);
+    box-shadow: 0 4px 24px rgba(0,0,0,.2);
 }
 
-.howtoBox h2 {
-    margin: 0 0 20px;
+.howto-box h2 {
+    margin: 0 0 22px;
     font-size: 21px;
+    font-weight: 400;
 }
 
-.howtoBox ol {
-    padding-left: 22px;
-    margin-bottom: 22px;
-}
-
-.howtoBox li {
-    margin-bottom: 12px;
+.howto-box p {
+    color: #5f6368;
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 24px;
 }
 
-.howtoClose {
-    border: 1px solid #dadce0;
-    background: #fff;
-    padding: 9px 17px;
+.howto-close {
+    margin-top: 15px;
+    border: 0;
+    background: #1a73e8;
+    color: #fff;
+    padding: 9px 18px;
     border-radius: 4px;
+    cursor: pointer;
 }
-
 
 /* =========================================================
-   MOBILE
+   Responsive
 ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1050px) {
 
-    .searchHeader {
-        padding: 12px 15px;
-        flex-wrap: wrap;
-        gap: 10px;
+    .search-layout {
+        grid-template-columns: minmax(0, 1fr);
+        margin-left: 70px;
+        margin-right: 40px;
     }
 
-    .headerLogo {
-        width: auto;
-    }
-
-    .headerSearch {
-        order: 3;
-        width: 100%;
-    }
-
-    .headerGameInfo {
-        margin-left: auto;
-    }
-
-    .gameContent {
-        display: block;
-    }
-
-    .searchResultsArea {
-        width: 100%;
-    }
-
-    .resultsInner {
-        width: calc(100% - 30px);
-        margin: 0 15px;
-    }
-
-    .gameSide {
-        width: 100%;
-        border-left: 0;
-        border-top: 1px solid #f1f3f4;
-    }
-
-    .sideSticky {
-        position: static;
-    }
-
-}
-
-@media (max-width: 600px) {
-
-    .searchLogo {
-        font-size: 58px;
-    }
-
-    .startTitle {
-        font-size: 19px;
-    }
-
-    .headerLogo {
+    .game-panel {
         display: none;
     }
 
-    .headerGameInfo {
+    .search-tabs {
+        margin-left: 70px;
+    }
+
+    .search-mainbar {
+        width: min(560px, 65vw);
+    }
+}
+
+@media (max-width: 700px) {
+
+    .home-top {
+        padding-right: 12px;
         gap: 10px;
     }
 
-    .headerGameItem {
-        font-size: 11px;
+    .home-center {
+        padding-top: 90px;
     }
 
-    .resultsInner {
-        padding-top: 15px;
+    .google-logo {
+        font-size: 55px;
     }
 
-    .resultTitle {
-        font-size: 17px;
+    .search-top {
+        padding: 0 15px;
+        gap: 12px;
     }
 
-    .finalGrid {
-        grid-template-columns: 1fr;
+    .small-google-logo {
+        width: 65px;
+        font-size: 22px;
     }
 
+    .search-mainbar {
+        width: auto;
+        flex: 1;
+    }
+
+    .search-actions {
+        display: none;
+    }
+
+    .search-tabs {
+        margin-left: 15px;
+        gap: 18px;
+        overflow-x: auto;
+    }
+
+    .search-layout {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .result-title {
+        font-size: 18px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- =======================================================
+     HOME
+======================================================= -->
 
-<!-- =========================================================
-     START
-========================================================= -->
+<div id="homeScreen">
 
-<div id="startScreen">
+    <div class="home-top">
 
-    <div class="startInner">
+        <a href="javascript:void(0)">Gmail</a>
+        <a href="javascript:void(0)">画像</a>
 
-        <div class="searchLogo">
-            <span>S</span>
-            <span>E</span>
-            <span>A</span>
-            <span>R</span>
-            <span>C</span>
-            <span>H</span>
+        <button class="apps-button">
+            <div class="apps-grid">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+            </div>
+        </button>
+
+        <button class="profile-button">ゲ</button>
+
+    </div>
+
+    <div class="home-center">
+
+        <div class="google-logo" aria-label="Google">
+            <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
         </div>
 
-        <div class="startTitle">
-            SEARCH BATTLE
+        <div class="home-search-wrap">
+
+            <form class="home-search" id="homeSearchForm">
+
+                <div class="search-icon"></div>
+
+                <input
+                    id="homeSearchInput"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="Google で検索または URL を入力"
+                >
+
+                <div class="voice-icon"></div>
+                <div class="lens-icon"></div>
+
+            </form>
+
         </div>
 
-        <div class="startDescription">
-            Webを検索し、情報を見つけ出して答えろ。
-            <br>
-            正確さと速さで他のプレイヤーと競います。
-        </div>
+        <div class="home-buttons">
 
-        <div class="startSearchFake">
-
-            <span class="startSearchIcon">⌕</span>
-
-            <span>
-                Webを検索して答えを見つける
-            </span>
-
-        </div>
-
-        <div class="startButtons">
-
-            <button
-                class="startButton"
-                onclick="startGame()"
-            >
-                ゲーム開始
+            <button class="home-button" id="homeSearchButton">
+                Google 検索
             </button>
 
-            <button
-                class="startButton"
-                onclick="openHowto()"
-            >
-                遊び方
+            <button class="home-button" id="randomQuestionButton">
+                お題を表示
             </button>
 
+        </div>
+
+        <div class="home-note">
+            検索して、情報を調べて、答えを見つけよう。
         </div>
 
     </div>
@@ -945,568 +1215,364 @@ button {
 </div>
 
 
-<!-- =========================================================
-     GAME
-========================================================= -->
+<!-- =======================================================
+     SEARCH
+======================================================= -->
 
-<div id="gameScreen">
+<div id="searchScreen">
 
-    <header class="searchHeader">
+    <header class="search-header">
 
-        <div class="headerLogo">
+        <div class="search-top">
 
-            <div class="headerLogoText">
+            <div class="small-google-logo" id="logoHome">
+                <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
+            </div>
 
-                <span>S</span>
-                <span>E</span>
-                <span>A</span>
-                <span>R</span>
-                <span>C</span>
-                <span>H</span>
+            <form class="search-mainbar" id="searchForm">
+
+                <input
+                    id="searchInput"
+                    type="text"
+                    autocomplete="off"
+                >
+
+                <button
+                    type="button"
+                    class="clear-search"
+                    id="clearSearch"
+                    title="消去"
+                >
+                    ×
+                </button>
+
+                <div class="search-divider"></div>
+
+                <button
+                    type="button"
+                    class="search-mini-icon mic"
+                    aria-label="音声検索"
+                ></button>
+
+                <button
+                    type="button"
+                    class="search-mini-icon lens"
+                    aria-label="画像検索"
+                ></button>
+
+                <button
+                    type="submit"
+                    class="search-submit"
+                    aria-label="検索"
+                ></button>
+
+            </form>
+
+            <div class="search-actions">
+
+                <button class="share-button" title="共有">
+                    <span class="share-symbol">♧</span>
+                </button>
+
+                <button class="apps-small">
+                    <div class="apps-grid">
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
+                </button>
+
+                <button class="profile-button">ゲ</button>
 
             </div>
 
         </div>
 
+        <nav class="search-tabs">
 
-        <form
-            class="headerSearch"
-            onsubmit="performSearch(event)"
-        >
+            <div class="search-tab active">すべて</div>
+            <div class="search-tab">画像</div>
+            <div class="search-tab">動画</div>
+            <div class="search-tab">ニュース</div>
+            <div class="search-tab">ショッピング</div>
+            <div class="search-tab">ショート動画</div>
+            <div class="search-tab">もっと見る⌄</div>
+            <div class="search-tab">ツール⌄</div>
 
-            <div class="headerSearchIcon">
-                ⌕
-            </div>
-
-            <input
-                id="searchInput"
-                type="text"
-                autocomplete="off"
-                placeholder="検索"
-                oninput="updateClearButton()"
-            >
-
-            <button
-                type="button"
-                class="headerClear"
-                id="clearButton"
-                onclick="clearSearch()"
-            >
-                ×
-            </button>
-
-            <div class="headerDivider"></div>
-
-            <button
-                type="submit"
-                class="headerSearchButton"
-                aria-label="検索"
-            >
-                🔍
-            </button>
-
-        </form>
-
-
-        <div class="headerGameInfo">
-
-            <div class="headerGameItem">
-
-                残り
-                <strong id="timer">
-                    90
-                </strong>
-                秒
-
-            </div>
-
-            <div class="headerGameItem">
-
-                SCORE
-                <strong id="score">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
+        </nav>
 
     </header>
 
 
-    <main class="gameContent">
+    <main class="search-layout">
 
+        <!-- RESULTS -->
 
-        <!-- =================================================
-             SEARCH RESULTS
-        ================================================= -->
+        <section class="results-area">
 
-        <section class="searchResultsArea">
-
-            <div class="resultsInner">
-
-
-                <div class="questionBar">
-
-                    <div class="questionLabel">
-                        調査する問題
-                    </div>
-
-                    <div
-                        class="questionText"
-                        id="questionText"
-                    ></div>
-
-                </div>
-
-
-                <nav class="searchTabs">
-
-                    <div class="searchTab active">
-                        すべて
-                    </div>
-
-                    <div class="searchTab">
-                        情報
-                    </div>
-
-                    <div class="searchTab">
-                        ニュース
-                    </div>
-
-                    <div class="searchTab">
-                        画像
-                    </div>
-
-                </nav>
-
-
-                <div
-                    class="resultsInfo"
-                    id="resultsInfo"
-                >
-                    検索語を入力してください
-                </div>
-
-
-                <div
-                    id="searchResults"
-                >
-
-                    <div class="emptySearch">
-                        検索して結果を表示
-                    </div>
-
-                </div>
-
-
+            <div class="result-count" id="resultCount">
+                約 1,240,000 件（0.31 秒）
             </div>
+
+            <div id="resultsContainer"></div>
 
         </section>
 
 
-        <!-- =================================================
-             GAME SIDE
-        ================================================= -->
+        <!-- GAME -->
 
-        <aside class="gameSide">
+        <aside class="game-panel">
 
-            <div class="sideSticky">
+            <div class="game-top">
+
+                <div class="timer" id="timerBox">
+                    残り
+                    <strong id="timer">90</strong>
+                    秒
+                </div>
+
+                <div class="score">
+                    SCORE
+                    <strong id="score">0</strong>
+                </div>
+
+            </div>
 
 
-                <section class="sideSection">
+            <div class="game-section">
 
-                    <div class="sideLabel">
-                        QUESTION
+                <div class="game-label">
+                    QUESTION
+                </div>
+
+                <div
+                    class="game-question"
+                    id="questionText"
+                ></div>
+
+            </div>
+
+
+            <div class="game-section">
+
+                <div class="game-label">
+                    ANSWER
+                </div>
+
+                <input
+                    id="answerInput"
+                    class="answer-input"
+                    type="text"
+                    placeholder="答えを入力"
+                    autocomplete="off"
+                >
+
+                <button
+                    id="answerButton"
+                    class="answer-button"
+                >
+                    回答する
+                </button>
+
+            </div>
+
+
+            <div class="game-section">
+
+                <div class="stats">
+
+                    <div class="stat-row">
+                        <span class="stat-name">残り時間</span>
+                        <span class="stat-value" id="sideTimer">90 秒</span>
                     </div>
 
-                    <div
-                        class="sideQuestion"
-                        id="sideQuestion"
-                    >
+                    <div class="stat-row">
+                        <span class="stat-name">検索回数</span>
+                        <span class="stat-value" id="searchCount">0</span>
                     </div>
 
-                </section>
-
-
-                <section class="sideSection">
-
-                    <div class="sideLabel">
-                        ANSWER
+                    <div class="stat-row">
+                        <span class="stat-name">閲覧サイト</span>
+                        <span class="stat-value" id="siteCount">0</span>
                     </div>
 
-                    <input
-                        id="answerInput"
-                        class="answerInput"
-                        type="text"
-                        placeholder="答えを入力"
-                        autocomplete="off"
-                    >
+                </div>
 
-                    <button
-                        class="answerButton"
-                        onclick="submitAnswer()"
-                    >
-                        回答する
-                    </button>
-
-                </section>
+            </div>
 
 
-                <section class="sideStats">
+            <div class="game-section">
 
-                    <div class="statRow">
+                <div class="history-title">
+                    閲覧履歴
+                </div>
 
-                        <span class="statName">
-                            残り時間
-                        </span>
+                <div
+                    id="historyEmpty"
+                    class="history-empty"
+                >
+                    まだサイトを開いていません
+                </div>
 
-                        <span
-                            class="statValue"
-                            id="sideTimer"
-                        >
-                            90秒
-                        </span>
-
-                    </div>
-
-
-                    <div class="statRow">
-
-                        <span class="statName">
-                            検索回数
-                        </span>
-
-                        <span
-                            class="statValue"
-                            id="searchCount"
-                        >
-                            0
-                        </span>
-
-                    </div>
-
-
-                    <div class="statRow">
-
-                        <span class="statName">
-                            閲覧サイト
-                        </span>
-
-                        <span
-                            class="statValue"
-                            id="openedCount"
-                        >
-                            0
-                        </span>
-
-                    </div>
-
-                </section>
-
-
-                <section class="openedSites">
-
-                    <div class="sideLabel">
-                        閲覧履歴
-                    </div>
-
-                    <div id="openedSitesList">
-
-                        <div
-                            class="openedSiteRow"
-                            style="color:#9aa0a6;"
-                        >
-                            まだサイトを開いていません
-                        </div>
-
-                    </div>
-
-                </section>
-
+                <div
+                    id="historyList"
+                    class="history-list"
+                ></div>
 
             </div>
 
         </aside>
 
-
     </main>
 
 </div>
 
 
-<!-- =========================================================
+<!-- =======================================================
      SITE VIEWER
-========================================================= -->
+======================================================= -->
 
 <div id="siteViewer">
 
-    <div class="browserTop">
+    <div class="viewer-header">
 
         <button
-            class="browserButton"
-            onclick="closeSite()"
+            class="viewer-back"
+            id="viewerBack"
             title="戻る"
         >
             ←
         </button>
 
-        <button
-            class="browserButton"
-            onclick="closeSite()"
-            title="進む"
-        >
-            →
-        </button>
+        <div class="viewer-address">
 
-        <button
-            class="browserButton"
-            onclick="reloadSite()"
-            title="再読み込み"
-        >
-            ↻
-        </button>
-
-
-        <div class="browserAddress">
-
-            <span class="browserLock">
+            <span class="viewer-lock">
                 🔒
             </span>
 
-            <span id="siteAddress">
+            <span
+                class="viewer-title"
+                id="viewerAddress"
+            >
             </span>
 
         </div>
 
-
         <button
-            class="browserClose"
-            onclick="closeSite()"
+            class="viewer-close"
+            id="viewerClose"
+            title="閉じる"
         >
-            検索結果へ戻る
+            ×
         </button>
 
     </div>
 
-
     <iframe
         id="siteFrame"
-        src="about:blank"
+        title="Website"
     ></iframe>
 
 </div>
 
 
-<!-- =========================================================
+<!-- =======================================================
      RESULT
-========================================================= -->
+======================================================= -->
 
 <div id="resultScreen">
 
-    <header class="resultHeader">
+    <div class="result-screen-inner">
 
-        <div class="resultHeaderTitle">
+        <div class="result-heading">
             SEARCH BATTLE
         </div>
 
-    </header>
-
-
-    <main class="finalResult">
-
         <div
-            class="finalStatus"
             id="resultStatus"
+            class="result-status"
         ></div>
 
-        <div
-            class="finalScore"
-            id="resultScore"
-        >
-            0
+        <div class="final-score">
+            <span id="finalScore">0</span>
+            <small> points</small>
         </div>
 
+        <div class="final-info">
 
-        <div class="finalGrid">
-
-
-            <div class="finalStat">
-
-                <div class="finalStatLabel">
-                    あなたの答え
-                </div>
-
-                <div
-                    class="finalStatValue"
-                    id="userAnswerResult"
-                >
-                </div>
-
+            <div class="final-row">
+                <span>あなたの回答</span>
+                <span id="finalUserAnswer"></span>
             </div>
 
-
-            <div class="finalStat">
-
-                <div class="finalStatLabel">
-                    正解
-                </div>
-
-                <div
-                    class="finalStatValue"
-                    id="correctAnswerResult"
-                >
-                </div>
-
+            <div class="final-row">
+                <span>正解</span>
+                <span id="finalCorrectAnswer"></span>
             </div>
 
-
-            <div class="finalStat">
-
-                <div class="finalStatLabel">
-                    残り時間
-                </div>
-
-                <div
-                    class="finalStatValue"
-                    id="timeResult"
-                >
-                </div>
-
+            <div class="final-row">
+                <span>残り時間</span>
+                <span id="finalTime"></span>
             </div>
 
-
-            <div class="finalStat">
-
-                <div class="finalStatLabel">
-                    検索回数
-                </div>
-
-                <div
-                    class="finalStatValue"
-                    id="searchResult"
-                >
-                </div>
-
+            <div class="final-row">
+                <span>検索回数</span>
+                <span id="finalSearchCount"></span>
             </div>
 
-
-            <div class="finalStat">
-
-                <div class="finalStatLabel">
-                    閲覧サイト数
-                </div>
-
-                <div
-                    class="finalStatValue"
-                    id="sitesResult"
-                >
-                </div>
-
+            <div class="final-row">
+                <span>閲覧サイト</span>
+                <span id="finalSiteCount"></span>
             </div>
-
-
-            <div class="finalStat">
-
-                <div class="finalStatLabel">
-                    問題
-                </div>
-
-                <div
-                    class="finalStatValue"
-                    id="questionResult"
-                >
-                </div>
-
-            </div>
-
 
         </div>
 
-
-        <div class="finalExplanation">
-
-            <strong>
-                答え合わせ
-            </strong>
-
-            <br><br>
-
-            この問題では、検索結果だけではなく、
-            実際のWebサイトを開いて情報を比較する必要があります。
-
-            <br><br>
-
-            信頼できる情報源、一般的な解説サイト、
-            古い情報、広告目的のページなど、
-            検索結果にはさまざまな情報が混ざっています。
-
-            <br><br>
-
-            そのため、答えそのものだけでなく、
-            <strong>
-                「どの情報を信用するか」
-            </strong>
-            を判断することが重要です。
-
-        </div>
-
+        <div class="result-explanation" id="resultExplanation"></div>
 
         <button
-            class="restartButton"
-            onclick="location.reload()"
+            class="restart-button"
+            id="restartButton"
         >
-            もう一度遊ぶ
+            もう一度プレイ
         </button>
 
-    </main>
+    </div>
 
 </div>
 
 
-<!-- =========================================================
+<!-- =======================================================
      HOW TO
-========================================================= -->
+======================================================= -->
 
-<div id="howto">
+<div id="howtoModal">
 
-    <div class="howtoBox">
+    <div class="howto-box">
 
-        <h2>
-            SEARCH BATTLE の遊び方
-        </h2>
+        <h2>SEARCH BATTLE の遊び方</h2>
 
-        <ol>
+        <p>
+            出題されたお題について、検索エンジンを使って情報を調べます。
+        </p>
 
-            <li>
-                表示された問題を確認します。
-            </li>
+        <p>
+            検索結果には複数のWebサイトがあります。
+            情報の内容や出典を確認しながら、答えを探してください。
+        </p>
 
-            <li>
-                上の検索ボックスから自由に検索します。
-            </li>
+        <p>
+            正解するだけではなく、残り時間や検索・閲覧の行動もスコアに影響します。
+        </p>
 
-            <li>
-                検索結果を開いて情報を調べます。
-            </li>
-
-            <li>
-                複数のサイトを比較し、信頼できる情報を探します。
-            </li>
-
-            <li>
-                答えが分かったら右側から回答します。
-            </li>
-
-            <li>
-                正確さと残り時間によってスコアが決まります。
-            </li>
-
-        </ol>
+        <p>
+            怪しい情報、広告、古い情報なども混ざっています。
+            人類はインターネットに大量の情報を置いた結果、
+            そこから正しいものを探すゲームまで作ることになりました。
+        </p>
 
         <button
-            class="howtoClose"
-            onclick="closeHowto()"
+            class="howto-close"
+            id="howtoClose"
         >
             閉じる
         </button>
@@ -1516,103 +1582,255 @@ button {
 </div>
 
 
-<!-- =========================================================
-     QUESTION DATA
-========================================================= -->
-
-<script src="js/questions.js"></script>
-
-
 <script>
 
 /* =========================================================
-   SITE DEFINITIONS
+   設定
 ========================================================= */
 
-const SITE_DEFINITIONS = [
+const GAME_TIME = 90;
 
-    {
-        file: "official.html",
-        title: "鉄道駅間距離について｜鉄道情報",
-        url: "www.railway-data.example",
-        source: "鉄道情報データベース",
-        description:
-            "鉄道路線や駅に関する情報を掲載しています。駅間距離についての資料を確認できます。",
-        date: "",
-        type: "official"
-    },
 
-    {
-        file: "normal.html",
-        title: "意外と知らない日本の鉄道駅間距離",
-        url: "www.train-guide.example",
-        source: "鉄道雑学ノート",
-        description:
-            "日本の鉄道に関する雑学や駅の情報を紹介。短い駅間距離について詳しく解説しています。",
-        date: "2024年6月12日",
-        type: "normal"
-    },
+/*
+ * 各問題の検索結果。
+ *
+ * questions.js は
+ *
+ * {
+ *     id: "...",
+ *     question: "...",
+ *     answer: "..."
+ * }
+ *
+ * だけでOK。
+ *
+ * Webサイト自体は
+ *
+ * questions/問題ID/
+ *
+ * に入れる。
+ */
 
-    {
-        file: "advertisement.html",
-        title: "鉄道マニア必見！日本の駅ランキングBEST20",
-        url: "www.train-ranking.example",
-        source: "鉄道ランキング",
-        description:
-            "日本全国の鉄道情報をランキング形式で紹介。おすすめ鉄道グッズも掲載しています。",
-        date: "",
-        type: "advertisement"
-    },
+const SEARCH_RESULT_SETS = {
 
-    {
-        file: "misleading.html",
-        title: "日本一駅が近い場所はここ！驚きの鉄道雑学",
-        url: "www.super-train-news.example",
-        source: "SUPER TRAIN NEWS",
-        description:
-            "日本一短い駅間距離を独自調査。驚きの鉄道事情を紹介します。",
-        date: "2025年3月18日",
-        type: "misleading"
-    },
+    /*
+     * 例
+     *
+     * questions/fuji/
+     *
+     * official.html
+     * normal.html
+     * advertisement.html
+     * misleading.html
+     * old.html
+     */
 
-    {
-        file: "old.html",
-        title: "鉄道駅間距離ランキング【2018年版】",
-        url: "old-railway-blog.example",
-        source: "鉄道資料室",
-        description:
-            "以前の鉄道データをもとにした駅間距離ランキングです。",
-        date: "2018年4月3日",
-        type: "old"
+    fuji: {
+
+        resultCount: "約 8,480,000 件（0.32 秒）",
+
+        results: [
+
+            {
+                file: "official.html",
+                source: "外務省",
+                url: "https://www.mofa.go.jp/kids/ranking/mountain",
+                title: "（キッズ外務省）世界の高い山",
+                date: "",
+                description:
+                    "順位（じゅんい）：山名（山地名）：高さ（メートル）。1. エベレスト（ヒマラヤ）8,848、2. ゴドウィン オースチン（カラコルム）8,611。",
+                icon: "◎",
+                type: "official"
+            },
+
+            {
+                related: true,
+                questions: [
+                    "世界で高い山トップ10は？",
+                    "世界一高い山はエベレストではない？",
+                    "エベレストとK2はどっちが高いですか？",
+                    "世界で1番人が死ぬ山はどこですか？"
+                ]
+            },
+
+            {
+                file: "normal.html",
+                source: "Wikipedia",
+                url: "https://ja.wikipedia.org/wiki/世界の山一覧_(高さ順)",
+                title: "世界の山一覧（高さ順）",
+                date: "",
+                description:
+                    "出が高い順に100座並んでいる。標高順の山一覧、順位、山系順位、山名、山系、標高、高さなどを確認できます。",
+                icon: "W",
+                type: "normal"
+            },
+
+            {
+                file: "advertisement.html",
+                source: "ELLEMIST",
+                url: "https://eleminist.com/society/mountain",
+                title: "世界の高い山ランキングTOP20！位の特徴や抱えている環境 …",
+                date: "2024/09/30",
+                description:
+                    "世界の高い山ランキングTOP20。1位 エベレスト 8,848m・2位 K2 8,611m・3位 カンチェンジュンガ 8,586m・4位 ローツェ 8,516m…",
+                icon: "E",
+                type: "advertisement"
+            },
+
+            {
+                file: "misleading.html",
+                source: "above the himalaya",
+                url: "https://abovethehimalaya.com/blog/top-10-highest-mountains",
+                title: "世界で最も高い山トップ10｜最高峰リスト - Above the Himalaya",
+                date: "",
+                description:
+                    "1. エベレストは世界最高峰の山です。ネパールとチベットの国境に位置し、標高は海抜8848メートルです。",
+                icon: "△",
+                type: "misleading"
+            },
+
+            {
+                file: "old.html",
+                source: "あすなる学習室",
+                url: "https://gakusyuu.shizuoka-ed.jp/16_01_chikei_yama",
+                title: "世界の高い山",
+                date: "",
+                description:
+                    "世界の高い山：1位 エベレスト 8,848m・2位 K2 8,611m・3位 カンチェンジュンガ 8,586m・4位 ローツェ 8,516m…",
+                icon: "●",
+                type: "old"
+            }
+
+        ]
+
     }
 
-];
+};
 
 
 /* =========================================================
-   VARIABLES
+   DOM
+========================================================= */
+
+const homeScreen =
+    document.getElementById("homeScreen");
+
+const searchScreen =
+    document.getElementById("searchScreen");
+
+const resultScreen =
+    document.getElementById("resultScreen");
+
+const homeSearchForm =
+    document.getElementById("homeSearchForm");
+
+const homeSearchInput =
+    document.getElementById("homeSearchInput");
+
+const searchForm =
+    document.getElementById("searchForm");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const resultsContainer =
+    document.getElementById("resultsContainer");
+
+const questionText =
+    document.getElementById("questionText");
+
+const answerInput =
+    document.getElementById("answerInput");
+
+const answerButton =
+    document.getElementById("answerButton");
+
+const timerElement =
+    document.getElementById("timer");
+
+const sideTimer =
+    document.getElementById("sideTimer");
+
+const timerBox =
+    document.getElementById("timerBox");
+
+const scoreElement =
+    document.getElementById("score");
+
+const searchCountElement =
+    document.getElementById("searchCount");
+
+const siteCountElement =
+    document.getElementById("siteCount");
+
+const historyList =
+    document.getElementById("historyList");
+
+const historyEmpty =
+    document.getElementById("historyEmpty");
+
+const siteViewer =
+    document.getElementById("siteViewer");
+
+const siteFrame =
+    document.getElementById("siteFrame");
+
+const viewerAddress =
+    document.getElementById("viewerAddress");
+
+const resultStatus =
+    document.getElementById("resultStatus");
+
+const finalScore =
+    document.getElementById("finalScore");
+
+const finalUserAnswer =
+    document.getElementById("finalUserAnswer");
+
+const finalCorrectAnswer =
+    document.getElementById("finalCorrectAnswer");
+
+const finalTime =
+    document.getElementById("finalTime");
+
+const finalSearchCount =
+    document.getElementById("finalSearchCount");
+
+const finalSiteCount =
+    document.getElementById("finalSiteCount");
+
+const resultExplanation =
+    document.getElementById("resultExplanation");
+
+
+/* =========================================================
+   State
 ========================================================= */
 
 let currentQuestion = null;
 
-let timeLeft = 90;
+let currentSearchKeyword = "";
+
+let remainingTime = GAME_TIME;
 
 let timerInterval = null;
 
 let searchCount = 0;
 
-let openedSites = [];
+let siteCount = 0;
 
 let currentScore = 0;
+
+let openedSites = [];
 
 let gameFinished = false;
 
 
 /* =========================================================
-   START
+   Question
 ========================================================= */
 
-function startGame() {
+function getQuestions() {
 
     if (
         typeof questions === "undefined" ||
@@ -1620,70 +1838,92 @@ function startGame() {
         questions.length === 0
     ) {
 
-        alert(
-            "questions.js に問題がありません。"
-        );
-
-        return;
-    }
-
-
-    currentQuestion =
-        questions[
-            Math.floor(
-                Math.random() * questions.length
-            )
+        return [
+            {
+                id: "fuji",
+                question: "日本で一番高い山の標高を調べろ",
+                answer: "3776"
+            }
         ];
 
+    }
 
-    document.getElementById(
-        "questionText"
-    ).textContent =
-        currentQuestion.question;
+    return questions;
 
-
-    document.getElementById(
-        "sideQuestion"
-    ).textContent =
-        currentQuestion.question;
+}
 
 
-    document.getElementById(
-        "startScreen"
-    ).style.display =
-        "none";
+function selectQuestion() {
 
+    const list = getQuestions();
 
-    document.getElementById(
-        "gameScreen"
-    ).style.display =
-        "block";
+    const index =
+        Math.floor(Math.random() * list.length);
 
-
-    startTimer();
-
-
-    setTimeout(() => {
-
-        document.getElementById(
-            "searchInput"
-        ).focus();
-
-    }, 100);
+    return list[index];
 
 }
 
 
 /* =========================================================
-   TIMER
+   Start
+========================================================= */
+
+function startGame(keyword = "") {
+
+    currentQuestion = selectQuestion();
+
+    remainingTime = GAME_TIME;
+
+    searchCount = 0;
+
+    siteCount = 0;
+
+    currentScore = 0;
+
+    openedSites = [];
+
+    gameFinished = false;
+
+    currentSearchKeyword =
+        keyword.trim() ||
+        currentQuestion.question;
+
+    homeScreen.style.display = "none";
+
+    resultScreen.style.display = "none";
+
+    searchScreen.style.display = "block";
+
+    questionText.textContent =
+        currentQuestion.question;
+
+    answerInput.value = "";
+
+    scoreElement.textContent = "0";
+
+    searchCountElement.textContent = "0";
+
+    siteCountElement.textContent = "0";
+
+    updateTimer();
+
+    renderHistory();
+
+    performSearch(currentSearchKeyword);
+
+    startTimer();
+
+}
+
+
+/* =========================================================
+   Timer
 ========================================================= */
 
 function startTimer() {
 
-    timeLeft = 90;
-
-    updateTimer();
-
+    clearInterval(timerInterval);
 
     timerInterval =
         setInterval(() => {
@@ -1692,30 +1932,17 @@ function startTimer() {
                 return;
             }
 
-
-            timeLeft--;
+            remainingTime--;
 
             updateTimer();
 
+            if (remainingTime <= 0) {
 
-            if (timeLeft <= 10) {
+                remainingTime = 0;
 
-                document
-                    .getElementById("timer")
-                    .classList.add(
-                        "timerDanger"
-                    );
+                updateTimer();
 
-            }
-
-
-            if (timeLeft <= 0) {
-
-                clearInterval(
-                    timerInterval
-                );
-
-                submitAnswer(true);
+                finishGame(false);
 
             }
 
@@ -1726,956 +1953,779 @@ function startTimer() {
 
 function updateTimer() {
 
-    document.getElementById(
-        "timer"
-    ).textContent =
-        timeLeft;
+    timerElement.textContent =
+        remainingTime;
 
+    sideTimer.textContent =
+        remainingTime + " 秒";
 
-    document.getElementById(
-        "sideTimer"
-    ).textContent =
-        `${timeLeft}秒`;
+    if (remainingTime <= 10) {
 
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function performSearch(event) {
-
-    event.preventDefault();
-
-
-    if (gameFinished) {
-        return;
-    }
-
-
-    const input =
-        document.getElementById(
-            "searchInput"
-        );
-
-
-    const keyword =
-        input.value.trim();
-
-
-    if (!keyword) {
-        return;
-    }
-
-
-    searchCount++;
-
-
-    document.getElementById(
-        "searchCount"
-    ).textContent =
-        searchCount;
-
-
-    showSearchResults(
-        keyword
-    );
-
-}
-
-
-/* =========================================================
-   SEARCH RESULTS
-========================================================= */
-
-function showSearchResults(keyword) {
-
-    const results =
-        document.getElementById(
-            "searchResults"
-        );
-
-
-    const info =
-        document.getElementById(
-            "resultsInfo"
-        );
-
-
-    results.innerHTML = "";
-
-
-    info.textContent =
-        `約 ${randomResultCount()} 件`;
-
-
-    let sites =
-        [...SITE_DEFINITIONS];
-
-
-    /*
-     * 検索ワードに多少反応させる。
-     * 実際の検索エンジンのように、
-     * すべて同じ順番にはしない。
-     */
-
-    const lower =
-        keyword.toLowerCase();
-
-
-    if (
-        lower.includes("公式") ||
-        lower.includes("資料") ||
-        lower.includes("データ")
-    ) {
-
-        sites.sort(
-            (a, b) =>
-                a.type === "official"
-                    ? -1
-                    : b.type === "official"
-                        ? 1
-                        : 0
-        );
+        timerBox.classList.add("danger");
 
     } else {
 
-        shuffleArray(sites);
+        timerBox.classList.remove("danger");
 
     }
 
-
-    sites.forEach(
-        (site, index) => {
-
-            const item =
-                document.createElement(
-                    "div"
-                );
+}
 
 
-            item.className =
-                "resultItem";
+/* =========================================================
+   Search
+========================================================= */
+
+function performSearch(keyword) {
+
+    if (!keyword.trim()) {
+        return;
+    }
+
+    currentSearchKeyword =
+        keyword.trim();
+
+    searchInput.value =
+        currentSearchKeyword;
+
+    searchCount++;
+
+    searchCountElement.textContent =
+        searchCount;
+
+    renderResults();
+
+}
 
 
-            const iconLetter =
-                site.source
-                    ? site.source.charAt(0)
-                    : "W";
+function renderResults() {
 
+    resultsContainer.innerHTML = "";
 
-            item.innerHTML = `
+    const questionId =
+        currentQuestion
+            ? currentQuestion.id
+            : "fuji";
 
-                <div class="resultSource">
+    const resultSet =
+        SEARCH_RESULT_SETS[questionId]
+        || SEARCH_RESULT_SETS.fuji;
 
-                    <div class="sourceIcon">
-                        ${escapeHTML(iconLetter)}
-                    </div>
+    document.getElementById("resultCount")
+        .textContent =
+        resultSet.resultCount;
 
-                    <div class="sourceText">
+    resultSet.results.forEach(item => {
 
-                        <div class="sourceName">
-                            ${escapeHTML(site.source)}
-                        </div>
+        if (item.related) {
 
-                        <div class="sourceUrl">
-                            ${escapeHTML(site.url)}
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="resultTitle">
-                    ${escapeHTML(site.title)}
-                </div>
-
-
-                ${
-                    site.date
-                        ? `
-                        <div class="resultDate">
-                            ${escapeHTML(site.date)}
-                        </div>
-                        `
-                        : ""
-                }
-
-
-                <div class="resultSnippet">
-                    ${highlightKeyword(
-                        site.description,
-                        keyword
-                    )}
-                </div>
-
-            `;
-
-
-            item.addEventListener(
-                "click",
-                () => {
-
-                    openSite(site);
-
-                }
+            renderRelatedQuestions(
+                item.questions
             );
 
+            return;
+        }
 
-            results.appendChild(
-                item
-            );
+        renderResultItem(item);
+
+    });
+
+}
+
+
+/* =========================================================
+   Result
+========================================================= */
+
+function renderResultItem(item) {
+
+    const result =
+        document.createElement("article");
+
+    result.className =
+        "result-item";
+
+    const icon =
+        document.createElement("div");
+
+    icon.className =
+        "source-icon";
+
+    icon.textContent =
+        item.icon || "●";
+
+    const sourceIconWrap =
+        document.createElement("div");
+
+    sourceIconWrap.className =
+        "result-source";
+
+    const sourceInfo =
+        document.createElement("div");
+
+    sourceInfo.className =
+        "source-info";
+
+    const sourceName =
+        document.createElement("div");
+
+    sourceName.className =
+        "source-name";
+
+    sourceName.textContent =
+        item.source;
+
+    const sourceUrl =
+        document.createElement("div");
+
+    sourceUrl.className =
+        "source-url";
+
+    sourceUrl.textContent =
+        item.url;
+
+    sourceInfo.appendChild(sourceName);
+    sourceInfo.appendChild(sourceUrl);
+
+    const menu =
+        document.createElement("div");
+
+    menu.className =
+        "result-menu";
+
+    menu.textContent =
+        "⋮";
+
+    sourceIconWrap.appendChild(icon);
+    sourceIconWrap.appendChild(sourceInfo);
+    sourceIconWrap.appendChild(menu);
+
+    result.appendChild(sourceIconWrap);
+
+
+    const title =
+        document.createElement("a");
+
+    title.className =
+        "result-title";
+
+    title.href =
+        "javascript:void(0)";
+
+    title.textContent =
+        item.title;
+
+    title.addEventListener(
+        "click",
+        () => {
+
+            openSite(item);
 
         }
     );
 
+    result.appendChild(title);
+
+
+    if (item.date) {
+
+        const date =
+            document.createElement("div");
+
+        date.className =
+            "result-date";
+
+        date.textContent =
+            item.date +
+            " — ";
+
+        const description =
+            document.createElement("span");
+
+        description.textContent =
+            item.description;
+
+        date.appendChild(description);
+
+        result.appendChild(date);
+
+    } else {
+
+        const description =
+            document.createElement("div");
+
+        description.className =
+            "result-snippet";
+
+        description.textContent =
+            item.description;
+
+        result.appendChild(description);
+
+    }
+
+    resultsContainer.appendChild(result);
+
 }
 
 
 /* =========================================================
-   RANDOM RESULT COUNT
+   Related Questions
 ========================================================= */
 
-function randomResultCount() {
+function renderRelatedQuestions(list) {
 
-    return (
-        Math.floor(
-            Math.random() * 8
-        ) + 3
-    ) * 10000;
+    const box =
+        document.createElement("div");
+
+    box.className =
+        "related-box";
+
+    const title =
+        document.createElement("div");
+
+    title.className =
+        "related-title";
+
+    title.textContent =
+        "関連する質問";
+
+    box.appendChild(title);
+
+
+    list.forEach(question => {
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "related-question";
+
+        const text =
+            document.createElement("span");
+
+        text.textContent =
+            question;
+
+        const arrow =
+            document.createElement("div");
+
+        arrow.className =
+            "related-arrow";
+
+        arrow.textContent =
+            "⌄";
+
+        row.appendChild(text);
+        row.appendChild(arrow);
+
+        row.addEventListener(
+            "click",
+            () => {
+
+                performSearch(question);
+
+            }
+        );
+
+        box.appendChild(row);
+
+    });
+
+    resultsContainer.appendChild(box);
 
 }
 
 
 /* =========================================================
-   OPEN SITE
+   Open Website
 ========================================================= */
 
 function openSite(site) {
 
+    if (!currentQuestion) {
+        return;
+    }
+
+    const basePath =
+        "questions/" +
+        currentQuestion.id +
+        "/";
+
+    const fullPath =
+        basePath +
+        site.file;
+
+    siteFrame.src =
+        fullPath;
+
+    viewerAddress.textContent =
+        site.url;
+
+    siteViewer.style.display =
+        "block";
+
+    siteCount++;
+
+    siteCountElement.textContent =
+        siteCount;
+
+    openedSites.push(site);
+
+    renderHistory();
+
+}
+
+
+/* =========================================================
+   History
+========================================================= */
+
+function renderHistory() {
+
+    historyList.innerHTML = "";
+
+    if (openedSites.length === 0) {
+
+        historyEmpty.style.display =
+            "block";
+
+        return;
+
+    }
+
+    historyEmpty.style.display =
+        "none";
+
+    openedSites.forEach(site => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "history-item";
+
+        const title =
+            document.createElement("div");
+
+        title.className =
+            "history-item-title";
+
+        title.textContent =
+            site.title;
+
+        const url =
+            document.createElement("div");
+
+        url.className =
+            "history-item-url";
+
+        url.textContent =
+            site.url;
+
+        const type =
+            document.createElement("div");
+
+        type.className =
+            "history-item-type";
+
+        type.textContent =
+            getSiteTypeText(site.type);
+
+        item.appendChild(title);
+        item.appendChild(url);
+        item.appendChild(type);
+
+        historyList.appendChild(item);
+
+    });
+
+}
+
+
+function getSiteTypeText(type) {
+
+    switch (type) {
+
+        case "official":
+            return "公式・公的情報";
+
+        case "normal":
+            return "一般サイト";
+
+        case "advertisement":
+            return "広告・ランキング";
+
+        case "misleading":
+            return "注意が必要な情報";
+
+        case "old":
+            return "古い情報";
+
+        default:
+            return "Webサイト";
+
+    }
+
+}
+
+
+/* =========================================================
+   Answer
+========================================================= */
+
+function normalizeAnswer(value) {
+
+    return String(value)
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/　/g, "")
+        .replace(/,/g, "")
+        .replace(/，/g, "")
+        .replace(/。/g, "")
+        .replace(/、/g, "");
+
+}
+
+
+function isCorrectAnswer(userAnswer) {
+
+    if (!currentQuestion) {
+        return false;
+    }
+
+    const user =
+        normalizeAnswer(userAnswer);
+
+    /*
+     * answer が配列でも使えるようにしておく。
+     *
+     * 例：
+     *
+     * answer: ["エベレスト", "エヴェレスト"]
+     */
+
+    if (Array.isArray(currentQuestion.answer)) {
+
+        return currentQuestion.answer.some(
+            answer =>
+                normalizeAnswer(answer) === user
+        );
+
+    }
+
+    return (
+        normalizeAnswer(currentQuestion.answer)
+        === user
+    );
+
+}
+
+
+/* =========================================================
+   Score
+========================================================= */
+
+function calculateScore(correct) {
+
+    if (!correct) {
+        return 0;
+    }
+
+    let score = 5000;
+
+    score +=
+        remainingTime * 100;
+
+    /*
+     * 検索しすぎると少し減点。
+     * ただし普通に調べる分にはほぼ影響しない。
+     */
+
+    if (searchCount > 3) {
+
+        score -=
+            (searchCount - 3) * 250;
+
+    }
+
+    /*
+     * サイトを1つも見ずに回答した場合。
+     */
+
+    if (siteCount === 0) {
+
+        score -= 2000;
+
+    }
+
+    /*
+     * 公的・公式サイトを確認していれば加点。
+     */
+
+    const openedOfficial =
+        openedSites.some(
+            site =>
+                site.type === "official"
+        );
+
+    if (openedOfficial) {
+
+        score += 3000;
+
+    }
+
+    return Math.max(0, score);
+
+}
+
+
+/* =========================================================
+   Finish
+========================================================= */
+
+function finishGame(correct) {
+
     if (gameFinished) {
         return;
     }
 
-
-    const basePath =
-        `questions/${currentQuestion.id}/`;
-
-
-    const fullPath =
-        basePath + site.file;
-
-
-    document.getElementById(
-        "siteAddress"
-    ).textContent =
-        site.url;
-
-
-    document.getElementById(
-        "siteFrame"
-    ).src =
-        fullPath;
-
-
-    document.getElementById(
-        "siteViewer"
-    ).style.display =
-        "block";
-
-
-    if (
-        !openedSites.some(
-            item =>
-                item.file === site.file
-        )
-    ) {
-
-        openedSites.push(
-            site
-        );
-
-
-        updateOpenedSites();
-
-    }
-
-}
-
-
-/* =========================================================
-   UPDATE OPENED SITES
-========================================================= */
-
-function updateOpenedSites() {
-
-    document.getElementById(
-        "openedCount"
-    ).textContent =
-        openedSites.length;
-
-
-    const list =
-        document.getElementById(
-            "openedSitesList"
-        );
-
-
-    list.innerHTML = "";
-
-
-    if (openedSites.length === 0) {
-
-        list.innerHTML = `
-            <div
-                class="openedSiteRow"
-                style="color:#9aa0a6;"
-            >
-                まだサイトを開いていません
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    openedSites.forEach(
-        site => {
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-
-            row.className =
-                "openedSiteRow";
-
-
-            row.textContent =
-                site.source;
-
-
-            list.appendChild(
-                row
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE SITE
-========================================================= */
-
-function closeSite() {
-
-    document.getElementById(
-        "siteViewer"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "siteFrame"
-    ).src =
-        "about:blank";
-
-}
-
-
-/* =========================================================
-   RELOAD SITE
-========================================================= */
-
-function reloadSite() {
-
-    const frame =
-        document.getElementById(
-            "siteFrame"
-        );
-
-
-    frame.src =
-        frame.src;
-
-}
-
-
-/* =========================================================
-   CLEAR SEARCH
-========================================================= */
-
-function updateClearButton() {
-
-    const input =
-        document.getElementById(
-            "searchInput"
-        );
-
-
-    const clear =
-        document.getElementById(
-            "clearButton"
-        );
-
-
-    clear.style.display =
-        input.value
-            ? "flex"
-            : "none";
-
-}
-
-
-function clearSearch() {
-
-    const input =
-        document.getElementById(
-            "searchInput"
-        );
-
-
-    input.value = "";
-
-
-    updateClearButton();
-
-
-    input.focus();
-
-}
-
-
-/* =========================================================
-   ANSWER
-========================================================= */
-
-function submitAnswer(timeUp = false) {
-
-    if (
-        gameFinished ||
-        !currentQuestion
-    ) {
-        return;
-    }
-
-
     gameFinished = true;
 
-
-    clearInterval(
-        timerInterval
-    );
-
-
-    const input =
-        document.getElementById(
-            "answerInput"
-        );
-
+    clearInterval(timerInterval);
 
     const userAnswer =
-        input.value.trim();
+        answerInput.value.trim();
 
-
-    const correctAnswer =
-        currentQuestion.answer;
-
-
-    const correct =
-        checkAnswer(
-            userAnswer,
-            correctAnswer
-        );
-
-
-    let score = 0;
-
-
-    if (correct) {
-
-        score = 5000;
-
-
-        score +=
-            timeLeft * 100;
-
-
-        /*
-         * 検索しすぎると少し減点
-         */
-
-        if (searchCount > 3) {
-
-            score -=
-                (searchCount - 3) * 250;
-
-        }
-
-
-        /*
-         * 調査せず回答した場合
-         */
-
-        if (
-            openedSites.length === 0
-        ) {
-
-            score -= 2000;
-
-        }
-
-
-        /*
-         * 信頼できる情報源を
-         * 開いていた場合
-         */
-
-        if (
-            openedSites.some(
-                site =>
-                    site.type === "official"
-            )
-        ) {
-
-            score += 3000;
-
-        }
-
-
-        if (score < 0) {
-            score = 0;
-        }
-
-    }
-
+    const finalCorrect =
+        correct ||
+        isCorrectAnswer(userAnswer);
 
     currentScore =
-        score;
+        calculateScore(finalCorrect);
 
-
-    showResult(
-        correct,
-        userAnswer,
-        correctAnswer,
-        timeUp
-    );
-
-}
-
-
-/* =========================================================
-   ANSWER CHECK
-========================================================= */
-
-function checkAnswer(
-    userAnswer,
-    correctAnswer
-) {
-
-    const user =
-        normalizeAnswer(
-            userAnswer
-        );
-
-
-    const correct =
-        normalizeAnswer(
-            correctAnswer
-        );
-
-
-    if (
-        user === correct
-    ) {
-
-        return true;
-
-    }
-
-
-    /*
-     * 距離系の表記を吸収
-     */
-
-    const userNumber =
-        extractDistance(
-            userAnswer
-        );
-
-
-    const correctNumber =
-        extractDistance(
-            correctAnswer
-        );
-
-
-    if (
-        userNumber !== null &&
-        correctNumber !== null
-    ) {
-
-        return (
-            Math.abs(
-                userNumber -
-                correctNumber
-            ) < 0.0001
-        );
-
-    }
-
-
-    return false;
-
-}
-
-
-/* =========================================================
-   NORMALIZE
-========================================================= */
-
-function normalizeAnswer(text) {
-
-    return String(text)
-        .toLowerCase()
-        .replace(/\s/g, "")
-        .replace(/　/g, "")
-        .replace(
-            /キロメートル/g,
-            "km"
-        )
-        .replace(
-            /キロ/g,
-            "km"
-        );
-
-}
-
-
-/* =========================================================
-   DISTANCE
-========================================================= */
-
-function extractDistance(text) {
-
-    const value =
-        normalizeAnswer(
-            text
-        );
-
-
-    let match =
-        value.match(
-            /^([0-9]+(?:\.[0-9]+)?)km$/
-        );
-
-
-    if (match) {
-
-        return Number(
-            match[1]
-        );
-
-    }
-
-
-    match =
-        value.match(
-            /^([0-9]+(?:\.[0-9]+)?)m$/
-        );
-
-
-    if (match) {
-
-        return (
-            Number(match[1]) /
-            1000
-        );
-
-    }
-
-
-    match =
-        value.match(
-            /^([0-9]+(?:\.[0-9]+)?)$/
-        );
-
-
-    if (match) {
-
-        const number =
-            Number(match[1]);
-
-
-        if (number >= 10) {
-
-            return number / 1000;
-
-        }
-
-
-        return number;
-
-    }
-
-
-    return null;
-
-}
-
-
-/* =========================================================
-   RESULT
-========================================================= */
-
-function showResult(
-    correct,
-    userAnswer,
-    correctAnswer,
-    timeUp
-) {
-
-    document.getElementById(
-        "gameScreen"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "siteViewer"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "resultScreen"
-    ).style.display =
-        "block";
-
-
-    document.getElementById(
-        "resultStatus"
-    ).textContent =
-        correct
-            ? "正解！"
-            : timeUp
-                ? "時間切れ"
-                : "不正解";
-
-
-    document.getElementById(
-        "resultScore"
-    ).textContent =
+    scoreElement.textContent =
         currentScore.toLocaleString();
 
 
-    document.getElementById(
-        "userAnswerResult"
-    ).textContent =
-        userAnswer ||
-        "未回答";
+    if (finalCorrect) {
+
+        resultStatus.textContent =
+            "正解";
+
+        resultStatus.className =
+            "result-status correct";
+
+    } else {
+
+        resultStatus.textContent =
+            "不正解";
+
+        resultStatus.className =
+            "result-status wrong";
+
+    }
 
 
-    document.getElementById(
-        "correctAnswerResult"
-    ).textContent =
-        correctAnswer;
+    finalScore.textContent =
+        currentScore.toLocaleString();
+
+    finalUserAnswer.textContent =
+        userAnswer || "未回答";
+
+    finalCorrectAnswer.textContent =
+        Array.isArray(currentQuestion.answer)
+            ? currentQuestion.answer[0]
+            : currentQuestion.answer;
+
+    finalTime.textContent =
+        remainingTime + " 秒";
+
+    finalSearchCount.textContent =
+        searchCount;
+
+    finalSiteCount.textContent =
+        siteCount;
 
 
-    document.getElementById(
-        "timeResult"
-    ).textContent =
-        `${timeLeft}秒`;
+    resultExplanation.textContent =
+        finalCorrect
+            ? "検索結果やWebサイトを確認しながら答えを導きました。"
+            : "検索結果だけで判断せず、複数の情報源を確認してみましょう。";
 
 
-    document.getElementById(
-        "searchResult"
-    ).textContent =
-        `${searchCount}回`;
-
-
-    document.getElementById(
-        "sitesResult"
-    ).textContent =
-        `${openedSites.length}件`;
-
-
-    document.getElementById(
-        "questionResult"
-    ).textContent =
-        currentQuestion.question;
-
-}
-
-
-/* =========================================================
-   HOW TO
-========================================================= */
-
-function openHowto() {
-
-    document.getElementById(
-        "howto"
-    ).style.display =
-        "flex";
-
-}
-
-
-function closeHowto() {
-
-    document.getElementById(
-        "howto"
-    ).style.display =
+    siteViewer.style.display =
         "none";
 
-}
+    searchScreen.style.display =
+        "none";
 
-
-/* =========================================================
-   SHUFFLE
-========================================================= */
-
-function shuffleArray(array) {
-
-    for (
-        let i = array.length - 1;
-        i > 0;
-        i--
-    ) {
-
-        const j =
-            Math.floor(
-                Math.random() *
-                (i + 1)
-            );
-
-
-        [
-            array[i],
-            array[j]
-        ] =
-        [
-            array[j],
-            array[i]
-        ];
-
-    }
+    resultScreen.style.display =
+        "block";
 
 }
 
 
 /* =========================================================
-   HIGHLIGHT
+   Events
 ========================================================= */
 
-function highlightKeyword(
-    text,
-    keyword
-) {
+homeSearchForm.addEventListener(
+    "submit",
+    event => {
 
-    const safeText =
-        escapeHTML(
-            text
+        event.preventDefault();
+
+        startGame(
+            homeSearchInput.value
         );
 
-
-    if (!keyword) {
-        return safeText;
     }
+);
 
 
-    const safeKeyword =
-        escapeRegExp(
-            escapeHTML(
-                keyword
+document.getElementById(
+    "homeSearchButton"
+).addEventListener(
+    "click",
+    () => {
+
+        startGame(
+            homeSearchInput.value
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "randomQuestionButton"
+).addEventListener(
+    "click",
+    () => {
+
+        startGame();
+
+    }
+);
+
+
+searchForm.addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+        performSearch(
+            searchInput.value
+        );
+
+    }
+);
+
+
+document.getElementById(
+    "clearSearch"
+).addEventListener(
+    "click",
+    () => {
+
+        searchInput.value = "";
+
+        searchInput.focus();
+
+    }
+);
+
+
+answerButton.addEventListener(
+    "click",
+    () => {
+
+        finishGame(
+            isCorrectAnswer(
+                answerInput.value
             )
         );
 
-
-    try {
-
-        return safeText.replace(
-            new RegExp(
-                `(${safeKeyword})`,
-                "gi"
-            ),
-            "<strong>$1</strong>"
-        );
-
-    } catch {
-
-        return safeText;
-
     }
-
-}
-
-
-/* =========================================================
-   ESCAPE REGEXP
-========================================================= */
-
-function escapeRegExp(text) {
-
-    return text.replace(
-        /[.*+?^${}()|[\]\\]/g,
-        "\\$&"
-    );
-
-}
+);
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHTML(text) {
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-
-    div.textContent =
-        text;
-
-
-    return div.innerHTML;
-
-}
-
-
-/* =========================================================
-   ENTER KEY
-========================================================= */
-
-document.addEventListener(
+answerInput.addEventListener(
     "keydown",
     event => {
 
-        if (
-            event.key === "Enter" &&
-            document.activeElement &&
-            document.activeElement.id ===
-                "answerInput"
-        ) {
+        if (event.key === "Enter") {
 
             event.preventDefault();
 
-            submitAnswer();
+            answerButton.click();
 
         }
 
     }
 );
+
+
+document.getElementById(
+    "viewerClose"
+).addEventListener(
+    "click",
+    () => {
+
+        siteViewer.style.display =
+            "none";
+
+        siteFrame.src =
+            "about:blank";
+
+    }
+);
+
+
+document.getElementById(
+    "viewerBack"
+).addEventListener(
+    "click",
+    () => {
+
+        siteViewer.style.display =
+            "none";
+
+    }
+);
+
+
+document.getElementById(
+    "logoHome"
+).addEventListener(
+    "click",
+    () => {
+
+        clearInterval(timerInterval);
+
+        searchScreen.style.display =
+            "none";
+
+        resultScreen.style.display =
+            "none";
+
+        homeScreen.style.display =
+            "block";
+
+    }
+);
+
+
+/* =========================================================
+   Initial
+========================================================= */
+
+document.getElementById(
+    "homeSearchInput"
+).focus();
 
 </script>
 
